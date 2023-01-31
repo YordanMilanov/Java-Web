@@ -10,31 +10,53 @@ import java.util.Set;
 public class User extends BaseEntity{
 
     @Column(nullable = false)
-    private String id;
+    private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> role;
+    private Set<Role> roles;
 
     @Enumerated(EnumType.STRING)
     private Level level;
 
+    @Column
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public User setFullName(String fullName) {
+        this.fullName = fullName;
+        return this;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public User setAge(Integer age) {
+        this.age = age;
+        return this;
+    }
+
+    @Column
+    private Integer age;
+
     public User() {
     }
 
-    @Override
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public User setId(String id) {
-        this.id = id;
+    public User setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -56,12 +78,12 @@ public class User extends BaseEntity{
         return this;
     }
 
-    public Set<Role> getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public User setRole(Set<Role> role) {
-        this.role = role;
+    public User setRoles(Set<Role> roles) {
+        this.roles = roles;
         return this;
     }
 
