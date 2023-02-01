@@ -29,6 +29,7 @@ public class UserController extends BaseController {
         List<UserRoleViewDto> roleServiceAll = this.roleService.getAll();
 
         modelAndView.addObject("roles", roleServiceAll);
+        modelAndView.addObject("userRegister", new UserRegisterFormDto());
 
         return super.view("auth-register", modelAndView);
     }
