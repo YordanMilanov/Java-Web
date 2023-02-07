@@ -1,11 +1,23 @@
 package com.softuni.mobilele.domain.dtos.banding;
 
+import com.softuni.mobilele.domain.enums.Role;
+
 public class UserRegisterFormDto {
     private String username;
     private String password;
     private String firstName;
     private String lastName;
-    private String role;
+
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public UserRegisterFormDto setRole(Role role) {
+        this.role = role;
+        return this;
+    }
 
     public String getUsername() {
         return username;
@@ -43,12 +55,4 @@ public class UserRegisterFormDto {
         return this;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public UserRegisterFormDto setRole(String role) {
-        this.role = role;
-        return this;
-    }
 }
