@@ -1,9 +1,5 @@
 package com.softuni.mobilele.domain.dtos.model;
 
-import com.softuni.mobilele.domain.entities.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-
 import java.util.Date;
 import java.util.List;
 

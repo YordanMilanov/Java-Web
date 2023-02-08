@@ -40,11 +40,11 @@ public class UserServiceImpl implements UserService, DataBaseInitService {
     public UserModel registerUser(UserRegisterFormDto userRegister) {
         final UserModel userModel = this.modelMapper.map(userRegister, UserModel.class);
 
-        final UserModel userModelWithCorrectRoles = this.userRepository.count() != 0
-                ? userModel.setRole(this.userRoleService.findAllRoles())
-                : userModel.setRole(List.of(this.userRoleService.findRoleByName("USER")));
+        userModel.setRole(this.userRepository.count() == 0
+                ? this.userRoleService.findAllRoles()
+                : List.of(this.userRoleService.findRoleByName("USER")));
 
-        User userToSave = this.modelMapper.map(userModelWithCorrectRoles, User.class);
+        final User userToSave = this.modelMapper.map(userModel, User.class);
 
         return this.modelMapper.map(this.userRepository.saveAndFlush(userToSave), UserModel.class);
     }
