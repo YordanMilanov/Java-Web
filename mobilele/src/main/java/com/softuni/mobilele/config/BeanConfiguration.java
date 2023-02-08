@@ -4,6 +4,7 @@ import com.softuni.mobilele.domain.beans.LoggedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Configuration
 public class BeanConfiguration {
@@ -16,6 +17,7 @@ public class BeanConfiguration {
     //todo logged user class -> user logged entity
 
     @Bean
+    @SessionScope
     public LoggedUser loggedUser() {
         return new LoggedUser();
     }
