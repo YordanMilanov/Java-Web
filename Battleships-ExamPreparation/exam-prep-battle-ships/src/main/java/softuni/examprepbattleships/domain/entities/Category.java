@@ -1,15 +1,16 @@
 package softuni.examprepbattleships.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import softuni.examprepbattleships.domain.enums.CategoryType;
 
 @Entity
 @Table(name = "categories")
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 
     @Id
@@ -18,7 +19,7 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
-    private String name;
+    private CategoryType name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
