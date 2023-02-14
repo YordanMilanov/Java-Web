@@ -9,30 +9,11 @@
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body class="body-main">
+
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top  rounded">
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/static">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/static">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/static">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/static">Add Ship</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/static">Logout</a>
-                </li>
-            </ul>
-            <img width="50px" src="/images/ufo.png" alt="Ufo image">
-        </div>
-    </nav>
+    <nav th:replace="~{fragments/navbar}"></nav>
 </header>
+
 <main role="main">
     <div class="jumbotron">
         <div class="container text-light ">
