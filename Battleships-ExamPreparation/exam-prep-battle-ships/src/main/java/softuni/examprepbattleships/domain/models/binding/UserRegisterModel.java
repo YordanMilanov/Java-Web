@@ -8,10 +8,12 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import softuni.examprepbattleships.validations.passwordMatcher.PasswordMatch;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@PasswordMatch
 public class UserRegisterModel {
 
     @Size(min = 3, max = 10)
@@ -30,7 +32,6 @@ public class UserRegisterModel {
     private String password;
 
     @NotNull
-    @NotBlank
     private String confirmPassword;
 
     @Email
