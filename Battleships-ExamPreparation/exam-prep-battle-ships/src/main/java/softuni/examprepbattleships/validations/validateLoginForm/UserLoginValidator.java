@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import softuni.examprepbattleships.domain.models.binding.UserLoginModel;
-import softuni.examprepbattleships.domain.models.binding.UserModel;
+import softuni.examprepbattleships.domain.models.UserModel;
 import softuni.examprepbattleships.services.UserService;
 
 public class UserLoginValidator implements ConstraintValidator<ValidateLoginForm, UserLoginModel> {

@@ -1,4 +1,4 @@
-package softuni.examprepbattleships.domain.models.binding;
+package softuni.examprepbattleships.domain.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

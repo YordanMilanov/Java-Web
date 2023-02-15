@@ -39,4 +39,8 @@ public class CategoryService {
            this.categoryRepository.saveAllAndFlush(categories);
         }
     }
+
+    public CategoryModel findByName(CategoryType name) {
+        return this.modelMapper.map(this.categoryRepository.findByName(name).orElseThrow(), CategoryModel.class);
+    }
 }
