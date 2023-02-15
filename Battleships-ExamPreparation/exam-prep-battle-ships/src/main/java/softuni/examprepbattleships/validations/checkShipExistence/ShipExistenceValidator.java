@@ -19,6 +19,6 @@ public class ShipExistenceValidator implements ConstraintValidator<ValidateExist
 
     @Override
     public boolean isValid(String shipName, ConstraintValidatorContext constraintValidatorContext) {
-        return this.shipRepository.findByName(shipName).isPresent();
+        return this.shipRepository.findByName(shipName).isEmpty();
     }
 }
