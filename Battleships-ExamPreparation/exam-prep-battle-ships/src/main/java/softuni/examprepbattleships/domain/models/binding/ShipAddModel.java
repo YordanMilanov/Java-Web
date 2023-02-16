@@ -4,19 +4,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import softuni.examprepbattleships.domain.enums.CategoryType;
-import softuni.examprepbattleships.domain.models.CategoryModel;
 import softuni.examprepbattleships.validations.checkShipExistence.ValidateExistenceOfShip;
 
 import java.util.Date;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ShipAddModel {
 

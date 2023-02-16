@@ -11,6 +11,8 @@ import softuni.examprepbattleships.domain.models.UserModel;
 import softuni.examprepbattleships.domain.models.binding.ShipAddModel;
 import softuni.examprepbattleships.repositories.ShipRepository;
 
+import java.text.SimpleDateFormat;
+
 @Service
 public class ShipService {
 
@@ -32,16 +34,15 @@ public class ShipService {
 
 
     public void addShip(ShipAddModel addModel) {
-        UserModel loggedUser = this.userService.findById(this.loggedUser.getId());
+        UserModel userModel = this.userService.findById(this.loggedUser.getId());
         CategoryModel categoryModel = this.categoryService.findByName(addModel.getCategory());
-
         Ship shipToSave = this.modelMapper.map(new ShipModel().builder()
                 .category(categoryModel)
                 .created(addModel.getCreated())
                 .name(addModel.getName())
                 .power(addModel.getPower())
                 .health(addModel.getHealth())
-                .user(loggedUser)
+                .user(userModel)
                 .build(), Ship.class);
 
         this.shipRepository.saveAndFlush(shipToSave);

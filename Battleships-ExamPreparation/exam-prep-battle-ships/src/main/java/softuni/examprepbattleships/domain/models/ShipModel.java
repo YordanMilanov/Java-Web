@@ -1,5 +1,7 @@
 package softuni.examprepbattleships.domain.models;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
 import java.util.Date;

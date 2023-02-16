@@ -9,10 +9,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) //here we set what type of element we will validate
 @Constraint(validatedBy = PasswordMatcher.class)
 public @interface PasswordMatch {
 
+
+    // this 3 methods are messages which have to be added in every annotation for validation.
     String message() default "Password miss match";
 
     Class<?>[] groups() default {};
