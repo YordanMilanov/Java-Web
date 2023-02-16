@@ -5,9 +5,11 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import softuni.examprepbattleships.domain.enums.CategoryType;
 import softuni.examprepbattleships.validations.checkShipExistence.ValidateExistenceOfShip;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -32,7 +34,8 @@ public class ShipAddModel {
 
     @NotNull
     @PastOrPresent
-    private Date created;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate created;
 
     @NotNull
     private CategoryType category;

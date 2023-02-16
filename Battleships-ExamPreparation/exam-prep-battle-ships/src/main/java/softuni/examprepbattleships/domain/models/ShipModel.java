@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -17,7 +18,7 @@ public class ShipModel {
     private String name;
     private Long health;
     private Long power;
-    private Date created;
+    private LocalDate created;
     private CategoryModel category;
     private UserModel user;
 }
