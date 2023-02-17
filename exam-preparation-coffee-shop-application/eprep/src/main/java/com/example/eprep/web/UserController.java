@@ -77,6 +77,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
 
+            //with redirect without "/" -> redirect:login it refers to method with name "login" in the controller not to the href /login
             return "redirect:login";
         }
 
@@ -87,6 +88,8 @@ public class UserController {
         if (userServiceModel == null) {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("isFound", false);
+
+            return "redirect:login";
         }
 
 
