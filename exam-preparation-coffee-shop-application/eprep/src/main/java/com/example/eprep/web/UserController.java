@@ -4,6 +4,7 @@ import com.example.eprep.model.binding.UserLoginBindingModel;
 import com.example.eprep.model.binding.UserRegisterBindingModel;
 import com.example.eprep.model.service.UserServiceModel;
 import com.example.eprep.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -97,6 +98,12 @@ public class UserController {
         userService.loginUser(userServiceModel.getId(), userLoginBindingModel.getUsername());
 
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
         return "redirect:/";
     }
 
