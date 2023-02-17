@@ -4,6 +4,7 @@ import com.example.eprep.model.entity.Category;
 import com.example.eprep.model.entity.CategoryNameEnum;
 import com.example.eprep.repository.CategoryRepository;
 import com.example.eprep.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,6 +14,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }

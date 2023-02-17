@@ -4,12 +4,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
-
-    @Size(min = 5, max = 20)
-    private String username;
     private String firstName;
     @Size(min = 5, max = 20)
     private String lastName;
+
+    @Size(min = 5, max = 20)
+    private String username;
 
     @Email
     private String email;
