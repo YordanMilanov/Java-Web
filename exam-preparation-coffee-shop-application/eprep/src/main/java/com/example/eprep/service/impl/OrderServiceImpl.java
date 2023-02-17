@@ -53,4 +53,9 @@ public class OrderServiceImpl implements OrderService {
                 .map(order -> modelMapper.map(order, OrderViewModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void readyOrder(Long id) {
+        orderRepository.deleteById(id);
+    }
 }

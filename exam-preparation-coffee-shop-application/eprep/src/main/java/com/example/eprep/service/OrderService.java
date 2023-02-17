@@ -9,4 +9,6 @@ public interface OrderService {
     void addOrder(OrderServiceModel orderServiceModel);
 
     List<OrderViewModel> findAllOrderOrderByPriceDesc();
+
+    void readyOrder(Long id);
 }
