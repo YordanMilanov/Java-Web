@@ -66,6 +66,12 @@ public class AuthController {
         return "redirect:/home";
     }
 
+    @GetMapping("/logout")
+    public String getLogout() {
+        this.authService.logoutUser();
+        return "redirect:/";
+    }
+
 
     //Model attributes
     @ModelAttribute(name = "userRegisterModel")

@@ -2,6 +2,7 @@ package softuni.examprepbattleships.services;
 
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.examprepbattleships.domain.entities.Ship;
 import softuni.examprepbattleships.domain.helpers.LoggedUser;
@@ -12,6 +13,7 @@ import softuni.examprepbattleships.domain.models.binding.ShipAddModel;
 import softuni.examprepbattleships.repositories.ShipRepository;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @Service
 public class ShipService {
@@ -24,6 +26,7 @@ public class ShipService {
     private final CategoryService categoryService;
 
 
+    @Autowired
     public ShipService(ShipRepository shipRepository, ModelMapper modelMapper, LoggedUser loggedUser, UserService userService, CategoryService categoryService) {
         this.shipRepository = shipRepository;
         this.modelMapper = modelMapper;
@@ -46,5 +49,13 @@ public class ShipService {
                 .build(), Ship.class);
 
         this.shipRepository.saveAndFlush(shipToSave);
+    }
+
+    public List<ShipModel> findAllByUserId(Long id) {
+        return this.shipRepository
+                .findAllByUserId(id).orElseThrow()
+                .stream()
+                .map(ship -> this.modelMapper.map(ship, ShipModel.class))
+                .toList();
     }
 }

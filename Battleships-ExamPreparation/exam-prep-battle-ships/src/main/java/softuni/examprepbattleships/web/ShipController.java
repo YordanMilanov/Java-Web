@@ -40,7 +40,7 @@ public class ShipController {
 
         this.shipService.addShip(shipAddModel);
 
-        return "redirect:home";
+        return "redirect:/home";
     }
 
     //model attributes
