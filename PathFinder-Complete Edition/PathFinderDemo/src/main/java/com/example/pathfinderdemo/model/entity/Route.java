@@ -20,7 +20,7 @@ public class Route extends BaseEntity{
     private String name;
 
     @Column(columnDefinition = "LONGTEXT")
-    private String gpxCoordinate;
+    private String gpxCoordinates;
 
     @Enumerated(EnumType.STRING)
     private LevelEnum level;
@@ -31,6 +31,7 @@ public class Route extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column
     private String videoUrl;
 
     @ManyToMany

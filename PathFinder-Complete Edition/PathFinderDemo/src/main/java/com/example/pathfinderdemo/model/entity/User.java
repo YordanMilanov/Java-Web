@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class User extends BaseEntity{
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column
@@ -33,6 +33,7 @@ public class User extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private LevelEnum level;
 
+    //relations
     @ManyToMany
     private Set<Role> roles;
 }
