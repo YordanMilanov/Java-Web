@@ -1,42 +1,28 @@
-package com.example.pathfinderdemo.model.entity;
+package com.example.pathfinderdemo.model.service;
 
-
+import com.example.pathfinderdemo.model.entity.Category;
+import com.example.pathfinderdemo.model.entity.Picture;
+import com.example.pathfinderdemo.model.entity.User;
 import com.example.pathfinderdemo.model.entity.enums.LevelEnum;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
-
-@Entity
-@Table(name = "routes")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Route extends BaseEntity{
+public class RouteServiceModel {
 
-    @Column(unique = true, nullable = false)
+    private Long id;
     private String name;
-
-    @Column(columnDefinition = "LONGTEXT")
     private String gpxCoordinates;
-
-    @Enumerated(EnumType.STRING)
     private LevelEnum level;
-
-    @ManyToOne
     private User author;
-
-    @Column(columnDefinition = "TEXT")
     private String description;
-
-    @Column
     private String videoUrl;
-
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
     private Set<Picture> pictures;
-
-    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> categories;
+
+
 }
