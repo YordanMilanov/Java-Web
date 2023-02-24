@@ -3,6 +3,7 @@ package com.example.pathfinderdemo.model.service;
 import com.example.pathfinderdemo.model.entity.Category;
 import com.example.pathfinderdemo.model.entity.Picture;
 import com.example.pathfinderdemo.model.entity.User;
+import com.example.pathfinderdemo.model.entity.enums.CategoryNameEnum;
 import com.example.pathfinderdemo.model.entity.enums.LevelEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class RouteServiceModel {
     private String description;
     private String videoUrl;
     private Set<Picture> pictures;
-    private Set<Category> categories;
+    private Set<CategoryNameEnum> categories;
 
 
 }

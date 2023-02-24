@@ -24,13 +24,13 @@
                 <input name="name"
                        th:field="*{name}"
                        th:errorclass="'is-invalid bg-danger'"
-                       required minlength="5" maxlength="20"
+                       required minlength="1" maxlength="20"
                        type="text"
                        id="inputName"
                        class="form-control"
                        aria-describedby="inputNameError">
-                <small id="inputNameError"
-                       class="invalid-feedback bg-danger rounded">Name length must be more than 3 characters</small>
+                <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" id="inputNameError"
+                       class="rounded">Name length must be more than 3 characters</small>
 
             </div>
         </div>
@@ -43,12 +43,12 @@
                     <textarea th:field="*{description}"
                               th:errorclass="'is-invalid bg-danger'"
                               name="description"
-                              required minlength="5"
+                              required minlength="1"
                               id="inputDescription"
                               class="form-control"
                               aria-describedby="inputDescriptionError"></textarea>
                 <small id="inputDescriptionError"
-                       class="invalid-feedback  form-text bg-danger rounded">Description length must be more than 5
+                       class="invalid-feedback rounded">Description length must be more than 5
                     characters</small>
             </div>
         </div>
@@ -73,13 +73,12 @@
         <div>
             <div class="form-group">
                 <label for="level">Level</label>
-                <select th:field="${routeAddBindingModel.level}"
+                <select th:field="*{level}"
                         th:errorclass="'is-invalid bg-danger'"
                         id="level"
                         class="custom-select">
                     <option value="" selected>Select level</option>
                     <option th:each="L : ${T(com.example.pathfinderdemo.model.entity.enums.LevelEnum).values()}"
-                            th:object="${L}"
                             th:value="${L}"
                             th:text="${L}"></option>
                 </select>
@@ -100,9 +99,8 @@
         <div>
             <div class="form-group p-3">
                 <label class="p-2" for="categories">Categories:</label>
-                <input th:field="${routeAddBindingModel.categories}"
-                        th:each="c : ${T(com.example.pathfinderdemo.model.entity.enums.CategoryNameEnum).values()}"
-                       th:object="${c}"
+                <input th:field="*{categories}"
+                       th:each="c : ${T(com.example.pathfinderdemo.model.entity.enums.CategoryNameEnum).values()}"
                        th:text="${c}"
                        th:value="${c}"
                        class="m-3"

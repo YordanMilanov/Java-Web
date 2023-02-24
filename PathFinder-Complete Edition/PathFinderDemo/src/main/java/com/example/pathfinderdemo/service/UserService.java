@@ -1,5 +1,6 @@
 package com.example.pathfinderdemo.service;
 
+import com.example.pathfinderdemo.model.entity.User;
 import com.example.pathfinderdemo.model.service.UserServiceModel;
 
 public interface UserService {
@@ -14,4 +15,6 @@ public interface UserService {
     UserServiceModel findById(Long id);
 
     boolean isNameExists(String username);
+
+    User findCurrentLoginUserEntity();
 }
