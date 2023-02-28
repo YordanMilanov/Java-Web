@@ -11,5 +11,5 @@ import java.util.List;
 public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     @Query("SELECT o FROM Offer o WHERE o.user.id = ?1")
-    List<Offer> findAllByUserOwner(Long id);
+    List<Offer> findAllByUserOwner();
 }

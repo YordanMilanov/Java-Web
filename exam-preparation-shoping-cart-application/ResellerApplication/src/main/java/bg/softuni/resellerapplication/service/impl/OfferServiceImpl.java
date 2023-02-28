@@ -45,7 +45,11 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public List<Offer> findAllByUserOwner(Long id) {
+        return null;
+    }
+
     public List<Offer> findAllByUserOwner() {
-        return offerRepository.findAllByUserOwner(Long id);
+        return offerRepository.findAllByUserOwner();
     }
 }

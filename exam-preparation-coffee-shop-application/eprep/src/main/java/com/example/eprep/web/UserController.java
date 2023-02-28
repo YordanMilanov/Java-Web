@@ -107,6 +107,8 @@ public class UserController {
         return "redirect:/";
     }
 
+
+
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();

@@ -31,8 +31,9 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        if (model.containsAttribute("userRegisterBindingModel"))
+        if (!model.containsAttribute("userRegisterBindingModel")) {
             model.addAttribute("userRegisterBindingModel", userRegisterBindingModel());
+        }
         return "register";
     }
 
