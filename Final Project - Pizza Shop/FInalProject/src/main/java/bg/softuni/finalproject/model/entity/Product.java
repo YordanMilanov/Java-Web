@@ -1,9 +1,7 @@
 package bg.softuni.finalproject.model.entity;
 
-import bg.softuni.finalproject.model.entity.enums.FoodSize;
 import bg.softuni.finalproject.model.entity.enums.FoodType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -11,9 +9,9 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "foods")
+@Table(name = "products")
 @NoArgsConstructor
-public class Food extends BaseEntity{
+public class Product extends BaseEntity{
 
     @Column
     private String name;
@@ -27,11 +25,12 @@ public class Food extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private FoodType foodType;
 
-    @OneToOne
+    @OneToOne(mappedBy = "product")
     private Picture picture;
 
     @OneToMany
     private List<Ingredient> ingredients;
 
-
+    @ManyToOne
+    private User addedByUser;
 }
