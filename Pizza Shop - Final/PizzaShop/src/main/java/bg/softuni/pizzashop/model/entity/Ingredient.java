@@ -1,6 +1,6 @@
 package bg.softuni.pizzashop.model.entity;
 
-import bg.softuni.pizzashop.model.entity.enums.IngredientType;
+import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +19,14 @@ public class Ingredient extends BaseEntity{
 
     @Column(precision = 19, scale = 2)
     private BigDecimal price;
-
-
     private int carbohydrates;
     private int fat;
     private int protein;
 
     private int calories = (carbohydrates * 4) + (fat * 9) + (protein * 4);
 
+    private int stock;
+
     @Enumerated(EnumType.STRING)
-    private IngredientType ingredientType;
+    private IngredientTypeEnum ingredientTypeEnum;
 }
