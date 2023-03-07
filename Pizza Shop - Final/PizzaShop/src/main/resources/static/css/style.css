@@ -1,3 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+
+/*Site-Navigation*/
 body {
-    background: red;
+    font-family: 'Kanit', sans-serif;
+    font-size: 20px;
+    margin: 0 auto;
 }
+
+.navigation {
+    padding: 0 20px;
+    background-color: #c43631;
+}
+
+.navigation p {
+    display: inline-block;
+    font-size: 30px;
+}
+
+nav {
+    display: inline-block;
+}
+
+.nav-href {
+    float: right;
+}
+
+li {
+    display: inline-block;
+    padding: 10px;
+    background-color: #c43631
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: snow;
+    cursor: pointer;
+}
+
+/*Site-Navigation*/
+
+.site-header {
+    /*tinting and adding the image from google drive*/
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
+    background-size: cover;
+    padding: 300px;
+    text-align: center;
+}
+
+.site-header h1 {
+    font-size: 70px;
+    color: snow;
+}
+
+.site-header button {
+
+    font-size: 30px;
+    color: snow;
+    background: transparent;
+    border-width: 1px;
+    border-color: snow;
+    border-style: solid;
+}
+
