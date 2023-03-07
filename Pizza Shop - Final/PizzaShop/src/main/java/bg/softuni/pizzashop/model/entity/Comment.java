@@ -23,6 +23,6 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private User author;
 
-    @OneToOne
+    @ManyToOne
     private Product product;
 }

@@ -26,10 +26,4 @@ public class Address extends BaseEntity {
 
     @Column
     private int streetNumber;
-
-    @Column
-    private int floor;
-
-    @Column
-    private int apart;
 }

@@ -31,4 +31,7 @@ public class Order extends BaseEntity{
 
     @OneToMany
     private List<Product> products;
+
+    @ManyToOne
+    private User user;
 }

@@ -27,9 +27,9 @@ public class Receipt extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ProductSizeEnum productSizeEnum;
 
-    @OneToMany
+    @ManyToMany
     @MapKeyColumn(name="required_quantity")
-    private Map<Integer, Receipt> requiredIngredients;
+    private Map<Integer, Ingredient> requiredIngredients;
 
     //to be calculated in the service!
     @Column

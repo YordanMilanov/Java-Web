@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 public class User extends BaseEntity{
 
-    @Column()
+    @Column
     private String username;
 
     @Column
@@ -42,7 +42,4 @@ public class User extends BaseEntity{
 
     @OneToOne
     private Address address;
-
-    @OneToMany
-    private List<Order> orders;
 }
