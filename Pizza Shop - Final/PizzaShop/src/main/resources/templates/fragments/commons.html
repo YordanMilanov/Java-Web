@@ -17,26 +17,22 @@
 <header th:fragment="nav">
 
     <section class="navigation">
-        <p><a href="#">PizzaShopApp</a></p>
+        <p><a href="/">PizzaShopApp</a></p>
 
         <nav class="nav-href">
             <ul>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">About us</a></li>
+                <li><a href="/users/login">Login</a></li>
+                <li><a href="/users/register">Register</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/about">About us</a></li>
             </ul>
         </nav>
-    </section>
-    <section class="site-header">
-        <h1>Best pizzas in the world</h1>
-        <a href="#" class="btn btn-primary">Go to menu</a>
     </section>
 </header>
 
 <footer th:fragment="footer">
     <p>&copy;SoftUni Yordan Milanov Java Web Project. For educational purposes.</p>
-    <a href="#">Contact Us</a>
+    <a href="/contact">Contact Us</a>
 </footer>
 
 <script th:fragment="script-bootstrap-bundle"
