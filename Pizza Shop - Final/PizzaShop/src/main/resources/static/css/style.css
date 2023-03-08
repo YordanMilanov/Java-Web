@@ -57,7 +57,7 @@ a:hover {
     color: snow;
 }
 
-.site-header button {
+.site-header a {
 
     font-size: 30px;
     color: snow;
@@ -67,7 +67,7 @@ a:hover {
     border-style: solid;
 }
 
-.site-header button:hover {
+.site-header a:hover {
     background:  #c43631;
     border-width: 1px;
     border-color: #c43631;
