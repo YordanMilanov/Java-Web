@@ -5,6 +5,7 @@ body {
     font-family: 'Kanit', sans-serif;
     font-size: 20px;
     margin: 0 auto;
+    background-color: #c43631;
 }
 
 .navigation {
@@ -47,7 +48,7 @@ a:hover {
     /*tinting and adding the image from google drive*/
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
     background-size: cover;
-    padding: 300px;
+    padding: 350px;
     text-align: center;
 }
 
@@ -64,5 +65,31 @@ a:hover {
     border-width: 1px;
     border-color: snow;
     border-style: solid;
+}
+
+.site-header button:hover {
+    background:  #c43631;
+    border-width: 1px;
+    border-color: #c43631;
+    border-style: solid;
+}
+
+footer {
+    background: #c43631;
+    display: inline-block;
+    width: 100%;
+}
+
+footer p{
+    display: inline-block;
+    color: black;
+    padding-top: 15px;
+    padding-left: 30px;
+}
+
+footer a {
+    float: right;
+    padding-top: 15px;
+    padding-right: 30px;
 }
 
