@@ -110,7 +110,7 @@ footer a {
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
     background-size: cover;
     text-align: center;
-    padding: 160px 600px;
+    padding: 115px 40%;
 }
 
 .register label {

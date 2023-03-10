@@ -8,40 +8,96 @@
 <header th:replace="fragments/commons::nav"></header>
 <main>
     <div class="register">
+
         <h1>Register Form</h1>
-        <form>
-            <!-- 2 column grid layout with text inputs for the first and last names -->
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
-                        <input type="text" id="form3Example1" class="form-control"/>
-                        <label class="form-label" for="form3Example1">First name</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-                        <input type="text" id="form3Example2" class="form-control"/>
-                        <label class="form-label" for="form3Example2">Last name</label>
-                    </div>
-                </div>
+
+        <form th:action="@{/users/register}"
+              th:method="POST"
+              th:object="${userRegisterBindingModel}">
+
+            <!-- username input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example1">Username</label>
+                <input th:field="*{username}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       id="form3Example1"
+                       class="form-control"
+                       aria-describedby="usernameErrorLine"
+                       placeholder="Username"/>
+
+                <small id="usernameErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Username length must be between 5 and 20 characters.
+                </small>
+            </div>
+
+            <!-- fullName input-->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example2">Full Name</label>
+                <input th:field="*{fullName}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       id="form3Example2"
+                       class="form-control"
+                       aria-describedby="fullNameErrorLine"
+                       placeholder="fullName"/>
+
+                <small id="fullNameErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Full name length must be between 5 and 50 characters.
+                </small>
             </div>
 
             <!-- Email input -->
             <div class="form-outline mb-4">
-                <input type="email" id="form3Example3" class="form-control"/>
                 <label class="form-label" for="form3Example3">Email address</label>
+                <input th:field="*{email}"
+                       th:errorclass="is-invalid"
+                       type="email"
+                       id="form3Example3"
+                       class="form-control"
+                       aria-describedby="emailErrorLine"
+                       placeholder="email"/>
+
+                <small id="emailErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Email length must be between 5 and 50 characters.
+                </small>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-                <input type="password" id="form3Example4" class="form-control"/>
                 <label class="form-label" for="form3Example4">Password</label>
+                <input th:field="*{password}"
+                       th:errorclass="is-invalid"
+                       type="password"
+                       id="form3Example4"
+                       class="form-control"
+                       aria-describedby="passwordErrorLine"
+                       placeholder="password"/>
+
+                <small id="passwordErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Password must be longer than 5 characters.
+                </small>
             </div>
 
             <!--Confirm Password input -->
             <div class="form-outline mb-4">
-                <input type="password" id="form3Example5" class="form-control"/>
                 <label class="form-label" for="form3Example4">Confirm Password</label>
+                <input th:field="*{confirmPassword}"
+                       th:errorclass="is-invalid"
+                       type="password"
+                       id="form3Example5"
+                       class="form-control"
+                       aria-describedby="confirmPasswordErrorLine"
+                       placeholder="confirmPassword"/>
+
+                <small id="confirmPasswordErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Password must be longer than 5 characters.
+                </small>
             </div>
 
             <!-- Submit button -->
