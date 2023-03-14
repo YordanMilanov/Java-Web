@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons::head"></head>
+
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="login">
+        <h1>Login</h1>
+
+        <form th:action="@{/users/login}"
+              th:method="POST"
+              th:object="${userRegisterBindingModel}">
+
+            <!-- username input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example1">Username</label>
+                <input th:field="*{username}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       id="form3Example1"
+                       class="form-control"
+                       aria-describedby="usernameErrorLine"
+                       placeholder="Username"/>
+
+                <small id="usernameErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Username length must be between 5 and 20 characters.
+                </small>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example4">Password</label>
+                <input th:field="*{password}"
+                       th:errorclass="is-invalid"
+                       type="password"
+                       id="form3Example4"
+                       class="form-control"
+                       aria-describedby="passwordErrorLine"
+                       placeholder="password"/>
+
+                <small id="passwordErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Password must be longer than 5 characters.
+                </small>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
+        </form>
+    </div>
+    </div>
+
+</main>
+
+<footer th:replace="fragments/commons::footer"></footer>
+<script th:replace="fragments/commons::script-bootstrap-bundle"></script>
+
+</body>
+</html>
+

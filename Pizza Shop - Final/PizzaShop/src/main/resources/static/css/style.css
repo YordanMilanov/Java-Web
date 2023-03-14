@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Pacifico&display=swap');
 
 /* index page */
 
@@ -7,7 +7,7 @@ body {
     font-family: 'Kanit', sans-serif;
     font-size: 20px;
     margin: 0 auto;
-    background-color: #c43631;
+    /*background-color: #c43631;*/
 }
 
 .navigation {
@@ -16,15 +16,18 @@ body {
 }
 
 .navigation p {
+    font-family:'Pacifico', cursive;
     display: inline-block;
     font-size: 30px;
 }
 
 nav {
     display: inline-block;
+    font-size: 24px;
 }
 
 .nav-href {
+    font-family:'Pacifico', cursive;
     float: right;
 }
 
@@ -51,7 +54,7 @@ a:hover {
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
     background-size: cover;
     text-align: center;
-    padding: 340px;
+    padding: 348px;
 }
 
 .site-header h1 {
@@ -79,6 +82,7 @@ footer {
     background: #c43631;
     display: inline-block;
     width: 100%;
+    height: 60px;
 }
 
 footer p{
@@ -88,21 +92,18 @@ footer p{
     padding-left: 30px;
 }
 
-footer a {
+.contact-us {
     float: right;
-    padding-top: 15px;
     padding-right: 30px;
 }
 
 /* register */
 
 .vh-100 {
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
     text-align: center;
 }
 
 .h-100 {
-    margin: auto;
     color: transparent;
 }
 
@@ -110,7 +111,7 @@ footer a {
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
     background-size: cover;
     text-align: center;
-    padding: 115px 40%;
+    padding: 114px 40%;
 }
 
 .register label {
@@ -129,6 +130,36 @@ footer a {
 }
 
 .register button:hover {
+    background:  #ff4040;
+    border-width: 1px;
+    border-color: #c43631;
+    border-style: solid;
+}
+
+/*login */
+.login {
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
+    background-size: cover;
+    text-align: center;
+    padding: 264px 40%;
+}
+
+.login label {
+    color: snow;
+}
+
+.login h1 {
+    color: snow;
+}
+
+.login button {
+    background:  #c43631;
+    border-width: 1px;
+    border-color: #c43631;
+    border-style: solid;
+}
+
+.login button:hover {
     background:  #ff4040;
     border-width: 1px;
     border-color: #c43631;
