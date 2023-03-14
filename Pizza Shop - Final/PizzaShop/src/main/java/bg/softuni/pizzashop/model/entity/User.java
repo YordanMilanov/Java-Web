@@ -1,14 +1,11 @@
 package bg.softuni.pizzashop.model.entity;
 
-import bg.softuni.pizzashop.model.entity.BaseEntity;
-
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
