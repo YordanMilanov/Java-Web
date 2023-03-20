@@ -96,7 +96,7 @@ a:hover {
 footer {
     background-color: #c43631;
     display: inline-block;
-    position: fixed;
+    position: relative;
     width: 100%;
 }
 
@@ -195,10 +195,10 @@ footer p {
 
 /*about us*/
 
-.about {
-    background-color: #1a1d20;
-    padding: 400px;
-    height: 86.3vh;
+#about-main {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("/images/about-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .about p {
@@ -216,11 +216,6 @@ footer p {
     flex-direction: column;
 }
 
-main {
-    height: 86.4vh;
-    padding: 10%;
-}
-
 /*carousel*/
 
 #customer-home-carousel {
@@ -228,11 +223,11 @@ main {
     right: 0;
     bottom: 0;
     left: 0;
-    width: 70%;
+    width: 80%;
     height: 70vh;
-    position: absolute;
+    position: relative;
     text-align: center;
-    margin: auto;
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -245,9 +240,22 @@ main {
     height: 70vh;
     object-fit: cover;
     filter: brightness(0.6);
+    border-radius: 25px;
 }
 
 .c-description {
     padding-bottom: 10vh;
+}
+
+.order-buttons {
+    text-align: center;
+    position: center;
+    padding-right: 15vw;
+    padding-left: 15vw;
+    margin-top: 5vh;
+}
+
+#footer-fix {
+    padding-bottom: 78px;
 }
 
