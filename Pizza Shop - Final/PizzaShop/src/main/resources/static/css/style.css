@@ -259,3 +259,16 @@ footer p {
     padding-bottom: 78px;
 }
 
+#nav-buttons-user-home {
+    font-family: 'Pacifico', cursive;
+    color: black;
+}
+
+.btn-white {
+    background-color: white;
+}
+
+.btn-white:hover {
+    background-color: silver;
+}
+
