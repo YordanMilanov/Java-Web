@@ -23,14 +23,6 @@ public class Receipt extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ReceiptCategoryEnum receiptCategoryEnum;
 
-    //depends on the product grams
-    @Enumerated(EnumType.STRING)
-    private ProductSizeEnum productSizeEnum;
-
-    @ManyToMany
-    @MapKeyColumn(name="required_quantity")
-    private Map<Integer, Ingredient> requiredIngredients;
-
     //to be calculated in the service!
     @Column
     private Integer grams;

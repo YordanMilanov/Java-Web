@@ -25,8 +25,18 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/menu")
+    public String menu() {
+        return "menu-pizza";
+    }
+
     @GetMapping("/about")
     public String about() {
         return "about";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
     }
 }

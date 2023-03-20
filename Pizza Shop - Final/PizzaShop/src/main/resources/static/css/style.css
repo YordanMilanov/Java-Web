@@ -4,13 +4,14 @@
 body {
     background-color: #c43631
 }
+
 /*Site-Navigation*/
 .index-main {
     font-family: 'Kanit', sans-serif;
     font-size: 20px;
     margin: 0 auto;
 
-/*    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS"); <- if we want to use the same photo but from google drive*/
+    /*    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS"); <- if we want to use the same photo but from google drive*/
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.7)), url("/images/pizza-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -156,7 +157,7 @@ footer p {
 .login {
     text-align: center;
     margin: 0;
-    padding:20vh 30vw;
+    padding: 20vh 30vw;
 
 }
 
@@ -188,19 +189,28 @@ footer p {
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("/images/about-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 87vh;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .about p {
     color: snow;
-    margin-top: auto;
+    float: right;
+    padding: 30px;
+    font-size: 20px;
+    margin-left: 60vw;
+    margin-top: 10vh;
+
 }
 
 /*home page - user*/
 
-#user-home-main {
+.wood-background {
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.4)), url("/images/home-user-background.jpg");
     background-size: cover;
-    min-height: 85vh;
+    min-height: 87vh;
     display: flex;
     flex-direction: column;
 }
@@ -244,10 +254,6 @@ footer p {
     margin-top: 5vh;
 }
 
-#footer-fix {
-    padding-bottom: 78px;
-}
-
 #nav-buttons-user-home {
     font-family: 'Pacifico', cursive;
     color: black;
@@ -260,4 +266,49 @@ footer p {
 .btn-white:hover {
     background-color: silver;
 }
+
+/*menu*/
+
+.col-4 {
+    padding: 10px;
+}
+.card {
+    background-image: url("/images/card-menu-background.jpg");
+}
+
+.card-img-top {
+    height: 300px;
+    width: 400px;
+    margin: 10px auto;
+}
+
+.card-body {
+    height: 250px;
+    width: 400px;
+}
+
+/*profile*/
+
+.profile-container {
+    background-color: #c43631;
+    height: 50vh;
+    width: 30vw;
+    border-radius: 20px;
+}
+
+#profile-card {
+    height: 60vh;
+    width: 40vw;
+    margin: 20px auto;
+    overflow-x: auto; /* for horizontal scrolling*/
+    overflow-y: auto; /* for vertical scrolling */
+}
+
+.card-body {
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+
 
