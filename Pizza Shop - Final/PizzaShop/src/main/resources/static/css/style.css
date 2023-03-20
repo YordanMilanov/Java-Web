@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Pacifico&display=swap');
 
-/* index page */
 
 /*Site-Navigation*/
 body {
     font-family: 'Kanit', sans-serif;
     font-size: 20px;
     margin: 0 auto;
-    /*background-color: #c43631;*/
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .navigation {
@@ -16,7 +19,7 @@ body {
 }
 
 .navigation p {
-    font-family:'Pacifico', cursive;
+    font-family: 'Pacifico', cursive;
     display: inline-block;
     font-size: 30px;
 }
@@ -27,13 +30,14 @@ nav {
 }
 
 .nav-href {
-    font-family:'Pacifico', cursive;
+    font-family: 'Pacifico', cursive;
     float: right;
 }
 
 li {
     display: inline-block;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     background-color: #c43631
 }
 
@@ -50,9 +54,6 @@ a:hover {
 /*Site-Navigation*/
 
 .site-header {
-    /*tinting and adding the image from google drive*/
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
-    background-size: cover;
     text-align: center;
     padding: 348px;
 }
@@ -72,20 +73,23 @@ a:hover {
 }
 
 .site-header a:hover {
-    background:  #c43631;
+    background: #c43631;
     border-width: 1px;
     border-color: #c43631;
     border-style: solid;
 }
+
+/*footer*/
 
 footer {
     background: #c43631;
     display: inline-block;
     width: 100%;
     height: 60px;
+    margin-top: auto
 }
 
-footer p{
+footer p {
     display: inline-block;
     color: black;
     padding-top: 15px;
@@ -108,8 +112,6 @@ footer p{
 }
 
 .register {
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
-    background-size: cover;
     text-align: center;
     padding: 114px 40%;
 }
@@ -123,14 +125,14 @@ footer p{
 }
 
 .register button {
-    background:  #c43631;
+    background: #c43631;
     border-width: 1px;
     border-color: #c43631;
     border-style: solid;
 }
 
 .register button:hover {
-    background:  #ff4040;
+    background: #ff4040;
     border-width: 1px;
     border-color: #c43631;
     border-style: solid;
@@ -138,8 +140,6 @@ footer p{
 
 /*login */
 .login {
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0,0,0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
-    background-size: cover;
     text-align: center;
     padding: 264px 40%;
 }
@@ -153,22 +153,22 @@ footer p{
 }
 
 .login button {
-    background:  #c43631;
+    background: #c43631;
     border-width: 1px;
     border-color: #c43631;
     border-style: solid;
 }
 
 .login button:hover {
-    background:  #ff4040;
+    background: #ff4040;
     border-width: 1px;
     border-color: #c43631;
     border-style: solid;
 }
 
- /*about us*/
+/*about us*/
 
-.about{
+.about {
     background-color: #1a1d20;
     padding: 400px;
 }
@@ -177,3 +177,9 @@ footer p{
     color: snow;
     margin-top: auto;
 }
+
+/*home page*/
+
+main {
+}
+

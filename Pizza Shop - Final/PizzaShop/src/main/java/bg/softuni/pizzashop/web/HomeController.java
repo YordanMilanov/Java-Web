@@ -22,7 +22,7 @@ public class HomeController {
         if (currentUser.getId() == null) {
             return "index";
         }
-        return "index";
+        return "home";
     }
 
     @GetMapping("/about")
