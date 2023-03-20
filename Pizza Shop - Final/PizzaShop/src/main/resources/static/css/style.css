@@ -1,17 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Pacifico&display=swap');
 
 
-/*Site-Navigation*/
 body {
+    background-color: #c43631
+}
+/*Site-Navigation*/
+.index-main {
     font-family: 'Kanit', sans-serif;
     font-size: 20px;
     margin: 0 auto;
 
 /*    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS"); <- if we want to use the same photo but from google drive*/
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.7)), url("/images/pizza-background.jpg");
-    /*background-repeat: no-repeat; <- if the photo is too small it doesn't repeat*/
+    background-repeat: no-repeat;
     background-size: cover;
-    min-height: 100vh;
+    min-height: 87vh;
     display: flex;
     flex-direction: column;
 }
@@ -63,9 +66,8 @@ a:hover {
 
 .site-header {
     text-align: center;
-    margin: auto;
-    padding: 300px;
-    height: 86.3vh;
+    margin: 0;
+    padding: 150px;
 }
 
 .site-header h1 {
@@ -94,6 +96,8 @@ a:hover {
 footer {
     background-color: #c43631;
     display: inline-block;
+    position: fixed;
+    width: 100%;
 }
 
 footer p {
@@ -119,9 +123,16 @@ footer p {
 }
 
 .register {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    height: 70vh;
+    position: fixed;
     text-align: center;
-    padding: 100px 40%;
-    height: 86.3vh;
+    margin: auto;
+    padding: 20px;
 }
 
 .register label {
@@ -148,9 +159,16 @@ footer p {
 
 /*login */
 .login {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 300px;
+    position: fixed;
     text-align: center;
-    padding: 264px 40%;
-    height: 86.3vh;
+    margin: auto;
+    padding: 20px;
 }
 
 .login label {
@@ -190,27 +208,46 @@ footer p {
 
 /*home page - user*/
 
-#user-home {
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.7)), url("/images/home-user-background.jpg");
+#user-home-main {
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.4)), url("/images/home-user-background.jpg");
     background-size: cover;
-    min-height: 100vh;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
 }
 
 main {
-    height: 86.3vh;
+    height: 86.4vh;
+    padding: 10%;
 }
 
 /*carousel*/
 
-.c-item {
-    height: 480px;
+#customer-home-carousel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 70%;
+    height: 70vh;
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
 }
 
+/*.c-item {*/
+/*    height: 70vh;*/
+/*}*/
+
 .c-img {
-    height: 100%;
+    width: 80%;
+    height: 70vh;
     object-fit: cover;
     filter: brightness(0.6);
+}
+
+.c-description {
+    padding-bottom: 10vh;
 }
 
