@@ -6,22 +6,30 @@ body {
     font-family: 'Kanit', sans-serif;
     font-size: 20px;
     margin: 0 auto;
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS");
+
+/*    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)), url("https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS"); <- if we want to use the same photo but from google drive*/
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.7)), url("/images/pizza-background.jpg");
+    /*background-repeat: no-repeat; <- if the photo is too small it doesn't repeat*/
     background-size: cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
+header {
+    background-color: #c43631;
+}
+
 .navigation {
     padding: 0 20px;
-    background-color: #c43631;
+
 }
 
 .navigation p {
     font-family: 'Pacifico', cursive;
     display: inline-block;
     font-size: 30px;
+    padding-top: 10px;
 }
 
 nav {
@@ -36,7 +44,8 @@ nav {
 
 li {
     display: inline-block;
-    padding: 10px;
+    padding-top: 15px;
+    padding-right: 10px;
     background-color: #c43631
 }
 
@@ -179,8 +188,29 @@ footer p {
     margin-top: auto;
 }
 
-/*home page*/
+/*home page - user*/
+
+#user-home {
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.7)), url("/images/home-user-background.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 main {
+    height: 86.3vh;
+}
+
+/*carousel*/
+
+.c-item {
+    height: 480px;
+}
+
+.c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
 }
 
