@@ -7,6 +7,7 @@ import bg.softuni.pizzashop.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -35,5 +36,38 @@ public class RoleServiceImpl implements RoleService {
                     }
                     roleRepository.save(role);
                 });
+    }
+
+    @Override
+    public boolean isEmployee(Set<Role> roles) {
+        boolean isEmployee = false;
+        for (Role role : roles) {
+            isEmployee = role.getRole().equals(RoleNameEnum.STAFF);
+        }
+        return isEmployee;
+    }
+
+    public boolean isStaff(Set<Role> roles) {
+        boolean isStaff = false;
+        for (Role role : roles) {
+            isStaff = role.getRole().equals(RoleNameEnum.STAFF);
+        }
+        return isStaff;
+    }
+
+    public boolean isManager(Set<Role> roles) {
+        boolean isManager = false;
+        for (Role role : roles) {
+            isManager = role.getRole().equals(RoleNameEnum.MANAGER);
+        }
+        return isManager;
+    }
+
+    public boolean isCustomer(Set<Role> roles) {
+        boolean isCustomer = false;
+        for (Role role : roles) {
+            isCustomer = role.getRole().equals(RoleNameEnum.CUSTOMER);
+        }
+        return isCustomer;
     }
 }

@@ -99,7 +99,7 @@ public class UserController {
 
 
         //login successful -> login user
-        userService.loginUser(userServiceModel.getId(), userLoginBindingModel.getUsername());
+        userService.loginUser(userServiceModel.getId(), userServiceModel.getUsername(), userServiceModel.getRoles());
 
 
         return "redirect:/";

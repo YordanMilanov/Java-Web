@@ -1,10 +1,21 @@
 package bg.softuni.pizzashop.security;
 
+import bg.softuni.pizzashop.model.entity.Role;
+import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
+import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.Set;
+
 @Component
 @SessionScope
+@NoArgsConstructor
+@Getter
+@Setter
 public class CurrentUser {
 
     private Long id;
@@ -12,22 +23,7 @@ public class CurrentUser {
     //not needed
     private String username;
 
-    public String getUsername() {
-        return username;
-    }
+    private Set<Role> roles;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public CurrentUser() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private UserLevelEnum level;
 }

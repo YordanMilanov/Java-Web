@@ -4,5 +4,5 @@ public enum UserLevelEnum {
     NEW,
     REGULAR,
     VIP,
-    EMPLOYEE
+    EMPLOYEE,
 }
