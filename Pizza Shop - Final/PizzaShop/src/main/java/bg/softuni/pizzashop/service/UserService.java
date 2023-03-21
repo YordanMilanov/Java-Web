@@ -1,6 +1,7 @@
 package bg.softuni.pizzashop.service;
 
 import bg.softuni.pizzashop.model.entity.Role;
+import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
 
 import java.util.Set;
@@ -11,5 +12,5 @@ public interface UserService {
 
     UserServiceModel findByUsernameAndPassword(String username, String password);
 
-    void loginUser(Long id, String username, Set<Role> roles);
+    void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level);
 }

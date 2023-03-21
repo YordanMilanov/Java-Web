@@ -3,7 +3,7 @@ package bg.softuni.pizzashop.web;
 import bg.softuni.pizzashop.model.binding.UserLoginBindingModel;
 import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
-import bg.softuni.pizzashop.security.CurrentUser;
+import bg.softuni.pizzashop.util.CurrentUser;
 import bg.softuni.pizzashop.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -99,7 +99,7 @@ public class UserController {
 
 
         //login successful -> login user
-        userService.loginUser(userServiceModel.getId(), userServiceModel.getUsername(), userServiceModel.getRoles());
+        userService.loginUser(userServiceModel.getId(), userServiceModel.getUsername(), userServiceModel.getRoles(), userServiceModel.getLevel());
 
 
         return "redirect:/";
@@ -108,6 +108,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();
+        currentUser.setId(null);
         return "redirect:/";
     }
 

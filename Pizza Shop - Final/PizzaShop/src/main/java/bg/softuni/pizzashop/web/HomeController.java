@@ -1,6 +1,8 @@
 package bg.softuni.pizzashop.web;
 
-import bg.softuni.pizzashop.security.CurrentUser;
+import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
+import bg.softuni.pizzashop.model.service.RoleServiceModel;
+import bg.softuni.pizzashop.util.CurrentUser;
 import bg.softuni.pizzashop.service.RoleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,17 +29,14 @@ public class HomeController {
             return "index";
         }
 
-        if(roleService.isCustomer(currentUser.getRoles())) {
-            if (roleService.isEmployee(currentUser.getRoles())) {
-                if(roleService.isManager(currentUser.getRoles())) {
-                    return "home-manager";
-                }
-                return "home-staff";
-            }
+        RoleServiceModel roleServiceModel = roleService.highestRole(currentUser.getRoles());
+        if(roleServiceModel.getRole().equals(RoleNameEnum.MANAGER)) {
+            return "home-manager";
+        } else if(roleServiceModel.getRole().equals(RoleNameEnum.STAFF)) {
+            return "home-staff";
+        } else {
             return "home-user";
         }
-
-        return "index";
     }
 
 
