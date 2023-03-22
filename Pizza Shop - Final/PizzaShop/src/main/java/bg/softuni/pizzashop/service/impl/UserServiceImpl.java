@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
             user.setRoles(roleRepository.findAll().stream().collect(Collectors.toSet()));
             user.setLevel(UserLevelEnum.EMPLOYEE);
         } else {
-
             user.setRoles(new HashSet<>());
             user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
             user.setLevel(UserLevelEnum.REGULAR);

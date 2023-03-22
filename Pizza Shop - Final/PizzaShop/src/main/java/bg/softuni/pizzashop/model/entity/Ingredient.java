@@ -18,6 +18,12 @@ public class Ingredient extends BaseEntity{
     @Column
     private String name;
 
+    @Column(precision = 19, scale = 2)
+    private BigDecimal price;
+
+    @Column(precision = 19, scale = 3)
+    private BigDecimal stockInKg;
+
     @Column
     private int carbohydrates;
 
@@ -30,12 +36,6 @@ public class Ingredient extends BaseEntity{
     @Column
     private int calories; // = (carbohydrates * 4) + (fat * 9) + (protein * 4);
 
-    @Column(precision = 19, scale = 2)
-    private BigDecimal price;
-
-    @Column(precision = 19, scale = 3)
-    private BigDecimal stockInGrams;
-
     @Enumerated(EnumType.STRING)
-    private IngredientTypeEnum ingredientTypeEnum;
+    private IngredientTypeEnum ingredientType;
 }

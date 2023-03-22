@@ -1,9 +1,6 @@
 package bg.softuni.pizzashop.model.binding;
 
 import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +23,7 @@ public class IngredientAddBindingModel {
 
     @Positive(message = "Price must be greater than 0€")
     @NotNull(message = "Field Cannot be empty")
-    private BigDecimal stockInGrams;
+    private BigDecimal stockInKg;
 
     @Min(value=0, message="must be equal or greater than 0")
     @NotNull(message = "Field Cannot be empty")

@@ -1,7 +1,10 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.IngredientAddBindingModel;
+import bg.softuni.pizzashop.model.service.IngredientServiceModel;
+import bg.softuni.pizzashop.service.IngredientService;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +17,16 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class IngredientController {
+
+    private final ModelMapper modelMapper;
+    private final IngredientService ingredientService;
+
+    public IngredientController(ModelMapper modelMapper, IngredientService ingredientService) {
+        this.modelMapper = modelMapper;
+        this.ingredientService = ingredientService;
+    }
+
 
     @GetMapping("/add/ingredient")
     public String addIngredient() {
@@ -32,6 +44,8 @@ public class ProductController {
 
             return "redirect:/product/add/ingredient";
         }
+
+        ingredientService.saveIngredient(modelMapper.map(ingredientAddBindingModel, IngredientServiceModel.class));
 
         return "redirect:/";
     }
