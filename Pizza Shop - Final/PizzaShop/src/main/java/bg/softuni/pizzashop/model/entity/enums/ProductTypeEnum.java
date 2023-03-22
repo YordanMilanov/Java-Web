@@ -1,6 +1,6 @@
 package bg.softuni.pizzashop.model.entity.enums;
 
-public enum ReceiptCategoryEnum {
+public enum ProductTypeEnum {
     PIZZA,
     PASTA,
     SALAD,

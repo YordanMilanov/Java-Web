@@ -1,4 +1,5 @@
-package com.example.pathfinderdemo.model.entity;
+package com.examplepathfinderdemo.model.entity.category;
+
 
 import com.example.pathfinderdemo.model.entity.enums.CategoryNameEnum;
 import jakarta.persistence.*;

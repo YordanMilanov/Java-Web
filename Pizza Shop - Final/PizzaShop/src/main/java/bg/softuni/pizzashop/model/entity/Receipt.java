@@ -1,14 +1,10 @@
 package bg.softuni.pizzashop.model.entity;
 
-import bg.softuni.pizzashop.model.entity.enums.ProductSizeEnum;
-import bg.softuni.pizzashop.model.entity.enums.ReceiptCategoryEnum;
+import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Map;
-import java.util.Set;
 
 @Entity
 @Table(name = "receipts")
@@ -21,7 +17,7 @@ public class Receipt extends BaseEntity{
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private ReceiptCategoryEnum receiptCategoryEnum;
+    private ProductTypeEnum productTypeEnum;
 
     //to be calculated in the service!
     @Column

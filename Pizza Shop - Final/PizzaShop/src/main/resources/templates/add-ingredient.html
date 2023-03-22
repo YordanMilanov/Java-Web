@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons::head"></head>
+
+<body>
+
+<header th:replace="fragments/commons::nav"></header>
+
+<main class="wood-background">
+
+    <div class="row justify-content-center mx-auto col-6">
+        <form id="add-product-form"
+              class="w-75 rounded text-white my-4 bg-dark rounded-5"
+              enctype="multipart/form-data"
+              th:action="@{/product/add/ingredients}"
+              th:method="post"
+              th:object="${ingredientAddBindingModel}">
+
+            <h3 class="text-center">Add ingredient</h3>
+
+            <div>
+                <div class="form-group">
+                    <label for="inputName" class="col-form-label ">Name</label>
+                </div>
+                <div class="form-group">
+                    <input name="name"
+                           th:field="*{name}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputName"
+                           class="form-control"
+                           aria-describedby="inputNameError">
+                    <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" id="inputNameError"
+                           class="rounded">Name length must be more than 3 characters</small>
+
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <div class="form-group">
+                    <label for="inputProtein" class="col-form-label">Protein in 100 grams</label>
+                </div>
+                <div class="form-group">
+                    <input name="protein"
+                           th:field="*{protein}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputProtein"
+                           class="form-control"
+                           aria-describedby="inputNameError">
+                    <small  id="inputProteinError"
+                           class="rounded">Protein must be 0 or more</small>
+
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <div class="form-group">
+                    <label for="inputCarbohydrates" class="col-form-label">Carbohydrates in 100 grams</label>
+                </div>
+                <div class="form-group">
+                    <input name="carbohydrates"
+                           th:field="*{carbohydrates}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputCarbohydrates"
+                           class="form-control"
+                           aria-describedby="inputNameError">
+                    <small  id="inputCarbohydratesError"
+                            class="rounded">Carbohydrates must be 0 or more</small>
+
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <div class="form-group">
+                    <label for="inputFat" class="col-form-label">Fat in 100 grams</label>
+                </div>
+                <div class="form-group">
+                    <input name="fat"
+                           th:field="*{fat}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputFat"
+                           class="form-control"
+                           aria-describedby="inputFatError">
+                    <small  id="inputFatError"
+                            class="rounded">Fat must be 0 or more</small>
+
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <div class="form-group">
+                    <label for="inputPrice" class="col-form-label">Price per kilogram</label>
+                </div>
+                <div class="form-group">
+                    <input name="price"
+                           th:field="*{price}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputPrice"
+                           class="form-control"
+                           aria-describedby="inputFatError">
+                    <small  id="inputPriceError"
+                            class="rounded">Price must be positive</small>
+
+                </div>
+            </div>
+
+
+            <div class="mt-2">
+                <div class="form-group">
+                    <label for="inputStockInGrams" class="col-form-label">Stock in grams</label>
+                </div>
+                <div class="form-group">
+                    <input name="stockInGrams"
+                           th:field="*{stockInGrams}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputStockInGrams"
+                           class="form-control"
+                           aria-describedby="inputStockInKgError">
+                    <small  id="inputStockInGramsError"
+                            class="rounded">Stock must be positive</small>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group mt-2 mb-2 col-6">
+                    <label class="m-0" for="ingredientType">Ingredient Type:</label>
+                    <input th:field="*{ingredientTypeEnum}"
+                           th:each="c : ${T(bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum).values()}"
+                           th:text="${c}"
+                           th:value="${c}"
+                           class="ms-3 me-1 "
+                           type="radio"
+                           name="ingredientType"
+                           id="ingredientType">
+                    <br>
+                    <small  id="ingredientTypeError"
+                            class="rounded">Type must be selected</small>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <button class="btn btn-success btn-block w-50" type="submit">Add ingredient</button>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<footer th:replace="fragments/commons::footer"></footer>
+
+<script th:replace="fragments/commons::script-bootstrap-bundle"></script>
+
+</body>
+
+</html>

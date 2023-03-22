@@ -15,21 +15,26 @@ import java.math.BigDecimal;
 @Setter
 public class Ingredient extends BaseEntity{
 
+    @Column
     private String name;
+
+    @Column
+    private int carbohydrates;
+
+    @Column
+    private int fat;
+
+    @Column
+    private int protein;
+
+    @Column
+    private int calories; // = (carbohydrates * 4) + (fat * 9) + (protein * 4);
 
     @Column(precision = 19, scale = 2)
     private BigDecimal price;
 
-    private int carbohydrates;
-
-    private int fat;
-
-    private int protein;
-
-    private int calories; // = (carbohydrates * 4) + (fat * 9) + (protein * 4);
-
     @Column(precision = 19, scale = 3)
-    private BigDecimal stockInKg;
+    private BigDecimal stockInGrams;
 
     @Enumerated(EnumType.STRING)
     private IngredientTypeEnum ingredientTypeEnum;

@@ -1,13 +1,11 @@
 package bg.softuni.pizzashop.model.entity;
 
-import bg.softuni.pizzashop.model.entity.enums.ReceiptCategoryEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -28,6 +26,6 @@ public class Product extends BaseEntity {
     @OneToOne
     private Picture picture;
 
-    @OneToOne
-    private Receipt receipt;
+    @Column
+    private Integer grams;
 }
