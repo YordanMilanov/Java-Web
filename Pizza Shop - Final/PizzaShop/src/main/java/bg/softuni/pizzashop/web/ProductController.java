@@ -17,20 +17,20 @@ import java.io.IOException;
 public class ProductController {
 
     @GetMapping("/add/ingredient")
-    public String ingredient() {
+    public String addIngredient() {
         return "add-ingredient";
     }
 
     @PostMapping("/add/ingredient")
-    public String addConfirm(@Valid IngredientAddBindingModel ingredientAddBindingModel,
-                             BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes) throws IOException {
+    public String addIngredientConfirm(@Valid IngredientAddBindingModel ingredientAddBindingModel,
+                                       BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("ingredientAddBindingModel", ingredientAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.ingredientAddBindingModel", bindingResult);
 
-            return "redirect:ingredient";
+            return "redirect:/product/add/ingredient";
         }
 
         return "redirect:/";

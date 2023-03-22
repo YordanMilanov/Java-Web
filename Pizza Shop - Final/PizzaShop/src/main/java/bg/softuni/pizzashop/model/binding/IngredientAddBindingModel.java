@@ -4,6 +4,7 @@ import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,17 +16,30 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class IngredientAddBindingModel {
 
+    @Size(min = 1, max = 20)
+    @NotNull(message = "Field Cannot be empty")
     private String name;
 
+    @Positive(message = "Price must be greater than 0€")
+    @NotNull(message = "Field Cannot be empty")
     private BigDecimal price;
 
+    @Positive(message = "Price must be greater than 0€")
+    @NotNull(message = "Field Cannot be empty")
     private BigDecimal stockInGrams;
 
+    @Min(value=0, message="must be equal or greater than 0")
+    @NotNull(message = "Field Cannot be empty")
     private int carbohydrates;
 
+    @Min(value=0, message="must be equal or greater than 18")
+    @NotNull(message = "Field Cannot be empty")
     private int fat;
 
+    @Min(value=0, message="must be equal or greater than 0")
+    @NotNull(message = "Field Cannot be empty")
     private int protein;
 
-    private IngredientTypeEnum ingredientTypeEnum;
+    @NotNull(message = "Type must be selected")
+    private IngredientTypeEnum ingredientType;
 }
