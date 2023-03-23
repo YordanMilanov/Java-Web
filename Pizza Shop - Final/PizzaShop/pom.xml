@@ -8,8 +8,8 @@
         <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>PathShopApp</artifactId>
+    <groupId>bg.softuni</groupId>
+    <artifactId>PizzaShopApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>PizzaShopApp</name>
     <description>PizzaShopApp</description>

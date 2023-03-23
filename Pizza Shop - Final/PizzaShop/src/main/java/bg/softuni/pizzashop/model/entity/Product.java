@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -28,4 +29,14 @@ public class Product extends BaseEntity {
 
     @Column
     private Integer grams;
+
+    //the relation table between the 2 entities
+    @ElementCollection
+    //naming of the table
+    @CollectionTable(name = "required_ingredients")
+    //naming of the key-column
+    @MapKeyJoinColumn(name = "ingredient")
+    //naming of the value-column
+    @Column(name = "grams")
+    private Map<Ingredient, Integer> requiredProducts;
 }

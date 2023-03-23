@@ -1,8 +1,10 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.IngredientAddBindingModel;
+import bg.softuni.pizzashop.model.binding.ProductAddBindingModel;
 import bg.softuni.pizzashop.model.service.IngredientServiceModel;
-import bg.softuni.pizzashop.service.IngredientService;
+import bg.softuni.pizzashop.model.service.ProductServiceModel;
+import bg.softuni.pizzashop.service.ProductService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -16,42 +18,41 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/ingredient")
-public class IngredientController {
+@RequestMapping("/product")
+public class ProductController {
 
     private final ModelMapper modelMapper;
-    private final IngredientService ingredientService;
+    private final ProductService productService;
 
-    public IngredientController(ModelMapper modelMapper, IngredientService ingredientService) {
+    public ProductController(ModelMapper modelMapper, ProductService productService) {
         this.modelMapper = modelMapper;
-        this.ingredientService = ingredientService;
+        this.productService = productService;
     }
 
-
     @GetMapping("/add")
-    public String addIngredient() {
-        return "add-ingredient";
+    public String addProduct() {
+        return "add-product";
     }
 
     @PostMapping("/add")
-    public String addIngredientConfirm(@Valid IngredientAddBindingModel ingredientAddBindingModel,
+    public String addProductConfirm(@Valid ProductAddBindingModel productAddBindingModel,
                                        BindingResult bindingResult,
                                        RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("ingredientAddBindingModel", ingredientAddBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.ingredientAddBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute("productAddBindingModel", productAddBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productAddBindingModel", bindingResult);
 
-            return "redirect:/ingredient/add";
+            return "redirect:/product/add";
         }
 
-        ingredientService.saveIngredient(modelMapper.map(ingredientAddBindingModel, IngredientServiceModel.class));
+        productService.saveProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
 
         return "redirect:/";
     }
 
     @ModelAttribute
-    public IngredientAddBindingModel ingredientAddBindingModel() {
-        return new IngredientAddBindingModel();
+    public ProductAddBindingModel productAddBindingModel() {
+        return new ProductAddBindingModel();
     }
 }
