@@ -58,8 +58,8 @@ public class ProductController {
         return "redirect:/product/add/ingredients/" + productId;
     }
 
-    @PostMapping("/add/ingredients")
-    public String addProductIngredientsConfirm(@Valid ProductIngredientsAddBindingModel productIngredientsAddBindingModel,
+    @PostMapping("/add/ingredients/{id}")
+    public String addProductIngredientsConfirm(@PathVariable Long id, @Valid ProductIngredientsAddBindingModel productIngredientsAddBindingModel,
                                                BindingResult bindingResult,
                                                RedirectAttributes redirectAttributes) throws IOException {
 
@@ -70,10 +70,7 @@ public class ProductController {
             return "redirect:/product/add/ingredients";
         }
 
-        productService.findProductById()
-
-
-        productService.saveProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
+        productService.UpdateIngredientsToProductById(id, productIngredientsAddBindingModel.getIngredientNames(), productIngredientsAddBindingModel.getIngredientGrams());
         return "redirect:/";
     }
 
