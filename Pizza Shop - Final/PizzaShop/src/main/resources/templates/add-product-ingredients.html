@@ -17,11 +17,11 @@
               enctype="multipart/form-data"
               th:action="@{/product/add/ingredients}"
               th:method="post"
-              th:object="${productAddBindingModel}">
+              th:object="${productIngredientsAddBindingModel}">
 
             <h3 class="text-center"> Add product Ingredients</h3>
 
-            <div id="ingredientInputs" th:each="i : ${#numbers.sequence( 1, 5)}">
+            <div id="ingredientInputs" th:each="i : ${#numbers.sequence(1,product.ingredientsCount)}" >
                 <div id="ingredientName" class="mt-2">
                     <div class="form-group">
                         <label for="inputIngredientName" class="col-form-label ">Ingredient Name</label>

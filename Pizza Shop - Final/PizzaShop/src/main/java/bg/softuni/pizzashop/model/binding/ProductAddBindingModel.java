@@ -21,7 +21,4 @@ public class ProductAddBindingModel {
     private Picture picture;
     private Integer grams;
     private Integer ingredientsCount;
-
-    private List<String> IngredientName;
-    private List<Integer> IngredientGrams;
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -29,6 +30,9 @@ public class Product extends BaseEntity {
 
     @Column
     private Integer grams;
+
+    @Column
+    private Integer ingredientsCount;
 
     //the relation table between the 2 entities
     @ElementCollection
