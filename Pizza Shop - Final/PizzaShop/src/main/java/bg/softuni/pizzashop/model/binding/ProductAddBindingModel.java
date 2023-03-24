@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -20,5 +20,8 @@ public class ProductAddBindingModel {
     private String description;
     private Picture picture;
     private Integer grams;
-    private Map<Ingredient, Integer> requiredProducts;
+    private Integer ingredientsCount;
+
+    private List<String> IngredientName;
+    private List<Integer> IngredientGrams;
 }
