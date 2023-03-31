@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 public class Receipt extends BaseEntity{
 
+    //NOT USED
+
     @Column
     private String name;
 

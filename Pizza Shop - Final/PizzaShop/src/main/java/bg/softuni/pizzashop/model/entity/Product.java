@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.model.entity;
 
+import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,9 @@ public class Product extends BaseEntity {
 
     @Column
     private Integer grams;
+
+    @Enumerated(EnumType.STRING)
+    private ProductTypeEnum productTypeEnum;
 
     //the relation table between the 2 entities
     @ElementCollection(fetch = FetchType.EAGER)

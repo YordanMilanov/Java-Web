@@ -3,6 +3,7 @@ package bg.softuni.pizzashop.model.service;
 import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.Picture;
 import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
+import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -26,5 +27,6 @@ public class ProductServiceModel {
     private String description;
     private Picture picture;
     private Integer grams;
+    private ProductTypeEnum productTypeEnum;
     private Map<Ingredient, Integer> requiredProducts;
 }
