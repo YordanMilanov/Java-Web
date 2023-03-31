@@ -42,7 +42,7 @@ public class HomeController {
 
     @GetMapping("/menu")
     public String menu() {
-        return "menu-pizza";
+        return "menu";
     }
 
     @GetMapping("/order")

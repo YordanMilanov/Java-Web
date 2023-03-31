@@ -17,6 +17,6 @@ public class Picture extends BaseEntity{
     @Column(nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
-    private String url;
+    @Column(name = "data", columnDefinition = "LONGBLOB")
+    private byte[] data;
 }

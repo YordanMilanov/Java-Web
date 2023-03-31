@@ -33,9 +33,6 @@ public class Product extends BaseEntity {
     @Column
     private Integer grams;
 
-    @Column
-    private Integer ingredientsCount;
-
     //the relation table between the 2 entities
     @ElementCollection(fetch = FetchType.EAGER)
     //naming of the table

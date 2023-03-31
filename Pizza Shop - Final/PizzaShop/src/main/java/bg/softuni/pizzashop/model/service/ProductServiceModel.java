@@ -26,6 +26,5 @@ public class ProductServiceModel {
     private String description;
     private Picture picture;
     private Integer grams;
-    private Integer ingredientsCount;
     private Map<Ingredient, Integer> requiredProducts;
 }

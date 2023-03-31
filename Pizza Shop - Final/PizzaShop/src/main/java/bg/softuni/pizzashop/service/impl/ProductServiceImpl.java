@@ -6,12 +6,13 @@ import bg.softuni.pizzashop.model.service.ProductServiceModel;
 import bg.softuni.pizzashop.repository.IngredientRepository;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.IngredientService;
+import bg.softuni.pizzashop.service.PictureService;
 import bg.softuni.pizzashop.service.ProductService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -23,7 +24,9 @@ public class ProductServiceImpl implements ProductService {
 
     private final IngredientRepository ingredientRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, IngredientService ingredientService, IngredientRepository ingredientRepository) {
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, IngredientRepository ingredientRepository) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
         this.ingredientRepository = ingredientRepository;
@@ -32,7 +35,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductServiceModel saveProduct(ProductServiceModel productServiceModel) {
         Product productToSave = modelMapper.map(productServiceModel, Product.class);
-
         productRepository.save(productToSave);
         return modelMapper.map(productToSave, ProductServiceModel.class);
     }

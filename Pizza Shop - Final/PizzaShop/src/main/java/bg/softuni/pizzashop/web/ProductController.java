@@ -2,9 +2,11 @@ package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.ProductAddBindingModel;
 import bg.softuni.pizzashop.model.binding.ProductIngredientsAddBindingModel;
+import bg.softuni.pizzashop.model.entity.Picture;
 import bg.softuni.pizzashop.model.service.IngredientServiceModel;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
 import bg.softuni.pizzashop.service.IngredientService;
+import bg.softuni.pizzashop.service.PictureService;
 import bg.softuni.pizzashop.service.ProductService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -24,12 +26,13 @@ public class ProductController {
 
     private final ModelMapper modelMapper;
     private final ProductService productService;
-
+    private final PictureService pictureService;
     private final IngredientService ingredientService;
 
-    public ProductController(ModelMapper modelMapper, ProductService productService, IngredientService ingredientService) {
+    public ProductController(ModelMapper modelMapper, ProductService productService, PictureService pictureService, IngredientService ingredientService) {
         this.modelMapper = modelMapper;
         this.productService = productService;
+        this.pictureService = pictureService;
         this.ingredientService = ingredientService;
     }
 
@@ -57,7 +60,10 @@ public class ProductController {
             return "redirect:/product/add";
         }
 
-        productService.saveProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
+        Picture picture = pictureService.uploadPicture(productAddBindingModel.getPicture(), productAddBindingModel.getName());
+        ProductServiceModel productServiceModel = modelMapper.map(productAddBindingModel, ProductServiceModel.class);
+        productServiceModel.setPicture(picture);
+        productService.saveProduct(productServiceModel);
 
         Long productId = productService.findLastAddedProduct().getId();
 
