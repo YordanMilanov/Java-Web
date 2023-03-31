@@ -19,6 +19,4 @@ public class ProductAddBindingModel {
     private BigDecimal price;
     private String description;
     private Picture picture;
-    private Integer grams;
-    private Integer ingredientsCount;
 }

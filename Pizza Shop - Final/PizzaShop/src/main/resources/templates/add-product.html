@@ -101,31 +101,30 @@
             <!--            </div>-->
             <hr>
 
-            <div id="ingredientsCount" class="mt-2 w-25">
-                <div class="form-group">
-                    <label for="inputIngredientsCount" class="col-form-label">Ingredient count</label>
-                </div>
-                <div class="form-group">
-                    <input name="inputIngredientsCount"
-                           th:field="*{ingredientsCount}"
-                           th:errorclass="'is-invalid bg-danger'"
-                           required minlength="1" maxlength="20"
-                           type="number"
-                           pattern="[0-9]+([\.][0-9]+)?"
-                           step="0"
-                           id="inputIngredientsCount"
-                           class="form-control"
-                           aria-describedby="inputIngredientsCountError">
-                    <small th:if="${#fields.hasErrors('ingredientsCount')}" th:errors="*{ingredientsCount}"
-                           id="inputIngredientsCountError"
-                           class="rounded text-danger">Ingredient count must be positive</small>
-                </div>
-            </div>
-                <hr>
+<!--            <div id="ingredientsCount" class="mt-2 w-25">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="inputIngredientsCount" class="col-form-label">Ingredient count</label>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <input name="inputIngredientsCount"-->
+<!--                           th:field="*{ingredientsCount}"-->
+<!--                           th:errorclass="'is-invalid bg-danger'"-->
+<!--                           required minlength="1" maxlength="20"-->
+<!--                           type="number"-->
+<!--                           pattern="[0-9]+([\.][0-9]+)?"-->
+<!--                           step="0"-->
+<!--                           id="inputIngredientsCount"-->
+<!--                           class="form-control"-->
+<!--                           aria-describedby="inputIngredientsCountError">-->
+<!--                    <small th:if="${#fields.hasErrors('ingredientsCount')}" th:errors="*{ingredientsCount}"-->
+<!--                           id="inputIngredientsCountError"-->
+<!--                           class="rounded text-danger">Ingredient count must be positive</small>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <hr>-->
 
-                <div class="d-flex justify-content-center mb-3">
-                    <button class="btn btn-success btn-block w-50" type="submit">Add ingredient</button>
-                </div>
+            <div class="d-flex justify-content-center mb-3">
+                <button class="btn btn-success btn-block w-50" type="submit">Add ingredient</button>
             </div>
         </form>
     </div>

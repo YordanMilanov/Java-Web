@@ -2,7 +2,9 @@ package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.ProductAddBindingModel;
 import bg.softuni.pizzashop.model.binding.ProductIngredientsAddBindingModel;
+import bg.softuni.pizzashop.model.service.IngredientServiceModel;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
+import bg.softuni.pizzashop.service.IngredientService;
 import bg.softuni.pizzashop.service.ProductService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/product")
@@ -21,9 +25,12 @@ public class ProductController {
     private final ModelMapper modelMapper;
     private final ProductService productService;
 
-    public ProductController(ModelMapper modelMapper, ProductService productService) {
+    private final IngredientService ingredientService;
+
+    public ProductController(ModelMapper modelMapper, ProductService productService, IngredientService ingredientService) {
         this.modelMapper = modelMapper;
         this.productService = productService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/add")
@@ -33,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/add/ingredients/{id}")
     public String addProductIngredients(@PathVariable Long id, Model model) {
-
+        model.addAttribute("allIngredients", allIngredients());
         model.addAttribute("product", productService.findProductById(id));
         return "add-product-ingredients";
     }
@@ -59,19 +66,19 @@ public class ProductController {
     }
 
     @PostMapping("/add/ingredients/{id}")
-    public String addProductIngredientsConfirm(@PathVariable Long id, @Valid ProductIngredientsAddBindingModel productIngredientsAddBindingModel,
+    public String addProductIngredientsConfirm(@PathVariable("id")Long id, @Valid ProductIngredientsAddBindingModel productIngredientsAddBindingModel,
                                                BindingResult bindingResult,
-                                               RedirectAttributes redirectAttributes) throws IOException {
+                                               RedirectAttributes redirectAttributes, Model model) throws IOException {
+
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("productIngredientsAddBindingModel", productIngredientsAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productIngredientsAddBindingModel", bindingResult);
-
-            return "redirect:/product/add/ingredients";
+            return "redirect:/product/add/ingredients/" + id.toString();
         }
 
-        productService.UpdateIngredientsToProductById(id, productIngredientsAddBindingModel.getIngredientNames(), productIngredientsAddBindingModel.getIngredientGrams());
-        return "redirect:/";
+        productService.UpdateIngredientToProductById(id, productIngredientsAddBindingModel.getIngredientName(), productIngredientsAddBindingModel.getIngredientGram());
+        return "redirect:/product/add/ingredients/" + id.toString();
     }
 
     @ModelAttribute
@@ -80,13 +87,12 @@ public class ProductController {
     }
 
     @ModelAttribute
-    public Integer ingredientCount(Integer count) {
-        Integer ingredientsCount = count;
-        return count;
+    public ProductIngredientsAddBindingModel productIngredientsAddBindingModel() {
+        return new ProductIngredientsAddBindingModel();
     }
 
     @ModelAttribute
-    public ProductIngredientsAddBindingModel productIngredientsAddBindingModel() {
-        return new ProductIngredientsAddBindingModel();
+    public List<String> allIngredients() {
+       return ingredientService.findAll().stream().map(IngredientServiceModel::getName).collect(Collectors.toList());
     }
 }

@@ -15,48 +15,47 @@
         <form id="add-product-form"
               class="w-75 rounded text-white my-4 bg-dark rounded-5"
               enctype="multipart/form-data"
-              th:action="@{/product/add/ingredients}"
+              th:action="@{/product/add/ingredients/{id}(id=${product.id})}"
               th:method="post"
               th:object="${productIngredientsAddBindingModel}">
 
             <h3 class="text-center"> Add product Ingredients</h3>
 
-            <div id="ingredientInputs" th:each="i : ${#numbers.sequence(1,product.ingredientsCount)}" >
-                <div id="ingredientName" class="mt-2">
+            <div id="ingredientInputs" class="justify-content-center">
+                <div id="ingredientNames" class="mt-2">
                     <div class="form-group">
                         <label for="inputIngredientName" class="col-form-label ">Ingredient Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input name="ingredientName"
-                               th:field="*{getIngredientNames}"
-                               th:errorclass="'is-invalid bg-danger'"
-                               required minlength="1" maxlength="20"
-                               type="text"
-                               id="inputIngredientName"
-                               class="form-control"
-                               aria-describedby="inputIngredientNameError">
-                        <small th:if="${#fields.hasErrors('ingredientName')}" th:errors="*{getIngredientNames}"
+                        <select th:field="*{ingredientName}"
+                                th:errorclass="'is-invalid bg-danger'"
+                                id="inputIngredientName"
+                                class="custom-select">
+                            <option value="" selected></option>
+                            <option th:each="I : ${allIngredients}"
+                                    th:value="${I}"
+                                    th:text="${I}"></option>
+                        </select>
+                        <small th:if="${#fields.hasErrors('ingredientName')}" th:errors="*{ingredientName}"
                                id="inputIngredientNameError"
-                               class="rounded text-danger">Name length must be more than 3 characters</small>
+                               class="rounded text-danger">Ingredient must be selected</small>
                     </div>
                 </div>
 
-                <div id="ingredientGrams" class="mt-2">
+                <div id="ingredientGrams" class="mt-2 w-50">
                     <div class="form-group">
-                        <label for="inputIngredientGrams" class="col-form-label">Ingredient grams</label>
+                        <label for="inputIngredientGram" class="col-form-label">Ingredient grams</label>
                     </div>
                     <div class="form-group">
-                        <input name="inputIngredientGrams"
-                               th:field="*{ingredientGrams}"
+                        <input name="inputIngredientGram"
+                               th:field="*{ingredientGram}"
                                th:errorclass="'is-invalid bg-danger'"
                                required minlength="1" maxlength="20"
                                type="number"
                                pattern="[0-9]+([\.][0-9]+)?"
                                step="0"
-                               id="inputIngredientGrams"
+                               id="inputIngredientGram"
                                class="form-control"
                                aria-describedby="inputIngredientGramsError">
-                        <small th:if="${#fields.hasErrors('ingredientGrams')}" th:errors="*{ingredientGrams}"
+                        <small th:if="${#fields.hasErrors('ingredientGram')}" th:errors="*{ingredientGram}"
                                id="inputIngredientGramsError"
                                class="rounded text-danger">Ingredient grams must be positive</small>
                     </div>
@@ -68,6 +67,29 @@
                 <button class="btn btn-success btn-block w-50" type="submit">Add ingredient</button>
             </div>
         </form>
+
+        <div class="justify-content-center">
+            <table id="table-active" class="table table-bordered table-dark w-100 mx-auto my-5">
+                <thead>
+                <tr>
+                    <th colspan="4" class="text-center">Required Ingredients</th>
+                </tr>
+
+                <tr>
+                    <th class="col-1">Ingredient ID</th>
+                    <th class="col-3">Name</th>
+                    <th class="col-3">Grams</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="i : ${product.requiredProducts}">
+                    <th scope="row" th:text="*{i.getKey().getId()}"></th>
+                    <td th:text="*{i.getKey().getName()}"></td>
+                    <td th:text="*{i.getValue()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 

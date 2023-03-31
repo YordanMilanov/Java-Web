@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Getter
 @Setter
@@ -35,11 +37,11 @@ public class Product extends BaseEntity {
     private Integer ingredientsCount;
 
     //the relation table between the 2 entities
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     //naming of the table
     @CollectionTable(name = "required_ingredients")
     //naming of the key-column
-    @MapKeyJoinColumn(name = "ingredient")
+    @MapKeyJoinColumn(name = "ingredient_id")
     //naming of the value-column
     @Column(name = "grams")
     private Map<Ingredient, Integer> requiredProducts;

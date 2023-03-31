@@ -10,5 +10,5 @@ public interface ProductService {
 
     ProductServiceModel findLastAddedProduct();
 
-    void UpdateIngredientsToProductById(Long id, List<String> ingredientNames, List<Integer> ingredientGrams);
+    void UpdateIngredientToProductById(Long id, String ingredientNames,Integer ingredientGrams);
 }

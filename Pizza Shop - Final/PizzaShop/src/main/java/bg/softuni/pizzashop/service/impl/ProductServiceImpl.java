@@ -10,7 +10,10 @@ import bg.softuni.pizzashop.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -36,10 +39,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductServiceModel findProductById(Long id) {
-        return productRepository
+        ProductServiceModel productServiceModel = productRepository
                 .findById(id)
                 .map(product -> modelMapper.map(product, ProductServiceModel.class))
                 .orElse(null);
+
+        //sort the required products
+        Map<Ingredient, Integer> unsortedMap = productServiceModel.getRequiredProducts();
+        Map<Ingredient, Integer> sortedMap = new TreeMap<>(Comparator.comparingInt(ingredient -> Math.toIntExact(ingredient.getId())));
+        sortedMap.putAll(unsortedMap);
+
+        //save the required products
+        productServiceModel.setRequiredProducts(sortedMap);
+        return productServiceModel;
     }
 
     @Override
@@ -51,12 +63,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void UpdateIngredientsToProductById(Long id, List<String> ingredientNames, List<Integer> ingredientGrams) {
+    public void UpdateIngredientToProductById(Long id,String ingredientName,Integer ingredientGrams) {
         Product product = productRepository.findById(id).get();
-        for (int i = 0; i < ingredientNames.size(); i++) {
-            Ingredient ingredient = ingredientRepository.findByName(ingredientNames.get(i)).get();
-            product.getRequiredProducts().put(ingredient, ingredientGrams.get(i));
-        }
+        Ingredient ingredient = ingredientRepository.findByName(ingredientName).orElse(null);
+
+        product.getRequiredProducts().put(ingredient, ingredientGrams);
         productRepository.save(product);
     }
 }
