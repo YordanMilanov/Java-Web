@@ -57,3 +57,22 @@ VALUES (4, 3);
 -- Customer - vip
 INSERT INTO users_roles (`user_id`, `roles_id`)
 VALUES (5, 3);
+
+-- Ingredients
+INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
+VALUES (1,'pizza sauce', 10, 10, 5, 45, 0, 200, 'MAIN');
+
+INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
+VALUES (2,'mozzarella', 18, 5, 25, 6, 20, 304, 'MAIN');
+
+INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
+VALUES (3,'tuna', 35, 5, 25, 0, 1, 104, 'MAIN');
+
+INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
+VALUES (4,'red onions', 1.5, 10, 1, 9, 0, 40, 'MAIN');
+
+INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
+VALUES (5,'sweetcorn', 9, 5, 2, 18, 0, 80, 'MAIN');
+
+INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
+VALUES (6,'black olive', 10, 10, 1, 7, 6, 86, 'MAIN');
