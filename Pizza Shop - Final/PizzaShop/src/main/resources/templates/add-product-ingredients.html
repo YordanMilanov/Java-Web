@@ -19,7 +19,16 @@
               th:method="post"
               th:object="${productIngredientsAddBindingModel}">
 
-            <h3 class="text-center"> Add product Ingredients</h3>
+            <h3 class="text-center" th:text="'Add ' + ${product.name} + ' ingredients'"> Add product Ingredients</h3>
+            <div class="">
+                <div class="bg-black">
+                    <img th:src="@{'data:image/jpeg;base64,' + #strings.encodeBase64(${image})}" alt="Image" />
+                    <div class="">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <p class="card-text" th:text="${product.description}"></p>
+                    </div>
+                </div>
+            </div>
 
             <div id="ingredientInputs" class="justify-content-center">
                 <div id="ingredientNames" class="mt-2">

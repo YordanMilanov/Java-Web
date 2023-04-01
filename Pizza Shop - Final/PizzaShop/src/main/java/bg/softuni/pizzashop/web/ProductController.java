@@ -43,6 +43,7 @@ public class ProductController {
 
     @GetMapping("/add/ingredients/{id}")
     public String addProductIngredients(@PathVariable Long id, Model model) {
+        model.addAttribute("image", productService.findProductById(id).getPicture().getData());
         model.addAttribute("allIngredients", allIngredients());
         model.addAttribute("product", productService.findProductById(id));
         return "add-product-ingredients";
