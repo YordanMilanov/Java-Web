@@ -39,15 +39,15 @@ public class HomeController {
         }
     }
 
-
     @GetMapping("/menu")
     public String menu() {
         return "menu";
     }
 
     @GetMapping("/order")
-    public String order() {
-        return "order-user-basket";
+    public String order(Model model) {
+        model.addAttribute("currentUser", currentUser);
+        return "order-user-cart";
     }
 
     @GetMapping("/about")

@@ -78,7 +78,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductServiceModel> allProductsByType(ProductTypeEnum productTypeEnum) {
-        return productRepository.findAllByProductTypeEnumOrderById(productTypeEnum).get()
+        //here we cast the productTypeEnum to String because of the query parameter in productRepository, so it can search and find by the param in the repository
+        return productRepository.findAllByProductTypeEnumOrderById(productTypeEnum.toString()).get()
                 .stream()
                 .map(product -> modelMapper.map(product, ProductServiceModel.class))
                 .collect(Collectors.toList());

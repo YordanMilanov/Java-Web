@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 
 @Service
 public class PictureServiceImpl implements PictureService {
@@ -19,10 +20,10 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public Picture uploadPicture(MultipartFile file, String name) throws IOException {
-        byte[] imageData = file.getBytes();
+        String encodedImage = Base64.getEncoder().encodeToString(file.getBytes());
         Picture picture = new Picture();
         picture.setTitle(name);
-        picture.setData(imageData);
+        picture.setData(encodedImage);
         pictureRepository.save(picture);
 
         return picture;

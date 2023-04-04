@@ -18,5 +18,5 @@ public class Picture extends BaseEntity{
     private String title;
 
     @Column(name = "data", columnDefinition = "LONGBLOB")
-    private byte[] data;
+    private String data;
 }

@@ -45,7 +45,7 @@ public class ProductController {
     @GetMapping("/add/ingredients/{id}")
     public String addProductIngredients(@PathVariable Long id, Model model) {
         //to use the image from the db first we need to convert it from byte[] to Base64 String and then pass it to the html as an attribute
-        model.addAttribute("image", Base64.getEncoder().encodeToString(productService.findProductById(id).getPicture().getData()));
+        model.addAttribute("image", productService.findProductById(id).getPicture().getData());
         model.addAttribute("allIngredients", allIngredients());
         model.addAttribute("product", productService.findProductById(id));
         return "add-product-ingredients";

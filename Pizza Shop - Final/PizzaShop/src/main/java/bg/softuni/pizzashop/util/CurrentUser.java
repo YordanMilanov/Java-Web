@@ -2,6 +2,7 @@ package bg.softuni.pizzashop.util;
 
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
+import bg.softuni.pizzashop.model.service.OrderServiceModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,4 +26,6 @@ public class CurrentUser {
     private Set<Role> roles;
 
     private UserLevelEnum level;
+
+    private OrderServiceModel currentOrder;
 }

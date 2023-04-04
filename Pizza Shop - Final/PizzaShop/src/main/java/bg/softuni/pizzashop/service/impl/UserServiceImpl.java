@@ -4,6 +4,7 @@ import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
+import bg.softuni.pizzashop.model.service.OrderServiceModel;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -61,9 +63,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level) {
+        OrderServiceModel order = new OrderServiceModel();
+        order.setProducts(new ArrayList<>());
         currentUser.setId(id);
         currentUser.setUsername(username);
         currentUser.setRoles(roles);
         currentUser.setLevel(level);
+        currentUser.setCurrentOrder(order);
     }
 }

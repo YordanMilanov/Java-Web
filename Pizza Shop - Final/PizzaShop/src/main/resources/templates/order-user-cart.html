@@ -20,16 +20,16 @@
                 <th class="col-1">Item ID</th>
                 <th class="col-3">Type</th>
                 <th class="col-3">Product Name</th>
-                <th class="col-1">Quantity</th>
+                <th class="col-1">Remove Product</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+            <tr th:each="p : ${currentUser.currentOrder.products}">
+                <th scope="row" th:text="${p.id}">1</th>
+                <td th:text="${p.productTypeEnum.toString().toLowerCase()}">Mark</td>
+                <td th:text="${p.name}">Otto</td>
+                <td>remove button</td>
             </tr>
             <tr>
                 <th scope="row">1</th>

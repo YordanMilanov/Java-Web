@@ -16,6 +16,7 @@ public class DatabaseInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        roleService.initRoles();
+        //This is the other way to initialize the database on first launch
+        //     roleService.initRoles();
     }
 }

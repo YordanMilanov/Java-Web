@@ -1,3 +1,13 @@
+-- Roles
+INSERT INTO roles (id, description, role)
+VALUES(1,'The manager have all the rights in the application','MANAGER')
+
+    INSERT INTO roles (id, description, role)
+VALUES(2,'The staff have limited functions','STAFF')
+
+INSERT INTO roles (id, description, role)
+VALUES(3,'The customer have the rights to make orders','CUSTOMER')
+
 -- Addresses
 INSERT INTO addresses (id,city, neighborhood, street, street_number)
 VALUES(1,'City','Center','street', 1);
@@ -22,13 +32,13 @@ INSERT INTO users (id, username, password, full_name, email, level, `address_id`
 VALUES (2,'staff', 'staff', 'mr.Staff', 'staff@abv.bg', 'EMPLOYEE', 2);
 
 INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (3,'customer-new', 'customer-new', 'mr.Customer-new', 'customer-new@abv.bg', 'CUSTOMER', 3);
+VALUES (3,'customer-new', 'customer-new', 'mr.Customer-new', 'customer-new@abv.bg', 'NEW', 3);
 
 INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (4,'customer-regular', 'customer-regular', 'mr.Customer-regular', 'customer-regular@abv.bg', 'CUSTOMER', 4);
+VALUES (4,'customer-regular', 'customer-regular', 'mr.Customer-regular', 'customer-regular@abv.bg', 'REGULAR', 4);
 
 INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (5,'customer-vip', 'customer-vip', 'mr.Customer-vip', 'customer-vip@abv.bg', 'CUSTOMER', 5);
+VALUES (5,'customer-vip', 'customer-vip', 'mr.Customer-vip', 'customer-vip@abv.bg', 'VIP', 5);
 
 -- user roles
 
