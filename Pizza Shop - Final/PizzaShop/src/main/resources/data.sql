@@ -107,3 +107,17 @@ VALUES (12,'cucumber', 5, 20, 1, 2, 0, 12, 'MAIN');
 
 INSERT INTO ingredients (id, name, price, stock_in_kg, protein, carbohydrates, fat, calories,ingredient_type)
 VALUES (13,'dough', 8, 30, 8, 43, 1, 213, 'MAIN');
+
+--picture
+
+
+--Products
+INSERT INTO Products (id, name, price, grams, product_type, picture_id, description)
+VALUES (1,'Cheese & Tomato', 10.50, 450, 'PIZZA', 1,'Pizza sauce and Mozzarella');
+
+INSERT INTO Products (id, name, price, grams, product_type, picture_id, description)
+VALUES (2,'Four Cheese', 11.00, 450, 'PIZZA', 2,'Pizza sauce, Mozzarella, Matured, Gouda');
+
+INSERT INTO Products (id, name, price, grams, product_type, picture_id, description)
+VALUES (3,'Garden Party', 12.00, 450, 'PIZZA', 3,'Pizza sauce, Mozzarella, Mushrooms, Green Bell Pepper, Red Onions, Sweetcorn and Fresh Tomatoes');
+

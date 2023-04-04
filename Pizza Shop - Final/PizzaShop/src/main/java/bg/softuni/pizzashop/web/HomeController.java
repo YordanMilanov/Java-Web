@@ -44,12 +44,6 @@ public class HomeController {
         return "menu";
     }
 
-    @GetMapping("/order")
-    public String order(Model model) {
-        model.addAttribute("currentUser", currentUser);
-        return "order-user-cart";
-    }
-
     @GetMapping("/about")
     public String about() {
         return "about";

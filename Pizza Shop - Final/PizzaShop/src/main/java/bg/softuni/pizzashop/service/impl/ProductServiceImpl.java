@@ -4,10 +4,9 @@ import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
+import bg.softuni.pizzashop.model.view.ProductViewModel;
 import bg.softuni.pizzashop.repository.IngredientRepository;
 import bg.softuni.pizzashop.repository.ProductRepository;
-import bg.softuni.pizzashop.service.IngredientService;
-import bg.softuni.pizzashop.service.PictureService;
 import bg.softuni.pizzashop.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,11 +76,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductServiceModel> allProductsByType(ProductTypeEnum productTypeEnum) {
-        //here we cast the productTypeEnum to String because of the query parameter in productRepository, so it can search and find by the param in the repository
-        return productRepository.findAllByProductTypeEnumOrderById(productTypeEnum.toString()).get()
-                .stream()
-                .map(product -> modelMapper.map(product, ProductServiceModel.class))
+    public List<ProductViewModel> allProductsByType(ProductTypeEnum productTypeEnum) {
+
+        List<Product> products = productRepository.findAllByProductTypeEnumOrderById(productTypeEnum.toString()).get();
+        List<ProductViewModel> collect = products.stream()
+                .map(product -> {
+                    ProductViewModel map = modelMapper.map(product, ProductViewModel.class);
+                    map.setPictureData(product.getPicture().getData());
+                    return map;
+                        }
+                )
                 .collect(Collectors.toList());
+        return collect;
     }
 }

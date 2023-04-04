@@ -9,4 +9,6 @@ public interface OrderService {
     List<OrderServiceModel> allOrders();
 
     ProductServiceModel addToCart(Long id);
+
+    void removeItemFromCart(Long id);
 }

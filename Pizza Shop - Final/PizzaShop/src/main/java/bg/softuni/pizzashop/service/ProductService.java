@@ -2,6 +2,7 @@ package bg.softuni.pizzashop.service;
 
 import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
+import bg.softuni.pizzashop.model.view.ProductViewModel;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface ProductService {
 
     void UpdateIngredientToProductById(Long id, String ingredientNames,Integer ingredientGrams);
 
-    List<ProductServiceModel> allProductsByType(ProductTypeEnum productTypeEnum);
+    List<ProductViewModel> allProductsByType(ProductTypeEnum productTypeEnum);
 }

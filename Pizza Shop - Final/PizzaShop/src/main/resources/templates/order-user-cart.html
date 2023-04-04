@@ -13,13 +13,15 @@
             <thead>
 
             <tr>
-                <th colspan="4" class="text-center">Basket</th>
+                <th colspan="6" class="text-center">Your current order</th>
             </tr>
 
             <tr>
                 <th class="col-1">Item ID</th>
-                <th class="col-3">Type</th>
-                <th class="col-3">Product Name</th>
+                <th class="col-2">Product Name</th>
+                <th class="col-1">Type</th>
+                <th class="col-1">grams/ml</th>
+                <th class="col-1">Price</th>
                 <th class="col-1">Remove Product</th>
             </tr>
             </thead>
@@ -27,29 +29,12 @@
 
             <tr th:each="p : ${currentUser.currentOrder.products}">
                 <th scope="row" th:text="${p.id}">1</th>
-                <td th:text="${p.productTypeEnum.toString().toLowerCase()}">Mark</td>
-                <td th:text="${p.name}">Otto</td>
-                <td>remove button</td>
+                <td th:text="${p.name}">Product Name</td>
+                <td th:text="${p.productTypeEnum.toString().substring(0, 1).toUpperCase() + p.productTypeEnum.toString().substring(1).toLowerCase()}">Product Type</td>
+                <td th:text="${p.grams} + 'g/ml'">Product Grams</td>
+                <td th:text="${p.price} + '$'">Product Price</td>
+                <td><a th:href="@{'/order/remove/' + ${p.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Remove item</a></td>
             </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-
             </tbody>
         </table>
     </div>

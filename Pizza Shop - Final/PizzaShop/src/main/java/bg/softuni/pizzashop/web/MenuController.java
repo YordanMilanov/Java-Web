@@ -29,26 +29,30 @@ public class MenuController {
     }
 
     @GetMapping("/pasta")
-    public String pasta() {
+    public String pasta(Model model) {
+        model.addAttribute("allPizza", productService.allProductsByType(ProductTypeEnum.PASTA));
         return "menu-pasta";
     }
 
     @GetMapping("/salad")
-    public String salad() {
+    public String salad(Model model) {
+        model.addAttribute("allPizza", productService.allProductsByType(ProductTypeEnum.SALAD));
         return "menu-salad";
     }
 
     @GetMapping("/dessert")
-    public String desert() {
+    public String desert(Model model) {
+        model.addAttribute("allPizza", productService.allProductsByType(ProductTypeEnum.DESSERT));
         return "menu-dessert";
     }
 
     @GetMapping("/drink")
-    public String drink() {
+    public String drink(Model model) {
+        model.addAttribute("allPizza", productService.allProductsByType(ProductTypeEnum.DRINK));
         return "menu-drink";
     }
 
-    @PostMapping("/{type}/{id}")
+    @GetMapping("/{type}/{id}")
     public String addProductToCart(@PathVariable String type,@PathVariable Long id) {
         orderService.addToCart(id);
         return "redirect:/menu/" + type;

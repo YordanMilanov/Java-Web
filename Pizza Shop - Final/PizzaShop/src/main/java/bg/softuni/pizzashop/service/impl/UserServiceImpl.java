@@ -2,6 +2,7 @@ package bg.softuni.pizzashop.service.impl;
 
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
+import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
 import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.service.OrderServiceModel;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -64,6 +66,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level) {
         OrderServiceModel order = new OrderServiceModel();
+        order.setUser(userRepository.findByUsername(username).get());
+        order.setOrderStatus(OrderStatusEnum.IN_PROCESS);
+        order.setPrice(BigDecimal.ZERO);
+        order.setOrderTime(null);
+        order.setDescription("");
         order.setProducts(new ArrayList<>());
         currentUser.setId(id);
         currentUser.setUsername(username);
