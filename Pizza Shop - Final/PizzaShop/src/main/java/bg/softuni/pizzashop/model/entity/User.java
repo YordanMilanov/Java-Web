@@ -27,6 +27,9 @@ public class User extends BaseEntity{
     @Column
     private String email;
 
+    @Column
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     private UserLevelEnum level;
 

@@ -23,6 +23,9 @@ public class UserRegisterBindingModel {
     @Size(min = 5, max = 50)
     private String email;
 
+    @Size(min = 5, max = 20)
+    private String phone;
+
     @Size(min = 5)
     private String password;
 

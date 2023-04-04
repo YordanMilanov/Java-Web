@@ -77,5 +77,6 @@ public class UserServiceImpl implements UserService {
         currentUser.setRoles(roles);
         currentUser.setLevel(level);
         currentUser.setCurrentOrder(order);
+        currentUser.setUser(userRepository.findByUsername(username).get());
     }
 }

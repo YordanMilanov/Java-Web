@@ -35,6 +35,10 @@
                 <td th:text="${p.price} + '$'">Product Price</td>
                 <td><a th:href="@{'/order/remove/' + ${p.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Remove item</a></td>
             </tr>
+
+            <tr>
+                <th colspan="6" class="text-center"><a th:href="@{'/order'}"  type="button" class="btn btn-success btn-sm w-50 h-25">Finish Order</a></th>
+            </tr>
             </tbody>
         </table>
     </div>

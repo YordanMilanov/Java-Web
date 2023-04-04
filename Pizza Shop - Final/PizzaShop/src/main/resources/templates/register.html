@@ -24,7 +24,7 @@
                        id="form3Example1"
                        class="form-control"
                        aria-describedby="usernameErrorLine"
-                       placeholder="Username"/>
+                       placeholder="username"/>
 
                 <small id="usernameErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
@@ -44,6 +44,23 @@
                        placeholder="fullName"/>
 
                 <small id="fullNameErrorLine"
+                       class="invalid-feedback bg-danger text-light rounded">
+                    Full name length must be between 5 and 50 characters.
+                </small>
+            </div>
+
+            <!-- phone number input-->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example6">Phone Number</label>
+                <input th:field="*{phone}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       id="form3Example6"
+                       class="form-control"
+                       aria-describedby="PhoneErrorLine"
+                       placeholder="phone"/>
+
+                <small id="PhoneErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Full name length must be between 5 and 50 characters.
                 </small>

@@ -25,20 +25,20 @@ INSERT INTO addresses (id, city, neighborhood, street, street_number)
 VALUES(5,'City','Center','street', 5);
 
 -- some test users
-INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (1, 'manager', 'manager', 'mr.Manager', 'manager@abv.bg', 'EMPLOYEE', 1);
+INSERT INTO users (id, username, password, full_name, email, level, `address_id`, phone)
+VALUES (1, 'manager', 'manager', 'mr.Manager', 'manager@abv.bg', 'EMPLOYEE', 1, '+359-000-000-001');
 
-INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (2,'staff', 'staff', 'mr.Staff', 'staff@abv.bg', 'EMPLOYEE', 2);
+INSERT INTO users (id, username, password, full_name, email, level, `address_id`, phone)
+VALUES (2,'staff', 'staff', 'mr.Staff', 'staff@abv.bg', 'EMPLOYEE', 2, '+359-000-000-002');
 
-INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (3,'customer-new', 'customer-new', 'mr.Customer-new', 'customer-new@abv.bg', 'NEW', 3);
+INSERT INTO users (id, username, password, full_name, email, level, `address_id`, phone)
+VALUES (3,'customer-new', 'customer-new', 'mr.Customer-new', 'customer-new@abv.bg', 'NEW', 3, '+359-000-000-003');
 
-INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (4,'customer-regular', 'customer-regular', 'mr.Customer-regular', 'customer-regular@abv.bg', 'REGULAR', 4);
+INSERT INTO users (id, username, password, full_name, email, level, `address_id`, phone)
+VALUES (4,'customer-regular', 'customer-regular', 'mr.Customer-regular', 'customer-regular@abv.bg', 'REGULAR', 4, '+359-000-000-004');
 
-INSERT INTO users (id, username, password, full_name, email, level, `address_id`)
-VALUES (5,'customer-vip', 'customer-vip', 'mr.Customer-vip', 'customer-vip@abv.bg', 'VIP', 5);
+INSERT INTO users (id, username, password, full_name, email, level, `address_id`, phone)
+VALUES (5,'customer-vip', 'customer-vip', 'mr.Customer-vip', 'customer-vip@abv.bg', 'VIP', 5, '+359-000-000-005');
 
 -- user roles
 
