@@ -12,75 +12,55 @@
 
     <div class="container">
         <div class="row">
+
+            <!--static products-->
             <div class="col-4">
                 <div class="card">
-                    <img src="/images/test-pizza.jfif" class="card-img-top" alt="Image title">
+                    <img src="/images/menu-items/pizza/Cheese-And-Tomato.jpg" class="card-img-top" alt="Image title">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Cheese & Tomato</h5>
+                        <p class="card-text">Pizza sauce and Mozzarella</p>
+                        <a href="#" class="btn btn-primary">Add to cart</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-4">
                 <div class="card">
-                    <img src="/images/test2-pizza.jfif" class="card-img-top" alt="Title image">
+                    <img src="/images/menu-items/pizza/Four-Cheese.jpg" class="card-img-top" alt="Title image">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Four cheese</h5>
+                        <p class="card-text">Pizza sauce, Mozzarella, Matured, Gouda</p>
+                        <a href="#" class="btn btn-primary">Add to cart</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-4">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="/images/menu-items/pizza/Garden-Party.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Garden Party</h5>
+                        <p class="card-text">Pizza sauce, Mozzarella, Mushrooms, Green Bell Pepper, Red Onions,
+                            Sweetcorn and Fresh Tomatoes</p>
+                        <a href="#" class="btn btn-primary">Add to cart</a>
                     </div>
                 </div>
             </div>
 
+            <!--dynamic product with thymeleaf-->
             <div class="col-4">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                <div class="card" th:each="p : ${allPizza}">
+                    <img th:src="${'data:image/jpeg;base64,' + ${p.picture.data}}" class="card-img-top" alt="Pizza Image">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title" th:text="${p.name}"></h5>
+                        <p class="card-text" th:text="${p.description}"></p>
+                        <a href="#" class="btn btn-primary">Add to cart</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-4">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
         </div>
-
-
-
-    </div>
 </main>
 
 <footer th:replace="fragments/commons::footer"></footer>

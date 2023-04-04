@@ -20,8 +20,8 @@
               th:object="${productIngredientsAddBindingModel}">
 
             <h3 class="text-center" th:text="'Add ' + ${product.name} + ' ingredients'"> Add product Ingredients</h3>
-            <div class="">
-                <div class="bg-black">
+            <div class="row justify-content-center mx-auto col-6 mt-2">
+                <div class="bg-transparent">
                     <img th:src="${'data:image/jpeg;base64,' + image}" alt="Image" />
                     <div class="">
                         <h5 class="card-title" th:text="${product.name}"></h5>
@@ -30,10 +30,12 @@
                 </div>
             </div>
 
-            <div id="ingredientInputs" class="justify-content-center">
+            <hr>
+
+            <div id="ingredientInputs" class="container">
                 <div id="ingredientNames" class="mt-2">
                     <div class="form-group">
-                        <label for="inputIngredientName" class="col-form-label ">Ingredient Name</label>
+                        <label for="inputIngredientName" class="col-form-label">Ingredient Name</label>
                         <select th:field="*{ingredientName}"
                                 th:errorclass="'is-invalid bg-danger'"
                                 id="inputIngredientName"
@@ -49,7 +51,7 @@
                     </div>
                 </div>
 
-                <div id="ingredientGrams" class="mt-2 w-50">
+                <div id="ingredientGrams" class="mt-2 w-25">
                     <div class="form-group">
                         <label for="inputIngredientGram" class="col-form-label">Ingredient grams</label>
                     </div>

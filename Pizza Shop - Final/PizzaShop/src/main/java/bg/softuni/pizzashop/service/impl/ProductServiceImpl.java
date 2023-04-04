@@ -2,6 +2,7 @@ package bg.softuni.pizzashop.service.impl;
 
 import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.Product;
+import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
 import bg.softuni.pizzashop.repository.IngredientRepository;
 import bg.softuni.pizzashop.repository.ProductRepository;
@@ -13,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -65,11 +68,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void UpdateIngredientToProductById(Long id,String ingredientName,Integer ingredientGrams) {
+    public void UpdateIngredientToProductById(Long id, String ingredientName, Integer ingredientGrams) {
         Product product = productRepository.findById(id).get();
         Ingredient ingredient = ingredientRepository.findByName(ingredientName).orElse(null);
 
         product.getRequiredProducts().put(ingredient, ingredientGrams);
         productRepository.save(product);
+    }
+
+    @Override
+    public List<ProductServiceModel> allProductsByType(ProductTypeEnum productTypeEnum) {
+        return productRepository.findAllByProductTypeEnumOrderById(productTypeEnum).get()
+                .stream()
+                .map(product -> modelMapper.map(product, ProductServiceModel.class))
+                .collect(Collectors.toList());
     }
 }
