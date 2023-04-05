@@ -31,7 +31,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         ingredientToSave.setCalories(ingredientToSave.getProtein() * 4 + ingredientToSave.getFat() * 9  + ingredientToSave.getCarbohydrates() * 4);
 
-        return modelMapper.map(ingredientRepository.save(ingredientToSave), IngredientServiceModel.class);
+       return modelMapper.map(ingredientRepository.save(ingredientToSave), IngredientServiceModel.class);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class IngredientController {
             redirectAttributes.addFlashAttribute("ingredientAddBindingModel", ingredientAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.ingredientAddBindingModel", bindingResult);
 
-            return "redirect:/ingredient/add";
+           return "redirect:/ingredient/add";
         }
 
         ingredientService.saveIngredient(modelMapper.map(ingredientAddBindingModel, IngredientServiceModel.class));

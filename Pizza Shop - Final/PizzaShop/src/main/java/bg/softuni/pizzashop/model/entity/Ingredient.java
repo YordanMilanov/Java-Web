@@ -19,10 +19,10 @@ public class Ingredient extends BaseEntity{
     private String name;
 
     @Column(precision = 19, scale = 2)
-    private BigDecimal price;
+    private double price;
 
     @Column(precision = 19, scale = 3)
-    private BigDecimal stockInKg;
+    private double stockInKg;
 
     @Column
     private int carbohydrates;

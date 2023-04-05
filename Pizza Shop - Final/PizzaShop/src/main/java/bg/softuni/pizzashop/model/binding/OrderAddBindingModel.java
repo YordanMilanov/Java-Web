@@ -4,6 +4,7 @@ import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,4 @@ public class OrderAddBindingModel {
     private LocalDateTime orderTime;
 
     private List<Product> products;
-
-    private User user;
 }

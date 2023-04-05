@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -66,12 +67,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level) {
         OrderServiceModel order = new OrderServiceModel();
-        order.setUser(userRepository.findByUsername(username).get());
         order.setOrderStatus(OrderStatusEnum.IN_PROCESS);
         order.setPrice(BigDecimal.ZERO);
         order.setOrderTime(null);
         order.setDescription("");
         order.setProducts(new ArrayList<>());
+        order.setProductNameQuantity(new HashMap<>());
+        User user = userRepository.findByUsername(username).get();
+        order.setUser(user);
         currentUser.setId(id);
         currentUser.setUsername(username);
         currentUser.setRoles(roles);

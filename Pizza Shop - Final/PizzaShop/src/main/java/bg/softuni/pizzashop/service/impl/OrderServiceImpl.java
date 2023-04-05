@@ -13,8 +13,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -44,6 +48,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ProductServiceModel addToCart(Long id) {
         Product product = productRepository.findById(id).get();
+        if (currentUser.getCurrentOrder().getProductNameQuantity().containsKey(product.getName())) {
+            Integer quantity = currentUser.getCurrentOrder().getProductNameQuantity().get(product.getName()) + 1;
+            currentUser.getCurrentOrder().getProductNameQuantity().put(product.getName(), quantity);
+        } else {
+            currentUser.getCurrentOrder().getProductNameQuantity().put(product.getName(), 1);
+        }
         currentUser.getCurrentOrder().getProducts().add(product);
         return modelMapper.map(productRepository.findById(id).get(), ProductServiceModel.class);
     }
@@ -53,9 +63,10 @@ public class OrderServiceImpl implements OrderService {
         //list of user products
         List<Product> userProducts = currentUser.getCurrentOrder().getProducts();
 
-        //new instance of product
+        //new instance of product which we will use to keep the product which we want to remove
         Product productToRemove = null;
 
+        //find the product which we want to remove
         for (Product product : userProducts) {
             if (product.getId() == id) {
                 // set the product to remove
@@ -64,9 +75,19 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
+        //iterate over the list and map to remove the product from the list and reduce the quantity by one in the map of the same product
         for (int i = userProducts.size() - 1; i >= 0; i--) {
             if (userProducts.get(i).getId() == productToRemove.getId()) {
-                userProducts.remove(i);
+                String name = userProducts.remove(i).getName();
+
+                for (Map.Entry<String, Integer> entry : currentUser.getCurrentOrder().getProductNameQuantity().entrySet()) {
+                    if(entry.getKey().equals(name)) {
+                        currentUser.getCurrentOrder().getProductNameQuantity().put(entry.getKey(), entry.getValue() - 1);
+                        break;
+                    }
+                }
+
+                currentUser.setOrderSum(currentUser.getOrderSum() - productToRemove.getPrice());
                 break;
             }
         }
@@ -74,9 +95,34 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addOrder(OrderServiceModel currentOrder) {
-        Order orderToSave = modelMapper.map(currentOrder, Order.class);
+        Order orderToSave = modelMapper.map(currentUser.getCurrentOrder(), Order.class);
+        orderToSave.setProductQuantity(new HashMap<>());
         orderToSave.setOrderTime(LocalDateTime.now());
         orderToSave.setOrderStatus(OrderStatusEnum.IN_PROCESS);
-        orderRepository.save(orderToSave);
+
+        for (Map.Entry<String, Integer> entry : currentOrder.getProductNameQuantity().entrySet()) {
+            Product product = productRepository.findProductByName(entry.getKey()).get();
+            orderToSave.getProductQuantity().put(product, entry.getValue());
+        }
+
+
+        double total = 0;
+        for (Product product : currentUser.getCurrentOrder().getProducts()) {
+            total += product.getPrice();
+        }
+
+
+        orderToSave.setPrice(total);
+        orderRepository.saveAndFlush(orderToSave);
+    }
+
+    @Override
+    public double OrderTotalSum(OrderServiceModel currentOrder) {
+        double totalSum = 0;
+        for (Map.Entry<String, Integer> entry : currentOrder.getProductNameQuantity().entrySet()) {
+            double productPrice = productRepository.findProductByName(entry.getKey()).get().getPrice();
+            totalSum += productPrice * entry.getValue();
+        }
+        return totalSum;
     }
 }

@@ -11,11 +11,14 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class OrderServiceModel {
+
+    private Long id;
 
     private OrderStatusEnum orderStatus;
 
@@ -26,6 +29,8 @@ public class OrderServiceModel {
     private LocalDateTime orderTime;
 
     private List<Product> products;
+
+    private Map<String, Integer> productNameQuantity;
 
     private User user;
 }

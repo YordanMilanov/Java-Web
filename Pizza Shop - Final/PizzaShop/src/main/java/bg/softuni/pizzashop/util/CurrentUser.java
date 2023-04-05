@@ -28,6 +28,8 @@ public class CurrentUser {
 
     private UserLevelEnum level;
 
+    private double orderSum;
+
     private OrderServiceModel currentOrder;
 
     private User user;

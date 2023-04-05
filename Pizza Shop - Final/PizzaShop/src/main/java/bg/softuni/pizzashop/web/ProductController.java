@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addProductConfirm(@Valid ProductAddBindingModel productAddBindingModel,
+   public String addProductConfirm(@Valid ProductAddBindingModel productAddBindingModel,
                                     BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) throws IOException {
 
@@ -81,7 +81,7 @@ public class ProductController {
 
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("productIngredientsAddBindingModel", productIngredientsAddBindingModel);
+           redirectAttributes.addFlashAttribute("productIngredientsAddBindingModel", productIngredientsAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productIngredientsAddBindingModel", bindingResult);
             return "redirect:/product/add/ingredients/" + id.toString();
         }

@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE UPPER(p.productTypeEnum) = UPPER(:productTypeEnum)")
     Optional<List<Product>> findAllByProductTypeEnumOrderById(@Param("productTypeEnum") String productTypeEnum);
+
+    Optional<Product> findProductByName(String name);
 }
