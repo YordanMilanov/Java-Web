@@ -17,13 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderAddBindingModel {
 
-    @Enumerated(EnumType.STRING)
     private OrderStatusEnum orderStatus;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(precision = 19, scale = 2)
     private BigDecimal price;
 
     private LocalDateTime orderTime;

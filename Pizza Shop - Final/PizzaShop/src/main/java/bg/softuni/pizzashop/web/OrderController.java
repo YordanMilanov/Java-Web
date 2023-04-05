@@ -1,13 +1,12 @@
 package bg.softuni.pizzashop.web;
 
+import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import bg.softuni.pizzashop.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/order")
@@ -49,5 +48,18 @@ public class OrderController {
     @GetMapping("/completed")
     public String orderCompleted() {
         return "order-staff-completed";
+    }
+
+    @PostMapping("/")
+    public String orderConfirm(OrderAddBindingModel orderAddBindingModel) {
+
+        orderService.addOrder();
+
+        return "index";
+    }
+
+    @ModelAttribute
+    public OrderAddBindingModel orderAddBindingModel() {
+        return new OrderAddBindingModel();
     }
 }

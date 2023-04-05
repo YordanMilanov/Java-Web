@@ -11,4 +11,6 @@ public interface OrderService {
     ProductServiceModel addToCart(Long id);
 
     void removeItemFromCart(Long id);
+
+    void addOrder(OrderServiceModel currentOrder);
 }

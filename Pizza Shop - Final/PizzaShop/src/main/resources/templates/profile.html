@@ -12,8 +12,7 @@
         <div class="main-body">
 
             <div id="profile-card"
-                 class="card mb-3"
-                 th:object="${currentUser}">
+                 class="card mb-3">
 
                 <div class="card-body">
                     <h1>Profile Settings</h1>
@@ -22,7 +21,7 @@
                             <h6 class="mb-0">Username</h6>
                         </div>
                         <div class="col-sm-8 text-secondary"
-                             th:text="*{username}">
+                             th:text="${currentUser.username}">
                             Kenneth Valdez
                         </div>
                     </div>
@@ -33,7 +32,7 @@
                             <h6 class="mb-0">Full Name</h6>
                         </div>
                         <div class="col-sm-8 text-secondary"
-                             th:text="*{user.fullName}">
+                             th:text="${currentUser.user.fullName}">
                             Full Name
                         </div>
                     </div>
@@ -43,7 +42,7 @@
                         <div class="col-sm-4">
                             <h6 class="mb-0">Mobile number</h6>
                         </div>
-                        <div class="col-sm-8 text-secondary" th:text="*{user.phone}">
+                        <div class="col-sm-8 text-secondary" th:text="${currentUser.user.phone}">
                             Phone number
                         </div>
                     </div>
@@ -53,7 +52,7 @@
                         <div class="col-sm-4">
                             <h6 class="mb-0">Email</h6>
                         </div>
-                        <div class="col-sm-8 text-secondary" th:text="*{user.email}">
+                        <div class="col-sm-8 text-secondary" th:text="${currentUser.user.email}">
                             email
                         </div>
                     </div>
@@ -63,29 +62,30 @@
                         <div class="col-sm-4">
                             <h6 class="mb-0">Role</h6>
                         </div>
-                        <th:block th:with="userRoles=${#strings.arrayToDelimitedString(user.roles.![toString()], ', ')}">
-                            <div class="col-sm-8 text-secondary" th:text="${userRoles}"></div>
-                        </th:block>
-                </div>
-                <hr>
+                        <div class="col-sm-8 text-secondary"
+                             th:each="r : ${currentUser.user.roles}"
+                             th:text="${r.getRole().toString()}">
+                        </div>
+                    </div>
+                    <hr>
 
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h6 class="mb-0">Address</h6>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0">Address</h6>
+                        </div>
+                        <div class="col-sm-8 text-secondary" th:text="${currentUser.user.address.id}">
+                            Bay Area, San Francisco, CA
+                        </div>
                     </div>
-                    <div class="col-sm-8 text-secondary" th:text="*{user.address}">
-                        Bay Area, San Francisco, CA
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button type="button" class="btn btn-danger">Edit Profile</button>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-danger">Edit Profile</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </div>
     </div>
