@@ -1,6 +1,7 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
+import bg.softuni.pizzashop.model.service.OrderServiceModel;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import bg.softuni.pizzashop.util.CurrentUser;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/order")
@@ -64,7 +66,6 @@ public class OrderController {
     public String orderConfirm() {
 
       orderService.addOrder(currentUser.getCurrentOrder());
-      currentUser.getCurrentOrder().setProducts(new ArrayList<>());
         return "order-user-cart";
     }
 

@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,6 +82,9 @@ public class OrderServiceImpl implements OrderService {
                 for (Map.Entry<String, Integer> entry : currentUser.getCurrentOrder().getProductNameQuantity().entrySet()) {
                     if(entry.getKey().equals(name)) {
                         currentUser.getCurrentOrder().getProductNameQuantity().put(entry.getKey(), entry.getValue() - 1);
+                        if(currentUser.getCurrentOrder().getProductNameQuantity().get(entry.getKey()) <= 0) {
+                            currentUser.getCurrentOrder().getProductNameQuantity().remove(entry.getKey());
+                        }
                         break;
                     }
                 }
@@ -101,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
         orderToSave.setOrderStatus(OrderStatusEnum.IN_PROCESS);
 
         for (Map.Entry<String, Integer> entry : currentOrder.getProductNameQuantity().entrySet()) {
-            Product product = productRepository.findProductByName(entry.getKey()).get();
+            Product product = productRepository.findByName(entry.getKey()).get();
             orderToSave.getProductQuantity().put(product, entry.getValue());
         }
 
@@ -113,14 +115,20 @@ public class OrderServiceImpl implements OrderService {
 
 
         orderToSave.setPrice(total);
-        orderRepository.saveAndFlush(orderToSave);
+        orderRepository.save(orderToSave);
+        currentOrder.setProducts(new ArrayList<>());
+        currentOrder.setProductNameQuantity(new HashMap<>());
+        currentOrder.setDescription(null);
+        currentOrder.setOrderTime(null);
+        currentOrder.setPrice(null);
+        currentUser.setCurrentOrder(currentOrder);
     }
 
     @Override
     public double OrderTotalSum(OrderServiceModel currentOrder) {
         double totalSum = 0;
         for (Map.Entry<String, Integer> entry : currentOrder.getProductNameQuantity().entrySet()) {
-            double productPrice = productRepository.findProductByName(entry.getKey()).get().getPrice();
+            double productPrice = productRepository.findByName(entry.getKey()).get().getPrice();
             totalSum += productPrice * entry.getValue();
         }
         return totalSum;
