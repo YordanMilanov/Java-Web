@@ -35,12 +35,12 @@
                 </td>
                 <td th:text="${p.grams} + 'g/ml'">Product Grams</td>
                 <td th:text="${#numbers.formatDecimal(p.price,1,2,'POINT')} + '$'">Product Price</td>
-                <td><a th:href="@{'/order/remove/' + ${p.id}}" type="button"
+                <td><a th:href="@{'/order/cart/remove/' + ${p.id}}" type="button"
                        class="btn btn-danger btn-sm w-100 h-25">Remove
                     item</a></td>
             </tr>
 
-            <form th:action="@{/order}"
+            <form th:action="@{/order/cart}"
                   th:method="POST">
             <tr>
                 <!-- phone number input-->

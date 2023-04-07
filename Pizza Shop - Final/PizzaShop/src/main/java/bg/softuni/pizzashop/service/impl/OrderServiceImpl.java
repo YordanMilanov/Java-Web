@@ -5,6 +5,7 @@ import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
 import bg.softuni.pizzashop.model.service.OrderServiceModel;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
+import bg.softuni.pizzashop.model.view.OrderViewModel;
 import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -36,12 +38,6 @@ public class OrderServiceImpl implements OrderService {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
         this.currentUser = currentUser;
-    }
-
-
-    @Override
-    public List<OrderServiceModel> allOrders() {
-        return null;
     }
 
     @Override
@@ -80,9 +76,9 @@ public class OrderServiceImpl implements OrderService {
                 String name = userProducts.remove(i).getName();
 
                 for (Map.Entry<String, Integer> entry : currentUser.getCurrentOrder().getProductNameQuantity().entrySet()) {
-                    if(entry.getKey().equals(name)) {
+                    if (entry.getKey().equals(name)) {
                         currentUser.getCurrentOrder().getProductNameQuantity().put(entry.getKey(), entry.getValue() - 1);
-                        if(currentUser.getCurrentOrder().getProductNameQuantity().get(entry.getKey()) <= 0) {
+                        if (currentUser.getCurrentOrder().getProductNameQuantity().get(entry.getKey()) <= 0) {
                             currentUser.getCurrentOrder().getProductNameQuantity().remove(entry.getKey());
                         }
                         break;
@@ -115,7 +111,9 @@ public class OrderServiceImpl implements OrderService {
 
 
         orderToSave.setPrice(total);
-        orderRepository.save(orderToSave);
+        if (currentUser.getUsername() != null) {
+            orderRepository.save(orderToSave);
+        }
         currentOrder.setProducts(new ArrayList<>());
         currentOrder.setProductNameQuantity(new HashMap<>());
         currentOrder.setDescription(null);
@@ -132,5 +130,18 @@ public class OrderServiceImpl implements OrderService {
             totalSum += productPrice * entry.getValue();
         }
         return totalSum;
+    }
+
+    @Override
+    public List<OrderViewModel> allOrdersByOrderStatus(OrderStatusEnum orderStatusEnum) {
+        return orderRepository.findAllByOrderStatus(orderStatusEnum).get()
+                .stream()
+                .map(o -> modelMapper.map(o, OrderViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderViewModel findByIdViewModel(Long id) {
+        return modelMapper.map(orderRepository.findById(id).get(), OrderViewModel.class);
     }
 }

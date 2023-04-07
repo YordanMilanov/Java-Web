@@ -1,20 +1,19 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
-import bg.softuni.pizzashop.model.service.OrderServiceModel;
+import bg.softuni.pizzashop.model.entity.Product;
+import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
+import bg.softuni.pizzashop.model.view.OrderViewModel;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import bg.softuni.pizzashop.util.CurrentUser;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/order")
@@ -30,8 +29,8 @@ public class OrderController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("")
-    public String order(Model model) {
+    @GetMapping("/cart")
+    public String orderCart(Model model) {
         if(currentUser.getId() == null) {
             return "redirect:/users/login";
         }
@@ -43,18 +42,18 @@ public class OrderController {
         return "order-user-cart";
     }
 
-    @GetMapping("/remove/{id}")
-    public String order(@PathVariable(name = "id")Long id, Model model) {
+    @GetMapping("cart/remove/{id}")
+    public String orderCart(@PathVariable(name = "id")Long id) {
 
        orderService.removeItemFromCart(id);
 
-        return "redirect:/order";
+        return "redirect:/order/cart";
     }
 
     @GetMapping("/active")
     public String orderActive(Model model) {
+       model.addAttribute("allOrders", orderService.allOrdersByOrderStatus(OrderStatusEnum.IN_PROCESS));
         return "order-staff-active";
-       // model.addAttribute("allOrders", orderService.allOrders());
     }
 
     @GetMapping("/completed")
@@ -62,11 +61,21 @@ public class OrderController {
         return "order-staff-completed";
     }
 
-    @PostMapping("")
+    @PostMapping("/cart")
     public String orderConfirm() {
-
       orderService.addOrder(currentUser.getCurrentOrder());
-        return "order-user-cart";
+        return "redirect:/order/cart";
+    }
+
+    @GetMapping("/view/{id}")
+    public String orderView(@PathVariable(name = "id")Long id, Model model) {
+        //sort the products by id
+        OrderViewModel orderView = orderService.findByIdViewModel(id);
+        Map<Product, Integer> sortedMap = new TreeMap<>(Comparator.comparing(Product::getId));
+        sortedMap.putAll(orderView.getProductQuantity());
+        orderView.setProductQuantity(sortedMap);
+        model.addAttribute("order", orderView);
+        return "order-view";
     }
 
     @ModelAttribute
