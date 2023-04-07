@@ -36,6 +36,7 @@ public class OrderController {
         }
         double totalSum = orderService.OrderTotalSum(currentUser.getCurrentOrder());
         currentUser.setOrderSum(totalSum);
+       currentUser.getCurrentOrder().getProducts().sort(Comparator.comparing(Product::getId));
 
         model.addAttribute("OrderTotalSum", String.format("%.2f", currentUser.getOrderSum()));
         model.addAttribute("currentUser", currentUser);
@@ -71,11 +72,16 @@ public class OrderController {
     public String orderView(@PathVariable(name = "id")Long id, Model model) {
         //sort the products by id
         OrderViewModel orderView = orderService.findByIdViewModel(id);
-        Map<Product, Integer> sortedMap = new TreeMap<>(Comparator.comparing(Product::getId));
-        sortedMap.putAll(orderView.getProductQuantity());
-        orderView.setProductQuantity(sortedMap);
+        orderService.sortProductsInOrder(orderView);
         model.addAttribute("order", orderView);
         return "order-view";
+    }
+
+    @GetMapping("active/finish/{id}")
+    public String finishOrder(@PathVariable(name = "id")Long id) {
+        orderService.finishOrder(orderService.findById(id));
+
+        return "redirect:/order/active";
     }
 
     @ModelAttribute

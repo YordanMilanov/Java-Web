@@ -35,7 +35,7 @@
                     <a th:href="@{'/order/view/' + ${o.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Go to order</a>
                 </td>
                 <td class="col-1">
-                    <button type="button" class="btn btn-success btn-sm w-100 h-25">Finish order</button>
+                    <a th:href="@{'/order/active/finish/' + ${o.id}}"  type="button" class="btn btn-success btn-sm w-100 h-25">Finish Order</a>
                 </td>
             </tr>
             </tbody>

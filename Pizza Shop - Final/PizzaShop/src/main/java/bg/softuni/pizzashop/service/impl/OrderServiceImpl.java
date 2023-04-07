@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -144,4 +141,24 @@ public class OrderServiceImpl implements OrderService {
     public OrderViewModel findByIdViewModel(Long id) {
         return modelMapper.map(orderRepository.findById(id).get(), OrderViewModel.class);
     }
+
+    @Override
+    public void sortProductsInOrder(OrderViewModel orderView) {
+        Map<Product, Integer> sortedMap = new TreeMap<>(Comparator.comparing(Product::getId));
+        sortedMap.putAll(orderView.getProductQuantity());
+        orderView.setProductQuantity(sortedMap);
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return orderRepository.findById(id).get();
+    }
+
+    @Override
+    public void finishOrder(Order byId) {
+        byId.setOrderStatus(OrderStatusEnum.FINISHED);
+        orderRepository.save(byId);
+    }
+
+
 }
