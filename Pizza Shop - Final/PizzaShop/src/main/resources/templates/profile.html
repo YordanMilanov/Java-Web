@@ -58,13 +58,12 @@
                     </div>
                     <hr>
 
-                    <div class="row">
+                    <div class="row" th:each="r : ${currentUser.user.roles}">
                         <div class="col-sm-4">
                             <h6 class="mb-0">Role</h6>
                         </div>
-                        <div class="col-sm-8 text-secondary"
-                             th:each="r : ${currentUser.user.roles}"
-                             th:text="${r.getRole().toString()}">
+                        <div class="col-sm-8 justify-content-right text-center text-secondary">
+                            <div th:text="${r.getRole().toString()}"></div>
                         </div>
                     </div>
                     <hr>
