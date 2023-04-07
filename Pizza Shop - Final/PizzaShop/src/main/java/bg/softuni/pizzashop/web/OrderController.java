@@ -58,7 +58,8 @@ public class OrderController {
     }
 
     @GetMapping("/completed")
-    public String orderCompleted() {
+    public String orderCompleted(Model model) {
+        model.addAttribute("allOrders", orderService.allOrdersByOrderStatus(OrderStatusEnum.FINISHED));
         return "order-staff-completed";
     }
 
