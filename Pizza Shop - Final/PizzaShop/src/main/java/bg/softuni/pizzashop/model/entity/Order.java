@@ -25,7 +25,8 @@ public class Order extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(precision = 19, scale = 2)
+//    @Column(precision = 19, scale = 2)
+    @Column
     private double price;
 
     @Column

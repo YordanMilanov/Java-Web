@@ -7,53 +7,47 @@
 <body>
 <header th:replace="fragments/commons::nav"></header>
 
-<main class="wood-background">
-  <div class="justify-content-center">
-    <table id="table-active" class="table table-bordered table-dark w-50 mx-auto my-5">
-      <thead>
+  <main class="wood-background">
 
-      <tr>
-        <th colspan="4" class="text-center">Basket</th>
-      </tr>
+    <div class="justify-content-center">
+      <table id="table-active" class="table table-bordered table-dark w-75 mx-auto my-5 text-center">
+        <thead>
+        <tr>
+          <th colspan="8">All Users</th>
+        </tr>
+        <tr>
+          <th class="col-1">User ID</th>
+          <th class="col-1">Username</th>
+          <th class="col-2">Full Name</th>
+          <th class="col-3">Email</th>
+          <th class="col-3">Phone</th>
+          <th class="col-1">Level</th>
+          <th class="col-1">Address</th>
+          <th class="col-2">Delete user</th>
+        </tr>
+        </thead>
 
-      <tr>
-        <th class="col-1">Item ID</th>
-        <th class="col-3">Type</th>
-        <th class="col-3">Product Name</th>
-        <th class="col-1">Quantity</th>
-      </tr>
-      </thead>
-      <tbody>
+        <tbody>
+        <tr th:each="u : ${allUsers}">
+          <th th:text="${u.id}" scope="row">Order ID</th>
+          <td th:text="${u.username}">Username</td>
+          <td th:text="${u.fullName}">Full Name</td>
+          <td th:text="${u.email}">Email</td>
+          <td th:text="${u.phone}">Phone</td>
+          <td th:text="${u.level}">Level</td>
+          <td class="col-1">
+            <a th:href="@{'/order/view/' + ${u.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">User address</a>
+          </td>
+          <td class="col-1">
+            <a th:href="@{'/users/delete/' + ${u.id}}"  type="button" class="btn btn-success btn-sm w-100 h-25">Delete user</a>
+          </td>
+        </tr>
+        </tbody>
 
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
+      </table>
+    </div>
 
-      </tbody>
-    </table>
-  </div>
-</main>
+  </main>
 
 <footer th:replace="fragments/commons::footer"></footer>
 <script th:replace="fragments/commons::script-bootstrap-bundle"></script>

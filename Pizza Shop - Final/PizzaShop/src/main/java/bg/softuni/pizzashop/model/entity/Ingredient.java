@@ -18,10 +18,12 @@ public class Ingredient extends BaseEntity{
     @Column
     private String name;
 
-    @Column(precision = 19, scale = 2)
+//    @Column(precision = 19, scale = 2)
+    @Column
     private double price;
 
-    @Column(precision = 19, scale = 3)
+//    @Column(precision = 19, scale = 3)
+    @Column
     private double stockInKg;
 
     @Column

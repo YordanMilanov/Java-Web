@@ -3,6 +3,7 @@ package bg.softuni.pizzashop.web;
 import bg.softuni.pizzashop.model.binding.UserLoginBindingModel;
 import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
+import bg.softuni.pizzashop.model.view.UserViewModel;
 import bg.softuni.pizzashop.util.CurrentUser;
 import bg.softuni.pizzashop.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -11,11 +12,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -105,12 +105,27 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/list")
+    public String userList(Model model) {
+        List<UserViewModel> allUsers = userService.getAll();
+        model.addAttribute("allUsers",allUsers);
+        return "list-user";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();
         currentUser.setId(null);
         return "redirect:/";
     }
+
+    @GetMapping("/delete/{id}")
+    public String userDelete(@PathVariable(name = "id")Long id) {
+        userService.deleteUser(id);
+        return "redirect:/users/list";
+    }
+
+
 
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {

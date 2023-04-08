@@ -7,6 +7,7 @@ import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.service.OrderServiceModel;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
+import bg.softuni.pizzashop.model.view.UserViewModel;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.util.CurrentUser;
@@ -16,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,5 +79,19 @@ public class UserServiceImpl implements UserService {
         currentUser.setLevel(level);
         currentUser.setCurrentOrder(order);
         currentUser.setUser(userRepository.findByUsername(username).get());
+    }
+
+    @Override
+    public List<UserViewModel> getAll() {
+        List<User> allUsers = userRepository.findAll();
+
+        List<UserViewModel> collect = allUsers.stream().map(user -> modelMapper.map(user, UserViewModel.class))
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }

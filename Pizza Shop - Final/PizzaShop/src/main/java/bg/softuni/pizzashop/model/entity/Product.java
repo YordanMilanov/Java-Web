@@ -22,7 +22,8 @@ public class Product extends BaseEntity {
     @Column
     private String name;
 
-    @Column(precision = 19, scale = 2)
+//    @Column(precision = 19, scale = 2)
+    @Column
     private double price;
 
     @Column(columnDefinition = "TEXT")

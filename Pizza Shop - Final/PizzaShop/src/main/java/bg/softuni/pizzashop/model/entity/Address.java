@@ -26,4 +26,9 @@ public class Address extends BaseEntity {
 
     @Column
     private int streetNumber;
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s",this.city, this.neighborhood, this.street, this.streetNumber);
+    }
 }
