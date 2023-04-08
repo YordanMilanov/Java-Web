@@ -6,6 +6,7 @@ import bg.softuni.pizzashop.service.IngredientService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,6 +49,12 @@ public class IngredientController {
         ingredientService.saveIngredient(modelMapper.map(ingredientAddBindingModel, IngredientServiceModel.class));
 
         return "redirect:/";
+    }
+
+    @GetMapping("/list")
+    public String ingredientList(Model model) {
+        model.addAttribute("allIngredient",ingredientService.findAll());
+        return "list-ingredient";
     }
 
     @ModelAttribute

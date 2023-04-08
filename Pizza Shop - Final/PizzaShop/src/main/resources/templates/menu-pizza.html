@@ -20,8 +20,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Cheese & Tomato</h5>
                         <p class="card-text">Pizza sauce and Mozzarella</p>
-                        <p class="grams">Grams: 450</p>
-                        <p class="price">Price: 10.50</p>
+                        <p class="grams">Grams: 450g.</p>
+                        <p class="price">Price: 10.00$</p>
                         <a href="/menu/pizza/1" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Four cheese</h5>
                         <p class="card-text">Pizza sauce, Mozzarella, Matured, Gouda</p>
-                        <p class="grams">Grams: 450</p>
-                        <p class="price">Price: 11.00</p>
+                        <p class="grams">Grams: 450g.</p>
+                        <p class="price">Price: 11.00$</p>
                         <a href="/menu/pizza/2" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                         <h5 class="card-title">Garden Party</h5>
                         <p class="card-text">Pizza sauce, Mozzarella, Mushrooms, Green Bell Pepper, Red Onions,
                             Sweetcorn and Fresh Tomatoes</p>
-                        <p class="grams">Grams: 450</p>
-                        <p class="price">Price: 12.00</p>
+                        <p class="grams">Grams: 450g.</p>
+                        <p class="price">Price: 12.00$</p>
                         <a href="/menu/pizza/3" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
@@ -64,8 +64,8 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${p.name}"></h5>
                         <p class="card-text" th:text="${p.description}"></p>
-                        <p class="grams" th:text="'Grams: ' + ${p.grams}">out of stock</p>
-                        <p class="price" th:text="'Price: ' + ${p.price}">out of stock</p>
+                        <p class="grams" th:text="'Grams: ' + ${p.grams} + 'g.'">out of stock</p>
+                        <p class="price" th:text="'Price: ' + ${p.price} + '$'">out of stock</p>
                         <a th:href="@{'/menu/pizza/' + ${p.id}}" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>

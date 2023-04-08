@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class IngredientServiceModel {
 
+    private Long id;
+
     private String name;
 
     private BigDecimal price;
