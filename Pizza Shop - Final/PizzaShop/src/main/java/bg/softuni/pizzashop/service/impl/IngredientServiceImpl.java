@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.service.impl;
 
+import bg.softuni.pizzashop.model.binding.IngredientRestockBindingModel;
 import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
 import bg.softuni.pizzashop.model.service.IngredientServiceModel;
@@ -38,5 +39,21 @@ public class IngredientServiceImpl implements IngredientService {
     public List<IngredientServiceModel> findAll() {
         List<Ingredient> ingredients = ingredientRepository.findAllMainIngredientsOrderByName(IngredientTypeEnum.MAIN);
         return ingredients.stream().map(ingredient -> modelMapper.map(ingredient, IngredientServiceModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateStock(IngredientRestockBindingModel ingredientRestockBindingModel) {
+        Ingredient ingredient = ingredientRepository.findByName(ingredientRestockBindingModel.getName()).get();
+        double stockInKg = ingredient.getStockInKg();
+        double toAdd = ingredientRestockBindingModel.getStockInKg().doubleValue();
+        double total = stockInKg + toAdd;
+        ingredient.setStockInKg(total);
+        ingredient.setPrice(ingredientRestockBindingModel.getPrice().doubleValue());
+        ingredientRepository.save(ingredient);
+    }
+
+    @Override
+    public IngredientServiceModel findById(Long id) {
+        return modelMapper.map(ingredientRepository.findById(id).get(), IngredientServiceModel.class);
     }
 }

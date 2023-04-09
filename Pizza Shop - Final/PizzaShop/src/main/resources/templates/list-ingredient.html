@@ -16,6 +16,9 @@
         <th colspan="10">All Ingredients</th>
       </tr>
       <tr>
+        <th colspan="10"><a th:href="@{'/ingredient/add'}"  type="button" class="btn btn-success btn-sm w-50 ">Add New Ingredient</a></th>
+      </tr>
+      <tr>
         <th class="col-1">ID</th>
         <th class="col-2">Name</th>
         <th class="col-1">Type</th>
@@ -38,9 +41,9 @@
         <td th:text="${i.carbohydrates}">Carb</td>
         <td th:text="${i.fat}">Fat</td>
         <td th:text="${i.calories}">Calories</td>
-        <td th:text="${#numbers.formatDecimal(i.stockInKg,1,2,'POINT')}">Price</td>
+        <td th:text="${#numbers.formatDecimal(i.price,1,2,'POINT')}">Price</td>
         <td th:text="${#numbers.formatDecimal(i.stockInKg,1,3,'POINT')}">Stock in kg</td>
-        <td><a href="/ingredient/add"  type="button" class="btn btn-danger btn-sm w-100 h-25">Restock</a>
+        <td><a th:href="@{'/ingredient/restock/' + ${i.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Restock</a>
         </td>
       </tr>
       </tbody>
