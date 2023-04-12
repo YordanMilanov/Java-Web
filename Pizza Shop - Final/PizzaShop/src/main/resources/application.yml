@@ -23,3 +23,8 @@ spring:
     sql:
         init:
             mode: never
+    security:
+        user:
+            name: "manager"
+            password: "manager"
+

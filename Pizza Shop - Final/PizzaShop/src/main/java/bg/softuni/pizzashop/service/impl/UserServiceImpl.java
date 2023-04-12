@@ -3,21 +3,25 @@ package bg.softuni.pizzashop.service.impl;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
-import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.service.OrderServiceModel;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.model.view.UserViewModel;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
-import bg.softuni.pizzashop.util.CurrentUser;
 import bg.softuni.pizzashop.service.UserService;
+import bg.softuni.pizzashop.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,29 +34,15 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
+   private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.currentUser = currentUser;
         this.roleRepository = roleRepository;
-    }
-
-    @Override
-    public UserServiceModel registerUser(UserServiceModel userServiceModel) {
-        User user = modelMapper.map(userServiceModel, User.class);
-
-        //make the first registered admin
-        if(userRepository.count() == 0) {
-            user.setRoles(roleRepository.findAll().stream().collect(Collectors.toSet()));
-            user.setLevel(UserLevelEnum.EMPLOYEE);
-        } else {
-            user.setRoles(new HashSet<>());
-            user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
-            user.setLevel(UserLevelEnum.REGULAR);
-        }
-
-        return modelMapper.map(userRepository.save(user), UserServiceModel.class);
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -62,24 +52,7 @@ public class UserServiceImpl implements UserService {
 //        return userRepository.findByUsernameAndPassword(username, password).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
 
-    @Override
-    public void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level) {
-        OrderServiceModel order = new OrderServiceModel();
-        order.setOrderStatus(OrderStatusEnum.IN_PROCESS);
-        order.setPrice(BigDecimal.ZERO);
-        order.setOrderTime(null);
-        order.setDescription("");
-        order.setProducts(new ArrayList<>());
-        order.setProductNameQuantity(new HashMap<>());
-        User user = userRepository.findByUsername(username).get();
-        order.setUser(user);
-        currentUser.setId(id);
-        currentUser.setUsername(username);
-        currentUser.setRoles(roles);
-        currentUser.setLevel(level);
-        currentUser.setCurrentOrder(order);
-        currentUser.setUser(userRepository.findByUsername(username).get());
-    }
+
 
     @Override
     public List<UserViewModel> getAll() {
@@ -89,6 +62,12 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
         return collect;
     }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not Found!"));
+    }
+
 
     @Override
     public void deleteUser(Long id) {

@@ -10,15 +10,27 @@
     <div class="register">
 
         <h1>Register Form</h1>
-
         <form th:action="@{/users/register}"
               th:method="POST"
               th:object="${userRegisterBindingModel}">
 
+            <h3 th:if="${emailIsNotEmpty == true}" class="mt-5 text-center">
+                <strong class="bg-danger rounded text-white">
+                   Email is already used.
+                </strong>
+            </h3>
+
+            <h3 th:if="${usernameIsNotEmpty == true}" class="mt-5 text-center">
+                <strong class="bg-danger rounded text-white">
+                    Username is already used.
+                </strong>
+            </h3>
+
             <!-- username input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example1">Username</label>
-                <input th:field="*{username}"
+                <input name="username"
+                       th:field="*{username}"
                        th:errorclass="is-invalid"
                        type="text"
                        id="form3Example1"
@@ -35,7 +47,8 @@
             <!-- fullName input-->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example2">Full Name</label>
-                <input th:field="*{fullName}"
+                <input name="fullName"
+                       th:field="*{fullName}"
                        th:errorclass="is-invalid"
                        type="text"
                        id="form3Example2"
@@ -52,7 +65,8 @@
             <!-- phone number input-->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example6">Phone Number</label>
-                <input th:field="*{phone}"
+                <input name="phone"
+                       th:field="*{phone}"
                        th:errorclass="is-invalid"
                        type="text"
                        id="form3Example6"
@@ -69,7 +83,8 @@
             <!-- Email input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example3">Email address</label>
-                <input th:field="*{email}"
+                <input name="email"
+                       th:field="*{email}"
                        th:errorclass="is-invalid"
                        type="email"
                        id="form3Example3"
@@ -86,7 +101,8 @@
             <!-- Password input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example4">Password</label>
-                <input th:field="*{password}"
+                <input name="password"
+                       th:field="*{password}"
                        th:errorclass="is-invalid"
                        type="password"
                        id="form3Example4"
@@ -103,7 +119,8 @@
             <!--Confirm Password input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example4">Confirm Password</label>
-                <input th:field="*{confirmPassword}"
+                <input name="confirmPassword"
+                       th:field="*{confirmPassword}"
                        th:errorclass="is-invalid"
                        type="password"
                        id="form3Example5"

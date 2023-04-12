@@ -11,41 +11,44 @@
         <h1>Login</h1>
 
         <form th:action="@{/users/login}"
-              th:method="POST"
-              th:object="${userLoginBindingModel}">
+              method="post">
+
+
 
             <!-- username input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example1">Username</label>
-                <input th:field="*{username}"
-                       th:errorclass="is-invalid"
+                <label class="form-label" for="inputUsername">Username</label>
+            </div>
+            <div class="form-outline mb-4">
+                <input name="username"
                        type="text"
-                       id="form3Example1"
+                       id="inputUsername"
                        class="form-control"
                        aria-describedby="usernameErrorLine"
                        placeholder="Username"/>
 
-                <small id="usernameErrorLine"
-                       class="invalid-feedback bg-danger text-light rounded">
-                    Username length must be between 5 and 20 characters.
-                </small>
+<!--                <small id="usernameErrorLine"-->
+<!--                       class="invalid-feedback bg-danger text-light rounded">-->
+<!--                    Username length must be between 5 and 20 characters.-->
+<!--                </small>-->
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example4">Password</label>
-                <input th:field="*{password}"
-                       th:errorclass="is-invalid"
+                <label class="form-label" for="inputPassword">Password</label>
+            </div>
+            <div class="form-outline mb-4">
+                <input name="password"
                        type="password"
-                       id="form3Example4"
+                       id="inputPassword"
                        class="form-control"
                        aria-describedby="passwordErrorLine"
                        placeholder="password"/>
 
-                <small id="passwordErrorLine"
-                       class="invalid-feedback bg-danger text-light rounded">
-                    Password must be longer than 5 characters.
-                </small>
+<!--                <small id="passwordErrorLine"-->
+<!--                       class="invalid-feedback bg-danger text-light rounded">-->
+<!--                    Password must be longer than 5 characters.-->
+<!--                </small>-->
             </div>
 
             <!-- Submit button -->

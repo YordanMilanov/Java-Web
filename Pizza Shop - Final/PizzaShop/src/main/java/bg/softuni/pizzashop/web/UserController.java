@@ -32,78 +32,40 @@ public class UserController {
         this.currentUser = currentUser;
     }
 
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-
-        if(!model.containsAttribute("isFound")) {
-            model.addAttribute("isFound", true);
-        }
-
-        return "login";
-    }
-
-    @PostMapping("/register")
-    public String RegisterConfirm(
-            @Valid UserRegisterBindingModel userRegisterBindingModel,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes) {
-
-        //check if the userRegisterBindingModel has any errors
-        if (bindingResult.hasErrors() ||
-                !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-
-            //redirect again to register
-            return "redirect:/users/register";
-        }
-
-        //save in db
-        userService.registerUser(modelMapper
-                .map(userRegisterBindingModel, UserServiceModel.class));
-
-        //after registration is completed redirect to log in
-        return "redirect:/users/login";
-    }
-
-    @PostMapping("/login")
-    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-
-        //has any errors with the input fields
-        if(bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-
-            //with redirect without "/" -> redirect:login it refers to method with name "login" in the controller not to the href /login
-            return "redirect:login";
-        }
-
-        UserServiceModel userServiceModel = userService
-                .findByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
-
-        //user not found
-        if (userServiceModel == null) {
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-            redirectAttributes.addFlashAttribute("isFound", false);
-
-            return "redirect:login";
-        }
 
 
-        //login successful -> login user
-        userService.loginUser(userServiceModel.getId(), userServiceModel.getUsername(), userServiceModel.getRoles(), userServiceModel.getLevel());
-
-
-        return "redirect:/";
-    }
+//    @PostMapping("/login")
+//    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
+//                               BindingResult bindingResult,
+//                               RedirectAttributes redirectAttributes) {
+//
+//        //has any errors with the input fields
+//        if(bindingResult.hasErrors()) {
+//            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+//            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+//
+//            //with redirect without "/" -> redirect:login it refers to method with name "login" in the controller not to the href /login
+//            return "redirect:login";
+//        }
+//
+//        UserServiceModel userServiceModel = userService
+//                .findByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+//
+//        //user not found
+//        if (userServiceModel == null) {
+//            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+//            redirectAttributes.addFlashAttribute("isFound", false);
+//
+//            return "redirect:login";
+//        }
+//
+//
+//        //login successful -> login user
+//        userService.loginUser(userServiceModel.getId(), userServiceModel.getUsername(), userServiceModel.getRoles(), userServiceModel.getLevel());
+//
+//
+//        return "redirect:/";
+//    }
 
     @GetMapping("/list")
     public String userList(Model model) {
@@ -112,28 +74,10 @@ public class UserController {
         return "list-user";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession httpSession) {
-        httpSession.invalidate();
-        currentUser.setId(null);
-        return "redirect:/";
-    }
 
     @GetMapping("/delete/{id}")
     public String userDelete(@PathVariable(name = "id")Long id) {
         userService.deleteUser(id);
         return "redirect:/users/list";
-    }
-
-
-
-    @ModelAttribute
-    public UserRegisterBindingModel userRegisterBindingModel() {
-        return new UserRegisterBindingModel();
-    }
-
-    @ModelAttribute
-    public UserLoginBindingModel userLoginBindingModel() {
-        return new UserLoginBindingModel();
     }
 }
