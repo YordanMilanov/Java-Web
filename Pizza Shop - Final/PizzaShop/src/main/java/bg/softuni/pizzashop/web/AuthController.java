@@ -1,12 +1,8 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
-import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.AuthService;
-import bg.softuni.pizzashop.util.CurrentUser;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/users")
 public class AuthController {
 
     private final ModelMapper modelMapper;
-    private final CurrentUser currentUser;
     private final AuthService authService;
 
     private final UserRepository userRepository;
 
-    public AuthController(ModelMapper modelMapper, CurrentUser currentUser, AuthService authService, UserRepository userRepository) {
+    public AuthController(ModelMapper modelMapper, AuthService authService, UserRepository userRepository) {
         this.modelMapper = modelMapper;
-        this.currentUser = currentUser;
         this.authService = authService;
         this.userRepository = userRepository;
     }
@@ -89,8 +85,7 @@ public class AuthController {
         }
 
         //save in db
-        authService.registerUser(modelMapper
-                .map(userRegisterBindingModel, UserServiceModel.class));
+        authService.registerUser(userRegisterBindingModel);
 
         //after registration is completed redirect to log in
         return "redirect:/users/login";
@@ -98,7 +93,6 @@ public class AuthController {
 
     @PostMapping("/logout")
     public String logout() {
-        currentUser.setId(null);
         return "redirect:/";
     }
 

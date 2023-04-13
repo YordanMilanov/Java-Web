@@ -1,38 +1,32 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
-import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
-import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.model.view.OrderViewModel;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import bg.softuni.pizzashop.service.ShoppingCartService;
 import bg.softuni.pizzashop.service.UserService;
-import bg.softuni.pizzashop.util.CurrentUser;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Comparator;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
 
     private final OrderService orderService;
-    private final CurrentUser currentUser;
     private final ProductRepository productRepository;
 
     private final UserService userService;
 
     private final ShoppingCartService shoppingCartService;
 
-    public OrderController(OrderService orderService, CurrentUser currentUser, ProductRepository productRepository, UserService userService, ShoppingCartService shoppingCartService) {
+    public OrderController(OrderService orderService, ProductRepository productRepository, UserService userService, ShoppingCartService shoppingCartService) {
         this.orderService = orderService;
-        this.currentUser = currentUser;
         this.productRepository = productRepository;
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;

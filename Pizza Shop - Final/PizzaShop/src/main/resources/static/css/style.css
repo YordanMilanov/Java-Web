@@ -158,6 +158,10 @@ footer p {
     border-style: solid;
 }
 
+.address-input {
+    width: 24%;
+}
+
 /*login */
 .login {
     text-align: center;

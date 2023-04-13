@@ -16,7 +16,7 @@
 
             <h3 th:if="${emailIsNotEmpty == true}" class="mt-5 text-center">
                 <strong class="bg-danger rounded text-white">
-                   Email is already used.
+                    Email is already used.
                 </strong>
             </h3>
 
@@ -64,12 +64,12 @@
 
             <!-- phone number input-->
             <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example6">Phone Number</label>
+                <label class="form-label" for="form3Example3">Phone Number</label>
                 <input name="phone"
                        th:field="*{phone}"
                        th:errorclass="is-invalid"
                        type="text"
-                       id="form3Example6"
+                       id="form3Example3"
                        class="form-control"
                        aria-describedby="PhoneErrorLine"
                        placeholder="phone"/>
@@ -82,12 +82,12 @@
 
             <!-- Email input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example3">Email address</label>
+                <label class="form-label" for="form3Example4">Email address</label>
                 <input name="email"
                        th:field="*{email}"
                        th:errorclass="is-invalid"
                        type="email"
-                       id="form3Example3"
+                       id="form3Example4"
                        class="form-control"
                        aria-describedby="emailErrorLine"
                        placeholder="email"/>
@@ -100,12 +100,12 @@
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example4">Password</label>
+                <label class="form-label" for="form3Example5">Password</label>
                 <input name="password"
                        th:field="*{password}"
                        th:errorclass="is-invalid"
                        type="password"
-                       id="form3Example4"
+                       id="form3Example5"
                        class="form-control"
                        aria-describedby="passwordErrorLine"
                        placeholder="password"/>
@@ -118,12 +118,12 @@
 
             <!--Confirm Password input -->
             <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example4">Confirm Password</label>
+                <label class="form-label" for="form3Example6">Confirm Password</label>
                 <input name="confirmPassword"
                        th:field="*{confirmPassword}"
                        th:errorclass="is-invalid"
                        type="password"
-                       id="form3Example5"
+                       id="form3Example6"
                        class="form-control"
                        aria-describedby="confirmPasswordErrorLine"
                        placeholder="confirmPassword"/>
@@ -132,6 +132,55 @@
                        class="invalid-feedback bg-danger text-light rounded">
                     Password must be longer than 5 characters.
                 </small>
+            </div>
+
+            <label class="form-label ">Address</label>
+            <div class="form-outline mb-4">
+                <input name="city"
+                       th:field="*{city}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control address-input d-inline-block"
+                       aria-describedby="cityErrorLine"
+                       placeholder="City"/>
+                <small th:errors="*{city}" id="city"
+                       class="invalid-feedback bg-danger text-light rounded">
+                </small>
+
+                <input name="neighborhood"
+                       th:field="*{neighborhood}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control address-input d-inline-block"
+                       aria-describedby="neighborhoodErrorLine"
+                       placeholder="neighborhood"/>
+                <small th:errors="*{neighborhood}" id="neighborhood"
+                       class="invalid-feedback bg-danger text-light rounded">
+                </small>
+
+                <input name="street"
+                       th:field="*{street}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control address-input d-inline-block"
+                       aria-describedby="streetErrorLine"
+                       placeholder="street"/>
+                <small th:errors="*{street}" id="street"
+                       class="invalid-feedback bg-danger text-light rounded">
+                </small>
+
+                <input name="streetNumber"
+                       th:field="*{streetNumber}"
+                       th:errorclass="is-invalid"
+                       type="number"
+                       min="1"
+                       class="form-control address-input d-inline-block"
+                       aria-describedby="streetNumberErrorLine"
+                       placeholder="streetNumber"/>
+                <small th:errors="*{streetNumber}" id="streetNumber"
+                       class="invalid-feedback bg-danger text-light rounded">
+                </small>
+
             </div>
 
             <!-- Submit button -->

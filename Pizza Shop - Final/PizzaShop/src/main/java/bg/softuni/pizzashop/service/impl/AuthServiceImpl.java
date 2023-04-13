@@ -1,9 +1,13 @@
 package bg.softuni.pizzashop.service.impl;
 
-import bg.softuni.pizzashop.model.entity.Role;
+import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
+import bg.softuni.pizzashop.model.entity.Address;
 import bg.softuni.pizzashop.model.entity.User;
+import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
+import bg.softuni.pizzashop.repository.AddressRepository;
+import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.AuthService;
 import org.modelmapper.ModelMapper;
@@ -12,7 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -22,47 +27,53 @@ public class AuthServiceImpl implements AuthService {
 
     private final ModelMapper modelMapper;
 
+    private final RoleRepository roleRepository;
+
+    private final AddressRepository addressRepository;
+
     @Autowired
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, RoleRepository roleRepository, AddressRepository addressRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
+        this.roleRepository = roleRepository;
+        this.addressRepository = addressRepository;
     }
 
     @Override
-    public void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level) {
-//        OrderServiceModel order = new OrderServiceModel();
-//        order.setOrderStatus(OrderStatusEnum.IN_PROCESS);
-//        order.setPrice(BigDecimal.ZERO);
-//        order.setOrderTime(null);
-//        order.setDescription("");
-//        order.setProducts(new ArrayList<>());
-//        order.setProductNameQuantity(new HashMap<>());
-//        User user = userRepository.findByUsername(username).get();
-//        order.setUser(user);
-//        currentUser.setId(id);
-//        currentUser.setUsername(username);
-//        currentUser.setRoles(roles);
-//        currentUser.setLevel(level);
-//        currentUser.setCurrentOrder(order);
-//        currentUser.setUser(userRepository.findByUsername(username).get());
-    }
+    public UserServiceModel registerUser(UserRegisterBindingModel userRegisterBindingModel) {
+        userRegisterBindingModel.setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
 
-    @Override
-    public UserServiceModel registerUser(UserServiceModel userServiceModel) {
-        userServiceModel.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
-        User user = modelMapper.map(userServiceModel, User.class);
-
+        User user = modelMapper.map(userRegisterBindingModel, User.class);
 
 //        make the first registered admin
-//        if(userRepository.count() == 0) {
-//            user.setRoles(roleRepository.findAll().stream().collect(Collectors.toSet()));
-//            user.setLevel(UserLevelEnum.EMPLOYEE);
-//        } else {
-//            user.setRoles(new HashSet<>());
-//            user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
-//            user.setLevel(UserLevelEnum.REGULAR);
-//        }
+        if (userRepository.count() == 0) {
+            user.setRoles(roleRepository.findAll().stream().collect(Collectors.toSet()));
+            user.setLevel(UserLevelEnum.EMPLOYEE);
+        } else {
+            user.setRoles(new HashSet<>());
+            user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
+            user.setLevel(UserLevelEnum.REGULAR);
+        }
+
+        Address address = new Address();
+        address.setCity(userRegisterBindingModel.getCity());
+        address.setNeighborhood(userRegisterBindingModel.getNeighborhood());
+        address.setStreet(userRegisterBindingModel.getStreet());
+        address.setStreetNumber(userRegisterBindingModel.getStreetNumber());
+
+        Address unknownAddress = new Address();
+        unknownAddress.setCity("unknown");
+        unknownAddress.setNeighborhood("unknown");
+        unknownAddress.setStreet("unknown");
+        unknownAddress.setStreetNumber(0);
+
+        addressRepository.save(address);
+
+        user.setAddress(addressRepository
+                .findByCityAndAndNeighborhoodAndStreetAndStreetNumber
+                        (address.getCity(), address.getNeighborhood(), address.getStreet(), address.getStreetNumber())
+                .orElse(unknownAddress));
 
         return modelMapper.map(userRepository.save(user), UserServiceModel.class);
     }

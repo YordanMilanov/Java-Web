@@ -39,4 +39,5 @@ public class User extends BaseEntity{
 
     @OneToOne
     private Address address;
+
 }

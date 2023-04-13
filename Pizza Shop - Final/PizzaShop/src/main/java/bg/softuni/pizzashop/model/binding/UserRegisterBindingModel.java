@@ -1,8 +1,8 @@
 package bg.softuni.pizzashop.model.binding;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.validation.constraints.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,4 +31,17 @@ public class UserRegisterBindingModel {
 
     @Size(min = 5)
     private String confirmPassword;
+
+    @Size(min = 2, message = "City name must be at least 2 or more symbols")
+    private String city;
+
+    @Size(min = 2, message = "Neighborhood name must be at least 2 or more symbols")
+    private String neighborhood;
+
+    @Size(min = 2, message = "Street name must be at least 2 or more symbols")
+    private String street;
+
+    @Positive(message = "Street number must be positive")
+    @NotNull(message = "You must select number")
+    private int streetNumber;
 }
