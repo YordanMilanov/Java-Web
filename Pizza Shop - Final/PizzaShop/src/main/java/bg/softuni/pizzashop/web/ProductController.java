@@ -8,7 +8,7 @@ import bg.softuni.pizzashop.model.service.ProductServiceModel;
 import bg.softuni.pizzashop.service.IngredientService;
 import bg.softuni.pizzashop.service.PictureService;
 import bg.softuni.pizzashop.service.ProductService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

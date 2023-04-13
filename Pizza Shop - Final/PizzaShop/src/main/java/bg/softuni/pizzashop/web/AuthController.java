@@ -5,8 +5,8 @@ import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.AuthService;
 import bg.softuni.pizzashop.util.CurrentUser;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,9 +96,8 @@ public class AuthController {
         return "redirect:/users/login";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession httpSession) {
-        httpSession.invalidate();
+    @PostMapping("/logout")
+    public String logout() {
         currentUser.setId(null);
         return "redirect:/";
     }

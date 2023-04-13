@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 <head th:fragment="head">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +13,8 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <img src="https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS" th:src="'/images/background/Pizza-Background.jpg'" class="pizza-background">
+    <img src="https://drive.google.com/uc?export=view&id=1IKTo95PihHEAyLN4dmNEaRkH9G8AZMfS"
+         th:src="'/images/background/Pizza-Background.jpg'" class="pizza-background">
 </head>
 
 <body>
@@ -23,21 +26,21 @@
         <nav class="nav-href">
             <ul>
                 <!--if not logged-->
-                <th:block th:if="${@currentUser.id == null}">
+                <div sec:authorize="isAnonymous()">
                     <li><a href="/users/login">Login</a></li>
                     <li><a href="/users/register">Register</a></li>
                     <li><a href="/menu">Menu</a></li>
                     <li><a href="/about">About us</a></li>
-                </th:block>
+                </div>
 
                 <!--if logged-->
-                <th:block th:unless="${@currentUser.id == null}">
+                <div sec:authorize="isAuthenticated()">
                     <li><a href="/menu">Menu</a></li>
                     <li><a href="/order/cart">Cart</a></li>
-                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/users/profile">Profile</a></li>
                     <li><a href="/about">About us</a></li>
                     <li><a href="/users/logout">Logout</a></li>
-                </th:block>
+                </div>
             </ul>
         </nav>
     </section>

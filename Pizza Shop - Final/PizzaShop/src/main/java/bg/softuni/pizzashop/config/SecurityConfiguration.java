@@ -1,7 +1,8 @@
 package bg.softuni.pizzashop.config;
 
 import bg.softuni.pizzashop.repository.UserRepository;
-import bg.softuni.pizzashop.service.UserDetailService;
+import bg.softuni.pizzashop.service.AuthService;
+import bg.softuni.pizzashop.service.PizzaShopUserDetailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -20,24 +22,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public SecurityConfiguration(UserRepository userRepository, ModelMapper modelMapper) {
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().authorizeHttpRequests()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/menu")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/about")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/users/login")).anonymous()
-                .requestMatchers(new AntPathRequestMatcher("/users/register")).anonymous()
-                .anyRequest().authenticated()
+
+
+
+        httpSecurity.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/users/register", "/users/login").anonymous()
+                .antMatchers("/users/profile").authenticated()
+
                 .and()
                 //until here the above is one statement after and() we start doing second statement for the same httpSecurity object
 
@@ -45,19 +39,24 @@ public class SecurityConfiguration {
                 .formLogin()
                 //path to our custom page
                 .loginPage("/users/login")
+
                 //this method requires the name of the <input name="username"> as a parameter.
-                .usernameParameter("username")
+                //UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY -> username of spring user
+                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 //this method requires the name of the <input name="password"> as a parameter.
-                .passwordParameter("password")
+                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                 //successful redirect point
                 .defaultSuccessUrl("/")
                 //redirect if not successful and we add query parameter so we can render an error in the html for example error=true
-                .failureForwardUrl("/users/login?error=true");
-
-//                httpSecurity.authorizeHttpRequests()
-//                .requestMatchers("/users/login", "users/register").anonymous();
-//                .and().formLogin().loginPage("/users/login").and().authorizeHttpRequests()
-//                .and().formLogin().and().build();
+                .failureForwardUrl("/users/login?error=true")
+                .and()
+                .logout()
+                //custom url for logout, forcing to search exactly on it
+                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                .deleteCookies()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/");
 
         return httpSecurity.build();
     }
@@ -66,10 +65,5 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService () {
-        return new UserDetailService(userRepository);
     }
 }

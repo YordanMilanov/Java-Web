@@ -3,8 +3,8 @@ package bg.softuni.pizzashop.model.binding;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,13 +18,5 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderAddBindingModel {
 
-    private OrderStatusEnum orderStatus;
-
     private String description;
-
-    private BigDecimal price;
-
-    private LocalDateTime orderTime;
-
-    private List<Product> products;
 }

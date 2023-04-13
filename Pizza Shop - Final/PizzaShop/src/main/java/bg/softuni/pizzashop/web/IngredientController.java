@@ -4,7 +4,7 @@ import bg.softuni.pizzashop.model.binding.IngredientAddBindingModel;
 import bg.softuni.pizzashop.model.binding.IngredientRestockBindingModel;
 import bg.softuni.pizzashop.model.service.IngredientServiceModel;
 import bg.softuni.pizzashop.service.IngredientService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

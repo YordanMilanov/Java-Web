@@ -3,17 +3,20 @@ package bg.softuni.pizzashop.web;
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
+import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.model.view.OrderViewModel;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
+import bg.softuni.pizzashop.service.ShoppingCartService;
+import bg.softuni.pizzashop.service.UserService;
 import bg.softuni.pizzashop.util.CurrentUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/order")
@@ -23,33 +26,18 @@ public class OrderController {
     private final CurrentUser currentUser;
     private final ProductRepository productRepository;
 
-    public OrderController(OrderService orderService, CurrentUser currentUser, ProductRepository productRepository) {
+    private final UserService userService;
+
+    private final ShoppingCartService shoppingCartService;
+
+    public OrderController(OrderService orderService, CurrentUser currentUser, ProductRepository productRepository, UserService userService, ShoppingCartService shoppingCartService) {
         this.orderService = orderService;
         this.currentUser = currentUser;
         this.productRepository = productRepository;
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
     }
 
-    @GetMapping("/cart")
-    public String orderCart(Model model) {
-        if(currentUser.getId() == null) {
-            return "redirect:/users/login";
-        }
-        double totalSum = orderService.OrderTotalSum(currentUser.getCurrentOrder());
-        currentUser.setOrderSum(totalSum);
-       currentUser.getCurrentOrder().getProducts().sort(Comparator.comparing(Product::getId));
-
-        model.addAttribute("OrderTotalSum", String.format("%.2f", currentUser.getOrderSum()));
-        model.addAttribute("currentUser", currentUser);
-        return "order-user-cart";
-    }
-
-    @GetMapping("cart/remove/{id}")
-    public String orderCart(@PathVariable(name = "id")Long id) {
-
-       orderService.removeItemFromCart(id);
-
-        return "redirect:/order/cart";
-    }
 
     @GetMapping("/active")
     public String orderActive(Model model) {
@@ -61,12 +49,6 @@ public class OrderController {
     public String orderCompleted(Model model) {
         model.addAttribute("allOrders", orderService.allOrdersByOrderStatus(OrderStatusEnum.FINISHED));
         return "order-staff-completed";
-    }
-
-    @PostMapping("/cart")
-    public String orderConfirm() {
-      orderService.addOrder(currentUser.getCurrentOrder());
-        return "redirect:/order/cart";
     }
 
     @GetMapping("/view/{id}")

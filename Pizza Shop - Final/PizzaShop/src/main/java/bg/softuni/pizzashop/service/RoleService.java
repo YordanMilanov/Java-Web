@@ -9,6 +9,7 @@ public interface RoleService {
 
     void initRoles();
 
-    RoleServiceModel highestRole(Set<Role> roles);
+//    RoleServiceModel highestRole(Set<Role> roles);
 
+    Role findByName(String name);
 }

@@ -1,6 +1,6 @@
 package bg.softuni.pizzashop.model.binding;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

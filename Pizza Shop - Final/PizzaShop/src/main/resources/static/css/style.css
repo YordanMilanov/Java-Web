@@ -46,6 +46,11 @@ nav {
     float: right;
 }
 
+#logout-button {
+    font-family: 'Pacifico', cursive;
+    float: right;
+}
+
 li {
     display: inline-block;
     padding-top: 15px;

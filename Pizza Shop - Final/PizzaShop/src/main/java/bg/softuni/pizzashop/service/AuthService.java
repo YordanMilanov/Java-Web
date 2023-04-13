@@ -12,4 +12,6 @@ public interface AuthService {
     void loginUser(Long id, String username, Set<Role> roles, UserLevelEnum level);
 
     public UserServiceModel registerUser(UserServiceModel userServiceModel);
+
+    public User getUserByUsername(String username);
 }

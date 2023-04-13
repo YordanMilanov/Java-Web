@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/commons::head"></head>
 
@@ -12,7 +14,6 @@
 
         <form th:action="@{/users/login}"
               method="post">
-
 
 
             <!-- username input -->
@@ -27,10 +28,10 @@
                        aria-describedby="usernameErrorLine"
                        placeholder="Username"/>
 
-<!--                <small id="usernameErrorLine"-->
-<!--                       class="invalid-feedback bg-danger text-light rounded">-->
-<!--                    Username length must be between 5 and 20 characters.-->
-<!--                </small>-->
+                <!--                <small id="usernameErrorLine"-->
+                <!--                       class="invalid-feedback bg-danger text-light rounded">-->
+                <!--                    Username length must be between 5 and 20 characters.-->
+                <!--                </small>-->
             </div>
 
             <!-- Password input -->
@@ -45,10 +46,10 @@
                        aria-describedby="passwordErrorLine"
                        placeholder="password"/>
 
-<!--                <small id="passwordErrorLine"-->
-<!--                       class="invalid-feedback bg-danger text-light rounded">-->
-<!--                    Password must be longer than 5 characters.-->
-<!--                </small>-->
+                <!--                <small id="passwordErrorLine"-->
+                <!--                       class="invalid-feedback bg-danger text-light rounded">-->
+                <!--                    Password must be longer than 5 characters.-->
+                <!--                </small>-->
             </div>
 
             <!-- Submit button -->

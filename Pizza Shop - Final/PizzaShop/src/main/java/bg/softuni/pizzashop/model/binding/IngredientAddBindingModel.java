@@ -1,7 +1,7 @@
 package bg.softuni.pizzashop.model.binding;
 
 import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

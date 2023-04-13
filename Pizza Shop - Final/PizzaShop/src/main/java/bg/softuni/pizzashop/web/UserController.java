@@ -6,9 +6,11 @@ import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.model.view.UserViewModel;
 import bg.softuni.pizzashop.util.CurrentUser;
 import bg.softuni.pizzashop.service.UserService;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,41 +34,6 @@ public class UserController {
         this.currentUser = currentUser;
     }
 
-
-
-//    @PostMapping("/login")
-//    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
-//                               BindingResult bindingResult,
-//                               RedirectAttributes redirectAttributes) {
-//
-//        //has any errors with the input fields
-//        if(bindingResult.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-//            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-//
-//            //with redirect without "/" -> redirect:login it refers to method with name "login" in the controller not to the href /login
-//            return "redirect:login";
-//        }
-//
-//        UserServiceModel userServiceModel = userService
-//                .findByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
-//
-//        //user not found
-//        if (userServiceModel == null) {
-//            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-//            redirectAttributes.addFlashAttribute("isFound", false);
-//
-//            return "redirect:login";
-//        }
-//
-//
-//        //login successful -> login user
-//        userService.loginUser(userServiceModel.getId(), userServiceModel.getUsername(), userServiceModel.getRoles(), userServiceModel.getLevel());
-//
-//
-//        return "redirect:/";
-//    }
-
     @GetMapping("/list")
     public String userList(Model model) {
         List<UserViewModel> allUsers = userService.getAll();
@@ -79,5 +46,18 @@ public class UserController {
     public String userDelete(@PathVariable(name = "id")Long id) {
         userService.deleteUser(id);
         return "redirect:/users/list";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        //Authentication -> returns the authenticated user
+        //SecurityContextHolder -> manages the user
+        //getContext() -> returns the currently spring security user
+        //getAuthentication() -> returns the "fields"
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        UserViewModel userViewModel = this.userService.getUserViewModel(username);
+        model.addAttribute("userViewModel", userViewModel);
+        return "profile";
     }
 }

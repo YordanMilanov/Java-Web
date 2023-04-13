@@ -44,15 +44,21 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleServiceModel highestRole(Set<Role> roles) {
-        Long roleId = Long.MAX_VALUE;
-        for (Role role : roles) {
-            if(role.getId() < roleId) {
-           roleId = role.getId();
-            }
-        }
-        Role roleToMap = roleRepository.findById(roleId).orElse(null);
-        return modelMapper.map(roleToMap, RoleServiceModel.class);
+    public Role findByName(String name) {
+        return roleRepository.findByRole(name).get();
     }
+
+
+//    @Override
+//    public RoleServiceModel highestRole(Set<Role> roles) {
+//        Long roleId = Long.MAX_VALUE;
+//        for (Role role : roles) {
+//            if(role.getId() < roleId) {
+//           roleId = role.getId();
+//            }
+//        }
+//        Role roleToMap = roleRepository.findById(roleId).orElse(null);
+//        return modelMapper.map(roleToMap, RoleServiceModel.class);
+//    }
 
 }

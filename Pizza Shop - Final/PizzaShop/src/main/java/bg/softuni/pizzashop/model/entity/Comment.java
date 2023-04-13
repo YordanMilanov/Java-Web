@@ -1,6 +1,6 @@
 package bg.softuni.pizzashop.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

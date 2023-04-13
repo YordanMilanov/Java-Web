@@ -3,7 +3,7 @@ package bg.softuni.pizzashop.model.binding;
 import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.Picture;
 import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

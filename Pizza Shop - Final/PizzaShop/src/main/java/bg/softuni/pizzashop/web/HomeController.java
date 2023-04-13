@@ -1,10 +1,14 @@
 package bg.softuni.pizzashop.web;
 
-import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
 import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.service.RoleServiceModel;
+import bg.softuni.pizzashop.model.view.UserViewModel;
+import bg.softuni.pizzashop.service.UserService;
 import bg.softuni.pizzashop.util.CurrentUser;
 import bg.softuni.pizzashop.service.RoleService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,26 +23,25 @@ public class HomeController {
 
     private final RoleService roleService;
 
-    public HomeController(CurrentUser currentUser, RoleService roleService) {
+    private final UserService userService;
+
+    public HomeController(CurrentUser currentUser, RoleService roleService, UserService userService) {
         this.currentUser = currentUser;
         this.roleService = roleService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
     public String index(Model model) {
-
-        if (currentUser.getId() == null) {
-            return "index";
-        }
-
-        RoleServiceModel roleServiceModel = roleService.highestRole(currentUser.getRoles());
-        if(roleServiceModel.getRole().equals(RoleNameEnum.MANAGER)) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGER"))) {
             return "home-manager";
-        } else if(roleServiceModel.getRole().equals(RoleNameEnum.STAFF)) {
+        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STAFF"))) {
             return "home-staff";
-        } else {
+        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
             return "home-user";
         }
+        return "index";
     }
 
     @GetMapping("/menu")
@@ -49,11 +52,6 @@ public class HomeController {
     @GetMapping("/about")
     public String about() {
         return "about";
-    }
-
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
     }
 
     @GetMapping("/product")

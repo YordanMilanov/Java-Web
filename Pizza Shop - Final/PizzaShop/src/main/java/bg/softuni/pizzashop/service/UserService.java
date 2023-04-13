@@ -10,11 +10,15 @@ import java.util.Set;
 
 public interface UserService {
 
-    UserServiceModel findByUsernameAndPassword(String username, String password);
+    UserServiceModel findByUsername(String username);
 
     User getUserByUsername(String username);
 
     List<UserViewModel> getAll();
 
     void deleteUser(Long id);
+
+    UserViewModel getUserViewModel(String username);
+
+    UserServiceModel getUserServiceModel(String username);
 }

@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel findByUsernameAndPassword(String username, String password) {
-        UserServiceModel userServiceModel = userRepository.findByUsernameAndPassword(username, password).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
+    public UserServiceModel findByUsername(String username) {
+        UserServiceModel userServiceModel = userRepository.findByUsername(username).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
         return userServiceModel;
 //        return userRepository.findByUsernameAndPassword(username, password).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
@@ -72,5 +72,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserViewModel getUserViewModel(String username) {
+     return modelMapper.map(userRepository.findByUsername(username), UserViewModel.class);
+    }
+
+    @Override
+    public UserServiceModel getUserServiceModel(String username) {
+        return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
     }
 }

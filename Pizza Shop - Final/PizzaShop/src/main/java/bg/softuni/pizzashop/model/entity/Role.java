@@ -1,7 +1,7 @@
 package bg.softuni.pizzashop.model.entity;
 
 import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
