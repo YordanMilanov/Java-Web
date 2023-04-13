@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
         } else {
             user.setRoles(new HashSet<>());
             user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
-            user.setLevel(UserLevelEnum.REGULAR);
+            user.setLevel(UserLevelEnum.NEW);
         }
 
         Address address = new Address();

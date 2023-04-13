@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                 //this method requires the name of the <input name="password"> as a parameter.
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                 //successful redirect point
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/", true)
                 //redirect if not successful and we add query parameter so we can render an error in the html for example error=true
                 .failureForwardUrl("/users/login?error=true")
                 .and()

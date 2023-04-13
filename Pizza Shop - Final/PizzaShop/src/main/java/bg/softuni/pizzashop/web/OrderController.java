@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.web;
 
+import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
 import bg.softuni.pizzashop.model.view.OrderViewModel;
@@ -49,6 +50,9 @@ public class OrderController {
     public String orderView(@PathVariable(name = "id")Long id, Model model) {
         //sort the products by id
         OrderViewModel orderView = orderService.findByIdViewModel(id);
+        if(orderView.getId() == null) {
+        throw new ObjectNotFoundException(id, "Order");
+        }
         orderService.sortProductsInOrder(orderView);
         model.addAttribute("order", orderView);
         return "order-view";

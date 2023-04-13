@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.service.impl;
 
+import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
@@ -43,6 +44,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderViewModel findByIdViewModel(Long id) {
+        boolean present = orderRepository.findById(id).isPresent();
+        if(!present) {
+            throw new ObjectNotFoundException(id, "Order");
+        }
         return modelMapper.map(orderRepository.findById(id).get(), OrderViewModel.class);
     }
 
