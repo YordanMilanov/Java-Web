@@ -30,7 +30,7 @@
                     <li><a th:text="#{navbar_register}" href="/users/login">Login</a></li>
                     <li><a th:text="#{navbar_login}" href="/users/register">Register</a></li>
                     <li><a href="/menu">Menu</a></li>
-                    <li><a href="/about">About us</a></li>
+                    <li><a th:text="#{navbar_about}" href="/about">About us</a></li>
                 </div>
 
                 <!--if logged-->
@@ -51,7 +51,7 @@
                             id="lang"
                             name="lang">
                             <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
-                            <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                            <option value="nl_NL" th:selected="${#locale.toString()} == 'nl_NL'">Netherlands</option>
                         </select>
                     </form>
                 </li>
@@ -62,7 +62,7 @@
 
 <footer th:fragment="footer">
     <p>&copy;SoftUni Yordan Milanov Java Web Project. For educational purposes.</p>
-    <p class="contact-us"><a href="/contact">Contact Us</a></p>
+    <p class="contact-us"><a th:text="#{footer_contact}" href="/contact">Contact Us</a></p>
 </footer>
 
 <script th:fragment="script-bootstrap-bundle"
