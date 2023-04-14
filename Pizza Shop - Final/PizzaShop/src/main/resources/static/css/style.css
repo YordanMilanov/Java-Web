@@ -58,6 +58,13 @@ li {
     background-color: #c43631
 }
 
+.language-interceptor {
+    display: inline-block;
+    padding-top: 15px;
+    padding-right: 10px;
+    background-color: #c43631
+}
+
 a {
     text-decoration: none;
     color: black;

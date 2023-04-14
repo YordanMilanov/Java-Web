@@ -27,8 +27,8 @@
             <ul>
                 <!--if not logged-->
                 <div sec:authorize="isAnonymous()">
-                    <li><a href="/users/login">Login</a></li>
-                    <li><a href="/users/register">Register</a></li>
+                    <li><a th:text="#{navbar_register}" href="/users/login">Login</a></li>
+                    <li><a th:text="#{navbar_login}" href="/users/register">Register</a></li>
                     <li><a href="/menu">Menu</a></li>
                     <li><a href="/about">About us</a></li>
                 </div>
@@ -41,6 +41,20 @@
                     <li><a href="/about">About us</a></li>
                     <li><a href="/users/logout">Logout</a></li>
                 </div>
+
+                <li>
+                    <form th:method="get"
+                          class="language-interceptor">
+                        <label th:text="#{navbar_language}" for="lang"></label>
+                        <select
+                            onchange="this.form.submit()"
+                            id="lang"
+                            name="lang">
+                            <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                            <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                        </select>
+                    </form>
+                </li>
             </ul>
         </nav>
     </section>
