@@ -23,6 +23,19 @@
     <section class="navigation">
         <p><a href="/">Pizza Factory</a></p>
 
+        <form th:method="get"
+              class="language-interceptor">
+            <label th:text="#{navbar_language}" for="lang"></label>
+            <select
+                    onchange="this.form.submit()"
+                    id="lang"
+                    name="lang">
+                <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                <option value="nl_NL" th:selected="${#locale.toString()} == 'nl_NL'">Netherlands
+                </option>
+            </select>
+        </form>
+
         <nav class="nav-href">
             <ul>
                 <!--if not logged-->
@@ -41,20 +54,6 @@
                     <li><a href="/about">About us</a></li>
                     <li><a href="/users/logout">Logout</a></li>
                 </div>
-
-                <li>
-                    <form th:method="get"
-                          class="language-interceptor">
-                        <label th:text="#{navbar_language}" for="lang"></label>
-                        <select
-                            onchange="this.form.submit()"
-                            id="lang"
-                            name="lang">
-                            <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
-                            <option value="nl_NL" th:selected="${#locale.toString()} == 'nl_NL'">Netherlands</option>
-                        </select>
-                    </form>
-                </li>
             </ul>
         </nav>
     </section>
@@ -63,6 +62,7 @@
 <footer th:fragment="footer">
     <p>&copy;SoftUni Yordan Milanov Java Web Project. For educational purposes.</p>
     <p class="contact-us"><a th:text="#{footer_contact}" href="/contact">Contact Us</a></p>
+
 </footer>
 
 <script th:fragment="script-bootstrap-bundle"
