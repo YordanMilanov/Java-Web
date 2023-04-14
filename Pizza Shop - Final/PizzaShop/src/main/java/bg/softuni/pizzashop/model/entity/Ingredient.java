@@ -2,6 +2,9 @@ package bg.softuni.pizzashop.model.entity;
 
 import bg.softuni.pizzashop.model.entity.enums.IngredientTypeEnum;
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +27,7 @@ public class Ingredient extends BaseEntity{
 
 //    @Column(precision = 19, scale = 3)
     @Column
+    @PositiveOrZero
     private double stockInKg;
 
     @Column

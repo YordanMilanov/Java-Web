@@ -9,9 +9,12 @@
 
 <main class="wood-background">
     <div class="justify-content-center">
+        <p th:if="${#strings.length(OrderSuccessful) > 0}" th:text="${OrderSuccessful}" class="text-center text-black bg-success mt-2 mx-auto col-3">Your current
+            order</p>
+        <p th:if="${#strings.length(OrderMissingItem) > 0}" th:text="${OrderMissingItem}" class="text-center text-black bg-danger mt-2 mx-auto col-3">Your
+            current order</p>
         <table id="table-active" class="table table-bordered table-dark w-50 mx-auto my-5">
             <thead>
-
             <tr>
                 <th colspan="6" class="text-center">Your current order</th>
             </tr>

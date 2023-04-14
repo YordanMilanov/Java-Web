@@ -85,13 +85,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 //     Checkout will rollback if there is not enough of some product in stock
 
 
-    public void buyCart(String description) {
+    public void buyCart(String description) throws IllegalArgumentException{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userRepository.findByUsername(username).get();
+            Set<String> outOfStockProducts = new TreeSet<>();
 
         // product - quantity
         for (Map.Entry<Product, Integer> productEntry : products.entrySet()) {
+
             Integer orderedProductQuantity = productEntry.getValue();
             // product's -> ingredients-required quantity
             for (Map.Entry<Ingredient, Integer> ingredientEntry : productEntry.getKey().getRequiredProducts().entrySet()) {
@@ -100,9 +102,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 Ingredient ingredient = ingredientRepository.findByName(currentIngredientOfTheProduct.getName()).get();
                 double currentStock = ingredient.getStockInKg();
                 double updateIngredientQuantity = currentStock - ((requiredQuantityOfIngredientForTheProduct * 1.000 / 1000) * orderedProductQuantity);
+
+                //skip the product if not enough ingredients
+                if(updateIngredientQuantity < 0) {
+                    outOfStockProducts.add(productEntry.getKey().getName());
+                    break;
+                }
+
                 ingredient.setStockInKg(0);
                 ingredient.setStockInKg(updateIngredientQuantity);
                 ingredientRepository.save(ingredient);
+
             }
         }
 
@@ -115,6 +125,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         order.setDescription(description);
         orderRepository.save(order);
         products.clear();
+            if (outOfStockProducts.size() > 0) {
+                String output = "The order is accepted. " + String.join(", ", outOfStockProducts) + " are out of stock! We apologize for the \n" +
+                        "inconvenience. Thank you for using our site.";
+                throw new IllegalArgumentException(output);
+            }
     }
 
     @Override
