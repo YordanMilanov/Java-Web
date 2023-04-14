@@ -40,8 +40,8 @@
             <ul>
                 <!--if not logged-->
                 <div sec:authorize="isAnonymous()">
-                    <li><a th:text="#{navbar_register}" href="/users/login">Login</a></li>
-                    <li><a th:text="#{navbar_login}" href="/users/register">Register</a></li>
+                    <li><a th:text="#{navbar_login}" href="/users/login">Login</a></li>
+                    <li><a th:text="#{navbar_register}" href="/users/register">Register</a></li>
                     <li><a href="/menu">Menu</a></li>
                     <li><a th:text="#{navbar_about}" href="/about">About us</a></li>
                 </div>

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/commons::head"></head>
 
@@ -22,7 +24,7 @@
                         <p class="card-text">Pizza sauce and Mozzarella</p>
                         <p class="grams">Grams: 450g.</p>
                         <p class="price">Price: 10.00$</p>
-                        <a href="/menu/pizza/1" class="btn btn-success">Add to cart</a>
+                        <a sec:authorize="isAuthenticated()" href="/menu/pizza/1" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>
@@ -35,7 +37,7 @@
                         <p class="card-text">Pizza sauce, Mozzarella, Matured, Gouda</p>
                         <p class="grams">Grams: 450g.</p>
                         <p class="price">Price: 11.00$</p>
-                        <a href="/menu/pizza/2" class="btn btn-success">Add to cart</a>
+                        <a sec:authorize="isAuthenticated()" href="/menu/pizza/2" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>
@@ -49,7 +51,7 @@
                             Sweetcorn and Fresh Tomatoes</p>
                         <p class="grams">Grams: 450g.</p>
                         <p class="price">Price: 12.00$</p>
-                        <a href="/menu/pizza/3" class="btn btn-success">Add to cart</a>
+                        <a sec:authorize="isAuthenticated()" href="/menu/pizza/3" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>
@@ -66,7 +68,7 @@
                         <p class="card-text" th:text="${p.description}"></p>
                         <p class="grams" th:text="'Grams: ' + ${p.grams} + 'g.'">out of stock</p>
                         <p class="price" th:text="'Price: ' + ${p.price} + '$'">out of stock</p>
-                        <a th:href="@{'/menu/pizza/' + ${p.id}}" class="btn btn-success">Add to cart</a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{'/menu/pizza/' + ${p.id}}" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-package bg.softuni.pizzashop.web;
+package bg.softuni.pizzashop.errorHandling;
 
 import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
