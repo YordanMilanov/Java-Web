@@ -17,6 +17,6 @@ public class Picture extends BaseEntity{
     @Column(nullable = false)
     private String title;
 
-    @Column(name = "data", columnDefinition = "LONGBLOB")
-    private String data;
+    @Column(name = "URL")
+    private String URL;
 }

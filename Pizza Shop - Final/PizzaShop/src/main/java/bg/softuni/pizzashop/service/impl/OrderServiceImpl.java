@@ -10,6 +10,7 @@ import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -23,14 +24,11 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final ProductRepository productRepository;
-
     private final ModelMapper modelMapper;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, ModelMapper modelMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -53,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void sortProductsInOrder(OrderViewModel orderView) {
-        Map<Product, Integer> sortedMap = new TreeMap<>(Comparator.comparing(Product::getId));
+        Map<Product, Integer> sortedMap = new TreeMap<>(Comparator.comparing(Product::getName));
         sortedMap.putAll(orderView.getProductQuantity());
         orderView.setProductQuantity(sortedMap);
     }

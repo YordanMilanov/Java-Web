@@ -7,6 +7,9 @@ import bg.softuni.pizzashop.model.service.IngredientServiceModel;
 import bg.softuni.pizzashop.repository.IngredientRepository;
 import bg.softuni.pizzashop.service.IngredientService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,8 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientRepository ingredientRepository;
 
     private final ModelMapper modelMapper;
+
+    private Logger LOGGER = LoggerFactory.getLogger(IngredientServiceImpl.class);
 
     public IngredientServiceImpl(IngredientRepository ingredientRepository, ModelMapper modelMapper) {
         this.ingredientRepository = ingredientRepository;
@@ -55,5 +60,17 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public IngredientServiceModel findById(Long id) {
         return modelMapper.map(ingredientRepository.findById(id).get(), IngredientServiceModel.class);
+    }
+
+
+    //auto update the ingredient quantity by 100grams each 10 minutes
+    @Scheduled(fixedRate = 600000)
+    public void updateStockEveryOneMinute() {
+        List<Ingredient> all = ingredientRepository.findAll();
+        for (Ingredient ingredient : all) {
+            ingredient.setStockInKg(ingredient.getStockInKg() + 0.100);
+            ingredientRepository.save(ingredient);
+        }
+        LOGGER.info("All Ingredients Updated!");
     }
 }

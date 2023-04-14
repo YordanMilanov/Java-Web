@@ -26,6 +26,9 @@ public class Product extends BaseEntity {
     @Column
     private double price;
 
+    @Column
+    private double caloriesPer100;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 

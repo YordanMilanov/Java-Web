@@ -27,6 +27,7 @@ public class ProductServiceModel {
     private String description;
     private Picture picture;
     private Integer grams;
+    private double caloriesPer100;
     private ProductTypeEnum productTypeEnum;
     private Map<Ingredient, Integer> requiredProducts;
 }

@@ -25,9 +25,11 @@ public class ProductViewModel {
 
     private String description;
 
-    private String pictureData;
+    private String pictureURL;
 
     private Integer grams;
+
+    private double caloriesPer100;
 
     private ProductTypeEnum productTypeEnum;
 }

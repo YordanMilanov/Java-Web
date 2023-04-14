@@ -37,6 +37,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductServiceModel saveProduct(ProductServiceModel productServiceModel) {
         Product productToSave = modelMapper.map(productServiceModel, Product.class);
+        productToSave.setGrams(0);
+        productToSave.setCaloriesPer100(0);
         productRepository.save(productToSave);
         return modelMapper.map(productToSave, ProductServiceModel.class);
     }
@@ -70,8 +72,31 @@ public class ProductServiceImpl implements ProductService {
     public void UpdateIngredientToProductById(Long id, String ingredientName, Integer ingredientGrams) {
         Product product = productRepository.findById(id).get();
         Ingredient ingredient = ingredientRepository.findByName(ingredientName).orElse(null);
+        boolean isInList = false;
 
+        //check if the ingredient is in the list and overwrite it if it is in the list
+        for (Map.Entry<Ingredient, Integer> entry : product.getRequiredProducts().entrySet()) {
+            if(entry.getKey().getName().equals(ingredientName)) {
+                entry.setValue(ingredientGrams);
+                isInList = true;
+            }
+        }
+
+        //add it if it is not in the list
+        if(!isInList) {
         product.getRequiredProducts().put(ingredient, ingredientGrams);
+        }
+
+        //logic to calculate the grams and the calories
+        int gramsToSave = 0;
+        int totalCalories = 0;
+        for (Map.Entry<Ingredient, Integer> entry : product.getRequiredProducts().entrySet()) {
+          gramsToSave += entry.getValue();
+          totalCalories += entry.getKey().getCalories() * entry.getValue() / 100;
+        }
+        double caloriesPer100 = Math.round(totalCalories / (gramsToSave / 100.0));
+        product.setCaloriesPer100(caloriesPer100);
+        product.setGrams(gramsToSave);
         productRepository.save(product);
     }
 
@@ -82,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductViewModel> collect = products.stream()
                 .map(product -> {
                     ProductViewModel map = modelMapper.map(product, ProductViewModel.class);
-                    map.setPictureData(product.getPicture().getData());
+                    map.setPictureURL(product.getPicture().getURL());
                     return map;
                         }
                 )

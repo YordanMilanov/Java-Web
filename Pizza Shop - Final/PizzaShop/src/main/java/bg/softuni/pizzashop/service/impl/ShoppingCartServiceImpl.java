@@ -11,6 +11,7 @@ import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
@@ -56,7 +57,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             products.put(product, 1);
         }
     }
-
 
 //     If product is in the map with quantity > 1, just decrement quantity by 1.
 //     If product is in the map with quantity 1, remove it from map
