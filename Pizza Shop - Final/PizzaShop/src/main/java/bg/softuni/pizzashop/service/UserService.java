@@ -8,21 +8,19 @@ import java.util.List;
 
 public interface UserService {
 
-    UserServiceModel findByUsername(String username);
-
-    User getUserByUsername(String username);
-
     List<UserViewModel> getAll();
 
     void deleteUser(Long id);
 
     UserViewModel getUserViewModel(String username);
 
-    UserServiceModel getUserServiceModel(String username);
-
     public UserViewModel getUserViewModelById(Long id);
 
     void deleteRole(Long userId, Long roleId) throws Exception;
 
     void addRoleToUser(Long userId, String selectedRole) throws Exception;
+
+    boolean isUsernameUsed(String username);
+
+    void updateUsername(String oldName, String username);
 }

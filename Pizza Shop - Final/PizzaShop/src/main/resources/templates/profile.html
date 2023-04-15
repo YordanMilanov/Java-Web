@@ -8,12 +8,21 @@
 <header th:replace="fragments/commons::nav"></header>
 
 <main class="wood-background">
+
+    <!--    <label th:if="${incorrectName}" id="incorrectUserNameLine"-->
+    <!--           class="w-25 mx-auto my-2 text-xl-center justify-content-center bg-danger text-light rounded">-->
+    <!--        Username length must be between 5 and 20 characters.-->
+    <!--    </label>-->
+    <!--    <label th:if="${usedName}" id="usernameUsedErrorLine"-->
+    <!--           class="w-25 mx-auto my-2 text-xl-center justify-content-center bg-danger text-light rounded">-->
+    <!--        Username is already used!-->
+    <!--    </label>-->
     <div class="container">
         <div class="main-body">
-
             <div id="profile-card"
                  class="card mb-3">
-                <form th:action="@{/users/register}"
+
+                <form th:action="@{/users/profile}"
                       th:method="POST"
                       th:object="${userViewModel}">
 
@@ -26,20 +35,15 @@
                                 <a class="mb-0"></a>
                             </div>
 
-                            <div class="col-sm-8 text-secondary justify-content-center">
+                            <div class="form-outline col-sm-8">
                                 <input name="username"
-                                       th:field="*{username}"
+                                       th:field="${userNameUpdateBindingModel.username}"
                                        th:errorclass="is-invalid"
                                        type="text"
                                        id="form3Example1"
                                        class="form-control text-center"
                                        aria-describedby="usernameErrorLine"
-                                       placeholder="username"/>
-
-                                <small id="usernameErrorLine"
-                                       class="invalid-feedback bg-danger text-light rounded">
-                                    Username length must be between 5 and 20 characters.
-                                </small>
+                                       th:placeholder="*{username}"/>
                             </div>
                         </div>
 
@@ -81,36 +85,12 @@
 
                         <hr>
 
-                        <div class="row">
-                            <div class="col-sm-4 mt-1  text-center">
-                                <h6 class="mb-0">Add role:</h6>
-                            </div>
-
-                            <div class="col-sm-4 mt-1 text-center text-secondary">
-                                <select th:field="*{newRole}"
-                                        id="inputRole"
-                                        class="custom-select">
-                                    <option value="" selected></option>
-                                    <option th:each="R : ${T(bg.softuni.pizzashop.model.entity.enums.RoleNameEnum).values()}"
-                                            th:value="${R}"
-                                            th:text="${R}"></option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-4 justify-content-right text-center text-secondary">
-                                <button type="button" class="btn btn-sm btn-outline-secondary d-inline-block m-1">Add Role</button>
-                            </div>
-                        </div>
-
                         <div class="row" th:each="r : *{roles}">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 mt-1">Role</h6>
                             </div>
-                            <div class="col-sm-4 justify-content-right text-center text-secondary mt-1">
+                            <div class="col-sm-8 justify-content-right text-center text-secondary mt-1">
                                 <div th:text="${r.role.toString()}"></div>
-                            </div>
-                            <div class="col-sm-4 justify-content-right text-center text-secondary">
-                                <button type="button" class="btn btn-sm btn-outline-secondary d-inline-block m-1">Remove Role</button>
                             </div>
                         </div>
                         <hr>
@@ -126,14 +106,17 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="button" class="btn btn-danger">Edit Profile</button>
+                                <button type="submit" class="btn btn-danger">Edit Profile</button>
                             </div>
                         </div>
+                        <div th:if="${#strings.length(incorrectName) > 0}" th:text="${incorrectName}"
+                             class="text-center text-black bg-danger "></div>
+                        <div th:if="${#strings.length(usedName) > 0}" th:text="${usedName}"
+                             class="text-center text-black bg-danger"></div>
                     </div>
+                </form>
             </div>
         </div>
-
-    </div>
     </div>
 </main>
 

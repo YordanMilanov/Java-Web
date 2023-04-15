@@ -6,6 +6,7 @@ import javax.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
@@ -42,6 +43,5 @@ public class UserRegisterBindingModel {
     private String street;
 
     @Positive(message = "Street number must be positive")
-    @NotNull(message = "You must select number")
     private int streetNumber;
 }

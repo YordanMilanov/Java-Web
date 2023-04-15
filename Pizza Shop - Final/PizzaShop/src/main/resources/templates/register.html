@@ -26,6 +26,12 @@
                 </strong>
             </h3>
 
+            <h3 th:if="${passwordNotMatch == true}" class="mt-5 text-center">
+                <strong class="bg-danger rounded text-white">
+                    Password and confirm password does not match!
+                </strong>
+            </h3>
+
             <!-- username input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example1">Username</label>
@@ -126,7 +132,7 @@
                        id="form3Example6"
                        class="form-control"
                        aria-describedby="confirmPasswordErrorLine"
-                       placeholder="confirmPassword"/>
+                       placeholder="Confirm password"/>
 
                 <small id="confirmPasswordErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
@@ -176,7 +182,7 @@
                        min="1"
                        class="form-control address-input d-inline-block"
                        aria-describedby="streetNumberErrorLine"
-                       placeholder="streetNumber"/>
+                       placeholder="Street Number"/>
                 <small th:errors="*{streetNumber}" id="streetNumber"
                        class="invalid-feedback bg-danger text-light rounded">
                 </small>

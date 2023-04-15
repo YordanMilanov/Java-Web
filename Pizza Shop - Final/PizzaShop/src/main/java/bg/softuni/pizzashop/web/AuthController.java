@@ -40,6 +40,10 @@ public class AuthController {
         if(!model.containsAttribute("emailIsNotEmpty")) {
             model.addAttribute("emailIsNotEmpty", false);
         }
+
+        if(!model.containsAttribute("emailIsNotEmpty")) {
+            model.addAttribute("PasswordNotMatch", false);
+        }
         return "register";
     }
 
@@ -65,8 +69,7 @@ public class AuthController {
 
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-
-            //redirect again to register
+            redirectAttributes.addFlashAttribute("passwordNotMatch",true);
             return "redirect:/users/register";
         }
 

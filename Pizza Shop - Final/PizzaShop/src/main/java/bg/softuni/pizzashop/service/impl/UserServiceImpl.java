@@ -36,12 +36,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel findByUsername(String username) {
-        UserServiceModel userServiceModel = userRepository.findByUsername(username).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
-        return userServiceModel;
-    }
-
-    @Override
     public List<UserViewModel> getAll() {
         List<User> allUsers = userRepository.findAll();
 
@@ -49,12 +43,6 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
         return collect;
     }
-
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not Found!"));
-    }
-
 
     public UserViewModel getUserViewModelById(Long id) {
         return modelMapper.map(userRepository.findById(id).get(), UserViewModel.class);
@@ -120,8 +108,14 @@ public class UserServiceImpl implements UserService {
      return modelMapper.map(userRepository.findByUsername(username), UserViewModel.class);
     }
 
+    public boolean isUsernameUsed(String username){
+        return userRepository.findByUsername(username).isPresent();
+    }
+
     @Override
-    public UserServiceModel getUserServiceModel(String username) {
-        return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
+    public void updateUsername(String oldName, String username) {
+        User user = userRepository.findByUsername(oldName).get();
+        user.setUsername(username);
+        userRepository.save(user);
     }
 }
