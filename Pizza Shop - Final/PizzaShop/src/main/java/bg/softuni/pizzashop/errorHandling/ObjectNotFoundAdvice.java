@@ -1,6 +1,5 @@
 package bg.softuni.pizzashop.errorHandling;
 
-import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

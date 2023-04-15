@@ -82,9 +82,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
 
-//     Checkout will rollback if there is not enough of some product in stock
-
-
     public void buyCart(String description) throws IllegalArgumentException{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -93,21 +90,36 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         // product - quantity
         for (Map.Entry<Product, Integer> productEntry : products.entrySet()) {
+            boolean canBeCooked = productCanBeCooked(productEntry.getKey(), productEntry.getValue());
+
+            //check if there is enough products to complete the product
+            if(!canBeCooked) {
+                outOfStockProducts.add(productEntry.getKey().getName());
+
+                String productToRemoveName = productEntry.getKey().getName();
+
+                Product product = productRepository.findByName(productToRemoveName).get();
+                products.remove(product);
+                continue;
+            }
 
             Integer orderedProductQuantity = productEntry.getValue();
             // product's -> ingredients-required quantity
             for (Map.Entry<Ingredient, Integer> ingredientEntry : productEntry.getKey().getRequiredProducts().entrySet()) {
+
                 Ingredient currentIngredientOfTheProduct = ingredientEntry.getKey();
                 Integer requiredQuantityOfIngredientForTheProduct = ingredientEntry.getValue();
+
                 Ingredient ingredient = ingredientRepository.findByName(currentIngredientOfTheProduct.getName()).get();
+
                 double currentStock = ingredient.getStockInKg();
                 double updateIngredientQuantity = currentStock - ((requiredQuantityOfIngredientForTheProduct * 1.000 / 1000) * orderedProductQuantity);
 
-                //skip the product if not enough ingredients
-                if(updateIngredientQuantity < 0) {
-                    outOfStockProducts.add(productEntry.getKey().getName());
-                    break;
-                }
+//                //skip the product if not enough ingredients
+//                if(updateIngredientQuantity < 0) {
+//                    outOfStockProducts.add(productEntry.getKey().getName());
+//                    break;
+//                }
 
                 ingredient.setStockInKg(0);
                 ingredient.setStockInKg(updateIngredientQuantity);
@@ -118,11 +130,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         Order order = new Order();
         order.setOrderStatus(OrderStatusEnum.IN_PROCESS);
-        order.setProductQuantity(products);
         order.setOrderTime(LocalDateTime.now());
         order.setPrice(getTotal());
         order.setUser(user);
         order.setDescription(description);
+
+        //could not find the products to save them that's why iterate again
+        Map<Product, Integer>productQuantityToSave = new HashMap<>();
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            Product product = productRepository.findByName(entry.getKey().getName()).get();
+            productQuantityToSave.put(product, entry.getValue());
+        }
+        order.setProductQuantity(productQuantityToSave);
+
+        // if none of the products can be prepared
+        if(products.size() == 0) {
+            String output = "The order is not accepted. " + String.join(", ", outOfStockProducts) + " are out of stock! We apologize for the \n" +
+                    "inconvenience. Thank you for using our site.";
+            throw new IllegalArgumentException(output);
+        }
+
         orderRepository.save(order);
         products.clear();
             if (outOfStockProducts.size() > 0) {
@@ -140,5 +167,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             total += entry.getKey().getPrice() * entry.getValue();
         }
         return total;
+    }
+
+    private boolean productCanBeCooked(Product product, Integer quantity) {
+        for (Map.Entry<Ingredient, Integer> entry : product.getRequiredProducts().entrySet()) {
+            Ingredient ingredient = ingredientRepository.findByName(entry.getKey().getName()).get();
+            if(ingredient.getStockInKg() < (entry.getValue() * 1.0/ 1000)* quantity) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -13,82 +13,123 @@
 
             <div id="profile-card"
                  class="card mb-3">
+                <form th:action="@{/users/register}"
+                      th:method="POST"
+                      th:object="${userViewModel}">
 
-                <div class="card-body" th:object="${userViewModel}">
-                    <h1>Profile Settings</h1>
+                    <div class="card-body">
+                        <h1>Profile Settings</h1>
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h6 class="mb-0">Username</h6>
+                        <div class="row">
+                            <div class="col-sm-4 mt-2">
+                                <h6 class="mb-0">Username</h6>
+                                <a class="mb-0"></a>
+                            </div>
+
+                            <div class="col-sm-8 text-secondary justify-content-center">
+                                <input name="username"
+                                       th:field="*{username}"
+                                       th:errorclass="is-invalid"
+                                       type="text"
+                                       id="form3Example1"
+                                       class="form-control text-center"
+                                       aria-describedby="usernameErrorLine"
+                                       placeholder="username"/>
+
+                                <small id="usernameErrorLine"
+                                       class="invalid-feedback bg-danger text-light rounded">
+                                    Username length must be between 5 and 20 characters.
+                                </small>
+                            </div>
                         </div>
-                        <div class="col-sm-8 text-secondary"
-                             th:text="*{username}">
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-8 text-secondary"
+                                 th:text="*{fullName}">
+                                Full Name
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Mobile number</h6>
+                            </div>
+                            <div class="col-sm-8 text-secondary"
+                                 th:text="*{phone}">
+                                Phone number
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-8 text-secondary"
+                                 th:text="*{email}">
+                                email
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-4 mt-1  text-center">
+                                <h6 class="mb-0">Add role:</h6>
+                            </div>
+
+                            <div class="col-sm-4 mt-1 text-center text-secondary">
+                                <select th:field="*{newRole}"
+                                        id="inputRole"
+                                        class="custom-select">
+                                    <option value="" selected></option>
+                                    <option th:each="R : ${T(bg.softuni.pizzashop.model.entity.enums.RoleNameEnum).values()}"
+                                            th:value="${R}"
+                                            th:text="${R}"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-4 justify-content-right text-center text-secondary">
+                                <button type="button" class="btn btn-sm btn-outline-secondary d-inline-block m-1">Add Role</button>
+                            </div>
+                        </div>
+
+                        <div class="row" th:each="r : *{roles}">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0 mt-1">Role</h6>
+                            </div>
+                            <div class="col-sm-4 justify-content-right text-center text-secondary mt-1">
+                                <div th:text="${r.role.toString()}"></div>
+                            </div>
+                            <div class="col-sm-4 justify-content-right text-center text-secondary">
+                                <button type="button" class="btn btn-sm btn-outline-secondary d-inline-block m-1">Remove Role</button>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-8 text-secondary" th:text="*{address}">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-danger">Edit Profile</button>
+                            </div>
                         </div>
                     </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h6 class="mb-0">Full Name</h6>
-                        </div>
-                        <div class="col-sm-8 text-secondary"
-                             th:text="*{fullName}">
-                            Full Name
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h6 class="mb-0">Mobile number</h6>
-                        </div>
-                        <div class="col-sm-8 text-secondary"
-                             th:text="*{phone}">
-                            Phone number
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h6 class="mb-0">Email</h6>
-                        </div>
-                        <div class="col-sm-8 text-secondary"
-                             th:text="*{email}">
-                            email
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row" th:each="r : *{roles}">
-                        <div class="col-sm-4">
-                            <h6 class="mb-0">Role</h6>
-                        </div>
-                        <div class="col-sm-8 justify-content-right text-center text-secondary">
-                            <div th:text="${r.role.toString()}"></div>
-                        </div>
-                    </div>
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h6 class="mb-0">Address</h6>
-                        </div>
-                        <div class="col-sm-8 text-secondary" th:text="*{address}">
-                            Bay Area, San Francisco, CA
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button type="button" class="btn btn-danger">Edit Profile</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 

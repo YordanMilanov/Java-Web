@@ -59,7 +59,6 @@
             <!--dynamic product with thymeleaf-->
             <div class="col-4" th:each="p, iterStat : ${allPizza}" th:if="${iterStat.index >= 3}">
                 <div class="card" th:object="${p}">
-                    <!--if picture is encoded use this picture-->
                     <img th:src="${p.pictureURL}"
                          class="card-img-top"
                          alt="Pizza Image">

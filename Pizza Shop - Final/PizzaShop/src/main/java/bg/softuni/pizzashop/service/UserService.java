@@ -19,4 +19,8 @@ public interface UserService {
     UserViewModel getUserViewModel(String username);
 
     UserServiceModel getUserServiceModel(String username);
+
+    public UserViewModel getUserViewModelById(Long id);
+
+    void deleteRole(Long userId, Long roleId) throws Exception;
 }

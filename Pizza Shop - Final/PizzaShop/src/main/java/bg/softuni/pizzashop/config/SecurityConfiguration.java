@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                 .antMatchers("/", "/menu/**", "/about").permitAll()
                 .antMatchers("/users/register", "/users/login").anonymous()
                 .antMatchers("/users/profile", "users/cart").authenticated()
+                .antMatchers("/users/roles/**", "users/list/**").hasRole("MANAGER")
                 .antMatchers("/product/**", "/ingredient/**").hasRole("MANAGER")
                 .antMatchers("/order/active", "/order/completed").hasAnyRole("STAFF", "MANAGER")
 

@@ -13,7 +13,7 @@
       <table id="table-active" class="table table-bordered table-dark w-75 mx-auto my-5 text-center">
         <thead>
         <tr>
-          <th colspan="8">All Users</th>
+          <th colspan="9">All Users</th>
         </tr>
         <tr>
           <th class="col-1">User ID</th>
@@ -24,6 +24,7 @@
           <th class="col-1">Level</th>
           <th class="col-2">Address</th>
           <th class="col-1">Delete user</th>
+          <th class="col-2">Roles</th>
         </tr>
         </thead>
 
@@ -37,6 +38,7 @@
           <td th:text="${u.level}">Level</td>
           <td th:text="${u.address.toString()}"></td>
           <td><a th:href="@{'/users/delete/' + ${u.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Delete</a>
+          <td><a th:href="@{'/users/roles/' + ${u.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Edit</a>
           </td>
         </tr>
         </tbody>

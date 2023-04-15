@@ -379,11 +379,11 @@ footer p {
 }
 
 #profile-card {
-    height: 60vh;
-    width: 40vw;
+    height: 70vh;
+    width: 30vw;
     margin: 20px auto;
-    overflow-x: auto; /* for horizontal scrolling*/
-    overflow-y: auto; /* for vertical scrolling */
+    /*overflow-x: auto; !* for horizontal scrolling*!*/
+    /*overflow-y: auto; !* for vertical scrolling *!*/
 }
 
 .card-body {

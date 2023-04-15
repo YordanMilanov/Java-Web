@@ -4,6 +4,8 @@ import bg.softuni.pizzashop.model.entity.Address;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,11 +18,14 @@ import java.util.Set;
 public class UserViewModel {
 
     private Long id;
+
+    @Size(min = 5, max = 20, message = "Username length must be between 5 and 20 characters")
     private String username;
     private String fullName;
     private String password;
     private String email;
     private String phone;
+    private Role newRole;
     private UserLevelEnum level;
     private Set<Role> roles;
     private Address address;

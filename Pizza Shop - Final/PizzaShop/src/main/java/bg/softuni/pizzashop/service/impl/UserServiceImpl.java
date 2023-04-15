@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.service.impl;
 
+import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.model.view.UserViewModel;
@@ -8,11 +9,13 @@ import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,10 +39,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel findByUsername(String username) {
         UserServiceModel userServiceModel = userRepository.findByUsername(username).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
         return userServiceModel;
-//        return userRepository.findByUsernameAndPassword(username, password).map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
-
-
 
     @Override
     public List<UserViewModel> getAll() {
@@ -53,6 +53,39 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not Found!"));
+    }
+
+
+    public UserViewModel getUserViewModelById(Long id) {
+        return modelMapper.map(userRepository.findById(id).get(), UserViewModel.class);
+    }
+
+    @Override
+    public void deleteRole(Long userId, Long roleId) throws Exception{
+        User user = userRepository.findById(userId).get();
+        Role role = roleRepository.findById(roleId).get();
+        Set<Role> roles = user.getRoles();
+
+        //if the user is left with no roles set his rank to the lowest
+        if(roles.size() <= 1) {
+            Role customerRole = roleRepository.findByRole("CUSTOMER").get();
+            Set<Role> customerRoleSet = new HashSet<>(Collections.singleton(customerRole));
+            user.setRoles(customerRoleSet);
+            userRepository.save(user);
+            throw new Exception("User must have at least one role! The rank of the account is set to the lowest possible - CUSTOMER");
+        }
+
+        //remove role
+        for (Role currentRole : roles) {
+            if(currentRole.getRole() == role.getRole()) {
+                roles.remove(currentRole);
+                break;
+            }
+        }
+
+        //update user
+        user.setRoles(roles);
+        userRepository.save(user);
     }
 
 

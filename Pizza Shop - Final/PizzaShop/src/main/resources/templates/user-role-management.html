@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons::head"></head>
+
+<body>
+<header th:replace="fragments/commons::nav"></header>
+
+<main class="wood-background">
+
+        <div th:if="${NoRolesLeft} == null" th:text="${NoRolesLeft}" class="bg-danger text-black text-center mx-auto mt-5 col-3 w-50 rounded-2 justify-content-center mt-1"></div>
+    <div class="justify-content-center">
+        <table id="table-active" class="table table-bordered table-dark w-75 mx-auto my-2 text-center">
+            <thead>
+            <tr>
+                <th colspan="4" th:text="'User: ' + ${userViewModel.username} + ' (ID: ' + ${userViewModel.id} +')'">User: </th>
+            </tr>
+            <tr>
+                <th class="col-1">Role ID</th>
+                <th class="col-1">Role</th>
+                <th class="col-9">Description</th>
+                <th class="col-1">Delete Role</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="r : ${userViewModel.roles}">
+                <th th:text="${r.id}" scope="row">Role ID</th>
+                <td th:text="${r.role}">Role</td>
+                <td th:text="${r.description}">Description</td>
+                <td><a th:href="@{'/users/roles/delete/' + ${userViewModel.id} + '/' + ${r.id}}"  type="button" class="btn btn-danger btn-sm w-100 h-25">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer th:replace="fragments/commons::footer"></footer>
+<script th:replace="fragments/commons::script-bootstrap-bundle"></script>
+
+</body>
+</html>
+
