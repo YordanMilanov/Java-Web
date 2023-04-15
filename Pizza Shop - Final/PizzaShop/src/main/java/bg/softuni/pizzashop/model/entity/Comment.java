@@ -18,11 +18,8 @@ public class Comment extends BaseEntity {
     private String textContent;
 
     @Column(name = "created")
-    private LocalDateTime created;
+    private LocalDateTime createTime;
 
     @ManyToOne
     private User author;
-
-    @ManyToOne
-    private Product product;
 }

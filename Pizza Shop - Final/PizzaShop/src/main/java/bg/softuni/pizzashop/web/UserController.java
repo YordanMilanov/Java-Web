@@ -2,6 +2,7 @@ package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.UserAddRoleBindingModel;
 import bg.softuni.pizzashop.model.binding.UserNameUpdateBindingModel;
+import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
 import bg.softuni.pizzashop.model.view.UserViewModel;
 import bg.softuni.pizzashop.service.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,29 +51,29 @@ public class UserController {
         UserViewModel userViewModel = this.userService.getUserViewModel(username);
         model.addAttribute("userViewModel", userViewModel);
         model.addAttribute("userNameUpdateBindingModel", new UserNameUpdateBindingModel());
-        model.addAttribute("incorrectName", "");
-        model.addAttribute("usedName", "");
         return "profile";
     }
 
     // --Username Update--
 
     @PostMapping("/profile")
-    public String updateProfile(@Valid UserNameUpdateBindingModel userNameUpdateBindingModel,
-                                BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes) {
+    public String profileConfirm(
+            @Valid UserNameUpdateBindingModel userNameUpdateBindingModel,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+
 
         //check if the userViewModel has any errors
         if (bindingResult.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute("userNameUpdateBindingModel", userNameUpdateBindingModel)
-                    .addFlashAttribute("incorrectName", "Name must be between 5 and 20 characters");
+                    .addFlashAttribute("incorrectName", true);
             return "redirect:/users/profile";
         }
 
         if (userService.isUsernameUsed(userNameUpdateBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userNameUpdateBindingModel", userNameUpdateBindingModel);
-            redirectAttributes.addFlashAttribute("usedName", "Name is already used!");
+            redirectAttributes.addFlashAttribute("usedName", true);
             return "redirect:/users/profile";
         }
 

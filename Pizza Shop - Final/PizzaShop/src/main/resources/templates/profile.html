@@ -106,16 +106,16 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="submit" class="btn btn-danger">Edit Profile</button>
+                                <button type="submit" class="btn btn-danger">Confirm username change</button>
                             </div>
                         </div>
-                        <div th:if="${#strings.length(incorrectName) > 0}" th:text="${incorrectName}"
-                             class="text-center text-black bg-danger "></div>
-                        <div th:if="${#strings.length(usedName) > 0}" th:text="${usedName}"
-                             class="text-center text-black bg-danger"></div>
                     </div>
                 </form>
             </div>
+                        <div th:if="${incorrectName}"
+                             class="text-center text-black bg-danger mx-auto mt-2 w-50 justify-content-center rounded">Name length must be between 5 and 20 characters!</div>
+                        <div th:if="${usedName}"
+                             class="text-center text-black bg-danger mx-auto mt-2 w-50 justify-content-center rounded">Name is already used!</div>
         </div>
     </div>
 </main>
