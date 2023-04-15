@@ -3,7 +3,6 @@ package bg.softuni.pizzashop.model.view;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderViewModel {
+public class OrderView {
 
     private Long id;
 

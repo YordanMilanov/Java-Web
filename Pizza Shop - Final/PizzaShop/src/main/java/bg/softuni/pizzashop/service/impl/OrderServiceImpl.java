@@ -4,13 +4,11 @@ import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
-import bg.softuni.pizzashop.model.view.OrderViewModel;
+import bg.softuni.pizzashop.model.view.OrderView;
 import bg.softuni.pizzashop.repository.OrderRepository;
-import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -33,24 +31,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderViewModel> allOrdersByOrderStatus(OrderStatusEnum orderStatusEnum) {
+    public List<OrderView> allOrdersByOrderStatus(OrderStatusEnum orderStatusEnum) {
         return orderRepository.findAllByOrderStatus(orderStatusEnum).get()
                 .stream()
-                .map(o -> modelMapper.map(o, OrderViewModel.class))
+                .map(o -> modelMapper.map(o, OrderView.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public OrderViewModel findByIdViewModel(Long id) {
+    public OrderView findByIdViewModel(Long id) {
         boolean present = orderRepository.findById(id).isPresent();
         if(!present) {
             throw new ObjectNotFoundException(id, "Order");
         }
-        return modelMapper.map(orderRepository.findById(id).get(), OrderViewModel.class);
+        return modelMapper.map(orderRepository.findById(id).get(), OrderView.class);
     }
 
     @Override
-    public void sortProductsInOrder(OrderViewModel orderView) {
+    public void sortProductsInOrder(OrderView orderView) {
         Map<Product, Integer> sortedMap = new TreeMap<>(Comparator.comparing(Product::getName));
         sortedMap.putAll(orderView.getProductQuantity());
         orderView.setProductQuantity(sortedMap);

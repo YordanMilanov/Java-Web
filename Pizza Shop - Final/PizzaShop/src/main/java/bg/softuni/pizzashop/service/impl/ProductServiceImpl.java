@@ -4,7 +4,7 @@ import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
 import bg.softuni.pizzashop.model.service.ProductServiceModel;
-import bg.softuni.pizzashop.model.view.ProductViewModel;
+import bg.softuni.pizzashop.model.view.ProductView;
 import bg.softuni.pizzashop.repository.IngredientRepository;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.ProductService;
@@ -101,12 +101,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductViewModel> allProductsByType(ProductTypeEnum productTypeEnum) {
+    public List<ProductView> allProductsByType(ProductTypeEnum productTypeEnum) {
 
         List<Product> products = productRepository.findAllByProductTypeEnumOrderById(productTypeEnum.toString()).get();
-        List<ProductViewModel> collect = products.stream()
+        List<ProductView> collect = products.stream()
                 .map(product -> {
-                    ProductViewModel map = modelMapper.map(product, ProductViewModel.class);
+                    ProductView map = modelMapper.map(product, ProductView.class);
                     map.setPictureURL(product.getPicture().getURL());
                     return map;
                         }

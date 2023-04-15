@@ -3,16 +3,13 @@ package bg.softuni.pizzashop.service.impl;
 import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
-import bg.softuni.pizzashop.model.service.UserServiceModel;
-import bg.softuni.pizzashop.model.view.UserViewModel;
+import bg.softuni.pizzashop.model.view.UserView;
 import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -36,16 +33,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserViewModel> getAll() {
+    public List<UserView> getAll() {
         List<User> allUsers = userRepository.findAll();
 
-        List<UserViewModel> collect = allUsers.stream().map(user -> modelMapper.map(user, UserViewModel.class))
+        List<UserView> collect = allUsers.stream().map(user -> modelMapper.map(user, UserView.class))
                 .collect(Collectors.toList());
         return collect;
     }
 
-    public UserViewModel getUserViewModelById(Long id) {
-        return modelMapper.map(userRepository.findById(id).get(), UserViewModel.class);
+    public UserView getUserViewModelById(Long id) {
+        return modelMapper.map(userRepository.findById(id).get(), UserView.class);
     }
 
     @Override
@@ -104,8 +101,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserViewModel getUserViewModel(String username) {
-     return modelMapper.map(userRepository.findByUsername(username), UserViewModel.class);
+    public UserView getUserViewModel(String username) {
+     return modelMapper.map(userRepository.findByUsername(username), UserView.class);
     }
 
     public boolean isUsernameUsed(String username){

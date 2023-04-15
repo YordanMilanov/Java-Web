@@ -1,20 +1,18 @@
 package bg.softuni.pizzashop.service;
 
-import bg.softuni.pizzashop.model.entity.User;
-import bg.softuni.pizzashop.model.service.UserServiceModel;
-import bg.softuni.pizzashop.model.view.UserViewModel;
+import bg.softuni.pizzashop.model.view.UserView;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<UserViewModel> getAll();
+    List<UserView> getAll();
 
     void deleteUser(Long id);
 
-    UserViewModel getUserViewModel(String username);
+    UserView getUserViewModel(String username);
 
-    public UserViewModel getUserViewModelById(Long id);
+    public UserView getUserViewModelById(Long id);
 
     void deleteRole(Long userId, Long roleId) throws Exception;
 

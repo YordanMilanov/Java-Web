@@ -58,16 +58,17 @@
 
             <!--dynamic product with thymeleaf-->
             <div class="col-4" th:each="p, iterStat : ${allPizza}" th:if="${iterStat.index >= 3}">
-                <div class="card" th:object="${p}">
+                <div id="menu-card" class="card" th:object="${p}">
                     <img th:src="${p.pictureURL}"
+                         id="menu-card-img"
                          class="card-img-top"
                          alt="Pizza Image">
-                    <div class="card-body">
+                    <div class="card-body" id="card-body">
                         <h5 class="card-title" th:text="${p.name}"></h5>
                         <p class="card-text" th:text="${p.description}"></p>
-                        <p class="calories" th:text="'Cal/100g: ' + ${p.caloriesPer100}">out of stock</p>
-                        <p class="grams" th:text="'Grams: ' + ${p.grams} + 'g.'">out of stock</p>
-                        <p class="price" th:text="'Price: ' + ${#numbers.formatDecimal(p.price,1,2,'POINT')} + '$'">out of stock</p>
+                        <p id="calories" th:text="'Cal/100g: ' + ${p.caloriesPer100}">out of stock</p>
+                        <p id="grams" th:text="'Grams: ' + ${p.grams} + 'g.'">out of stock</p>
+                        <p id="price" th:text="'Price: ' + ${#numbers.formatDecimal(p.price,1,2,'POINT')} + '$'">out of stock</p>
                         <a sec:authorize="isAuthenticated()" th:href="@{'/menu/pizza/' + ${p.id}}" class="btn btn-success">Add to cart</a>
                         <a sec:authorize="hasRole('MANAGER')" th:href="@{'~/product/add/ingredients/' + ${p.id}}" id="update-ingredient-button" class=" btn btn-primary">Update Ingredient</a>
                     </div>

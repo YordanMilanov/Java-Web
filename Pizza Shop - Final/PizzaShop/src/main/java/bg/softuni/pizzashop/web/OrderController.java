@@ -3,7 +3,7 @@ package bg.softuni.pizzashop.web;
 import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
-import bg.softuni.pizzashop.model.view.OrderViewModel;
+import bg.softuni.pizzashop.model.view.OrderView;
 import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.service.OrderService;
 import bg.softuni.pizzashop.service.ShoppingCartService;
@@ -49,7 +49,7 @@ public class OrderController {
     @GetMapping("/view/{id}")
     public String orderView(@PathVariable(name = "id")Long id, Model model) {
         //sort the products by id
-        OrderViewModel orderView = orderService.findByIdViewModel(id);
+        OrderView orderView = orderService.findByIdViewModel(id);
         if(orderView.getId() == null) {
         throw new ObjectNotFoundException(id, "Order");
         }

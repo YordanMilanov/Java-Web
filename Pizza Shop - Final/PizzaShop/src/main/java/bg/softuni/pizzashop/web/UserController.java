@@ -2,8 +2,9 @@ package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.UserAddRoleBindingModel;
 import bg.softuni.pizzashop.model.binding.UserNameUpdateBindingModel;
-import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
-import bg.softuni.pizzashop.model.view.UserViewModel;
+import bg.softuni.pizzashop.model.entity.Comment;
+import bg.softuni.pizzashop.model.view.UserView;
+import bg.softuni.pizzashop.service.CommentService;
 import bg.softuni.pizzashop.service.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,13 +24,16 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final CommentService commentService;
+
+    public UserController(UserService userService, CommentService commentService) {
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/list")
     public String userList(Model model) {
-        List<UserViewModel> allUsers = userService.getAll();
+        List<UserView> allUsers = userService.getAll();
         model.addAttribute("allUsers", allUsers);
         return "list-user";
     }
@@ -48,8 +52,8 @@ public class UserController {
         //getAuthentication() -> returns the "fields"
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        UserViewModel userViewModel = this.userService.getUserViewModel(username);
-        model.addAttribute("userViewModel", userViewModel);
+        UserView userView = this.userService.getUserViewModel(username);
+        model.addAttribute("userView", userView);
         model.addAttribute("userNameUpdateBindingModel", new UserNameUpdateBindingModel());
         return "profile";
     }
@@ -97,7 +101,7 @@ public class UserController {
 
     @GetMapping("/roles/{id}")
     public String editUserRoles(@PathVariable(name = "id") Long id, Model model) {
-        model.addAttribute("userViewModel", userService.getUserViewModelById(id));
+        model.addAttribute("userView", userService.getUserViewModelById(id));
         model.addAttribute("userAddRoleBindingModel", new UserAddRoleBindingModel());
         return "user-role-management";
     }
@@ -123,5 +127,12 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errorSelectMessage", e.getMessage());
         }
         return "redirect:/users/roles/" + userId;
+    }
+
+    @GetMapping("/comments")
+    public String commentPage(Model model) {
+        List<Comment> comments = commentService.allComments();
+        model.addAttribute("allComments", comments);
+        return "comment";
     }
 }

@@ -3,7 +3,7 @@ package bg.softuni.pizzashop.model.view;
 import bg.softuni.pizzashop.model.entity.Address;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
-import javax.persistence.*;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserViewModel {
+public class UserView {
 
     private Long id;
 
