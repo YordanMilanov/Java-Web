@@ -3,10 +3,10 @@ INSERT INTO roles (id, description, role)
 VALUES(1,'The manager have all the rights in the application','MANAGER');
 
 INSERT INTO roles (id, description, role)
-VALUES(2,'The staff have limited functions','STAFF');
+VALUES(2,'The staff have limited functions compared to the manager','STAFF');
 
 INSERT INTO roles (id, description, role)
-VALUES(3,'The customer have the rights to make orders','CUSTOMER');
+VALUES(3,'The customer have the rights to make orders, and this role is set by default. It is with the lowest list of permission','CUSTOMER');
 
 -- Addresses
 INSERT INTO addresses (id,city, neighborhood, street, street_number)

@@ -1,20 +1,20 @@
 package bg.softuni.pizzashop.service.impl;
 
+import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.model.view.UserViewModel;
+import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,14 +25,14 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final RoleRepository roleRepository;
 
-   private final PasswordEncoder passwordEncoder;
+   private final OrderRepository orderRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, OrderRepository orderRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -88,9 +88,30 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public void addRoleToUser(Long userId, String selectedRole) throws Exception {
+        User user = userRepository.findById(userId).get();
+
+        if(!roleRepository.findByRole(selectedRole).isPresent()) {
+            throw new Exception("Please select valid role!");
+        }
+
+        Role role = roleRepository.findByRole(selectedRole).get();
+
+        for (Role userRole : user.getRoles()) {
+            if(role.getRole().toString().equals(selectedRole)) {
+                throw new Exception("The user already has this role!");
+            }
+        }
+        user.getRoles().add(role);
+        userRepository.save(user);
+    }
+
 
     @Override
     public void deleteUser(Long id) {
+        List<Order> orders = orderRepository.findByUser_Id(id).get();
+        orderRepository.deleteAll(orders);
         userRepository.deleteById(id);
     }
 

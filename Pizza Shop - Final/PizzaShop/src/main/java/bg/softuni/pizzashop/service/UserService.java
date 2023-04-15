@@ -23,4 +23,6 @@ public interface UserService {
     public UserViewModel getUserViewModelById(Long id);
 
     void deleteRole(Long userId, Long roleId) throws Exception;
+
+    void addRoleToUser(Long userId, String selectedRole) throws Exception;
 }

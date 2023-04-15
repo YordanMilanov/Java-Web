@@ -1,14 +1,13 @@
 package bg.softuni.pizzashop.web;
 
+import bg.softuni.pizzashop.model.binding.UserAddRoleBindingModel;
 import bg.softuni.pizzashop.model.view.UserViewModel;
 import bg.softuni.pizzashop.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class UserController {
         return "list-user";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String userDelete(@PathVariable(name = "id")Long id) {
         userService.deleteUser(id);
         return "redirect:/users/list";
@@ -52,11 +51,11 @@ public class UserController {
     @GetMapping("/roles/{id}")
     public String editUserRoles(@PathVariable(name = "id")Long id, Model model) {
         model.addAttribute("userViewModel", userService.getUserViewModelById(id));
-        model.addAttribute("NoRolesLeft", null);
+        model.addAttribute("userAddRoleBindingModel", new UserAddRoleBindingModel());
         return "user-role-management";
     }
 
-    @GetMapping("roles/delete/{userId}/{roleId}")
+    @DeleteMapping("roles/delete/{userId}/{roleId}")
     public String deleteRole(@PathVariable(name = "userId")Long userId, @PathVariable(name = "roleId")Long roleId, RedirectAttributes redirectAttributes){
 
        try {
@@ -66,6 +65,18 @@ public class UserController {
            return "redirect:/users/roles/" + userId;
        }
 
+        return "redirect:/users/roles/" + userId;
+    }
+
+    @PostMapping("/roles/add/{userId}")
+    public String addRoleToUser(@PathVariable Long userId,
+                                UserAddRoleBindingModel userAddRoleBindingModel,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            userService.addRoleToUser(userId, userAddRoleBindingModel.getRoleName());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorSelectMessage", e.getMessage());
+        }
         return "redirect:/users/roles/" + userId;
     }
 }
