@@ -75,33 +75,48 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
 
-//      return unmodifiable copy of the map
+    //      return unmodifiable copy of the map
     @Override
     public Map<Product, Integer> getProductsInCart() {
         return Collections.unmodifiableMap(products);
     }
 
 
-    public void buyCart(String description) throws IllegalArgumentException{
+    public void buyCart(String description) throws IllegalArgumentException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userRepository.findByUsername(username).get();
-            Set<String> outOfStockProducts = new TreeSet<>();
+
+        Set<String> outOfStockProducts = new TreeSet<>();
+        Map<Product, Integer> canBeCookedProducts = new HashMap<>(products);
+
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            //check if there is enough products to complete the product
+            boolean canBeCooked = productCanBeCooked(entry.getKey(), entry.getValue());
+            if (!canBeCooked) {
+                outOfStockProducts.add(entry.getKey().getName());
+
+                String productToRemoveName = entry.getKey().getName();
+
+                Product productToRemove = null;
+
+                //taking the same product
+                for (Map.Entry<Product, Integer> productIntegerEntry : canBeCookedProducts.entrySet()) {
+                    if(productIntegerEntry.getKey().getName().equals(productToRemoveName)) {
+                        productToRemove = productIntegerEntry.getKey();
+                        break;
+                    }
+                }
+                canBeCookedProducts.remove(productToRemove);
+            }
+        }
+
+        //shopping cart updated with the products that can be cooked
+        products = new HashMap<>(canBeCookedProducts);
 
         // product - quantity
         for (Map.Entry<Product, Integer> productEntry : products.entrySet()) {
-            boolean canBeCooked = productCanBeCooked(productEntry.getKey(), productEntry.getValue());
 
-            //check if there is enough products to complete the product
-            if(!canBeCooked) {
-                outOfStockProducts.add(productEntry.getKey().getName());
-
-                String productToRemoveName = productEntry.getKey().getName();
-
-                Product product = productRepository.findByName(productToRemoveName).get();
-                products.remove(product);
-                continue;
-            }
 
             Integer orderedProductQuantity = productEntry.getValue();
             // product's -> ingredients-required quantity
@@ -124,7 +139,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 ingredient.setStockInKg(0);
                 ingredient.setStockInKg(updateIngredientQuantity);
                 ingredientRepository.save(ingredient);
-
             }
         }
 
@@ -136,7 +150,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         order.setDescription(description);
 
         //could not find the products to save them that's why iterate again
-        Map<Product, Integer>productQuantityToSave = new HashMap<>();
+        Map<Product, Integer> productQuantityToSave = new HashMap<>();
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             Product product = productRepository.findByName(entry.getKey().getName()).get();
             productQuantityToSave.put(product, entry.getValue());
@@ -144,7 +158,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         order.setProductQuantity(productQuantityToSave);
 
         // if none of the products can be prepared
-        if(products.size() == 0) {
+        if (products.size() == 0) {
             String output = "The order is not accepted. " + String.join(", ", outOfStockProducts) + " are out of stock! We apologize for the \n" +
                     "inconvenience. Thank you for using our site.";
             throw new IllegalArgumentException(output);
@@ -152,11 +166,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         orderRepository.save(order);
         products.clear();
-            if (outOfStockProducts.size() > 0) {
-                String output = "The order is accepted. " + String.join(", ", outOfStockProducts) + " are out of stock! We apologize for the \n" +
-                        "inconvenience. Thank you for using our site.";
-                throw new IllegalArgumentException(output);
-            }
+        if (outOfStockProducts.size() > 0) {
+            String output = "The order is accepted. " + String.join(", ", outOfStockProducts) + " are out of stock! We apologize for the \n" +
+                    "inconvenience. Thank you for using our site.";
+            throw new IllegalArgumentException(output);
+        }
     }
 
     @Override
@@ -172,7 +186,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private boolean productCanBeCooked(Product product, Integer quantity) {
         for (Map.Entry<Ingredient, Integer> entry : product.getRequiredProducts().entrySet()) {
             Ingredient ingredient = ingredientRepository.findByName(entry.getKey().getName()).get();
-            if(ingredient.getStockInKg() < (entry.getValue() * 1.0/ 1000)* quantity) {
+            if (ingredient.getStockInKg() < (entry.getValue() * 1.0 / 1000) * quantity) {
                 return false;
             }
         }
