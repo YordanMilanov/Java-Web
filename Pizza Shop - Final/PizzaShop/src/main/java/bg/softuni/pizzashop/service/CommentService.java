@@ -1,14 +1,16 @@
 package bg.softuni.pizzashop.service;
 
-import bg.softuni.pizzashop.model.binding.CommentAddBindingModel;
 import bg.softuni.pizzashop.model.entity.Comment;
 import bg.softuni.pizzashop.model.entity.User;
+import bg.softuni.pizzashop.model.service.CommentDto;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<Comment> allComments();
+    List<Comment> getAllComments();
 
-    Comment createdComment (CommentAddBindingModel commentAddBindingModel, User author);
+    public Comment createdComment (CommentDto commentDto, User author);
+
+    Comment getCommentById(Long commentId);
 }

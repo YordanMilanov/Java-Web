@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Pacifico&display=swap');
 
-
 body {
     background-color: #c43631
 }
@@ -371,6 +370,7 @@ footer p {
     right: 1%;
 
 }
+
 /*profile*/
 
 .profile-container {
@@ -412,6 +412,53 @@ footer p {
 
 /*comments*/
 
+#commentSection {
+    background-image: linear-gradient(to top, #ff813c 0%, #c43631 100%);
+    font-family: 'Kanit', sans-serif;
+}
+
+#comment-content {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin: 1vh;
+    color: #000000;
+}
+
+#comment-header {
+    font-family: 'Pacifico', cursive;
+    color: rgb(0, 0, 0);
+}
+
+#comment-authorName {
+    color: rgb(0, 0, 0);
+    padding: 0px 5px;
+    margin: 1vh;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+#comment-text {
+    color: rgb(0, 0, 0);
+    display: block;
+    padding: 0px 5px;
+    margin-bottom: 1vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    border-radius: 10px;
+}
+
+#comment-date {
+    color: rgb(0, 0, 0);
+    padding: 0px 5px;
+    margin-bottom: 1vh;
+    margin-left: 1vh;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+
 .custom-scrollbar-js,
 .custom-scrollbar-css {
     height: 60vh;
@@ -442,6 +489,6 @@ footer p {
 }
 
 .custom-comment {
-    background-color: #265388;
+    background-image: linear-gradient(to bottom, #ff813c, #c43631 100%);
 }
 

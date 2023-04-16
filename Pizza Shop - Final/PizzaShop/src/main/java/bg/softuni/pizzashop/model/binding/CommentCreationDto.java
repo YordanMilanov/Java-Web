@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.model.binding;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CommentAddBindingModel {
-
-    private String textContent;
+@AllArgsConstructor
+public class CommentCreationDto {
+    private String username;
+    private String message;
 }

@@ -30,12 +30,12 @@ public class SecurityConfiguration {
         httpSecurity.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/", "/menu/**", "/about").permitAll()
                 .antMatchers("/users/register", "/users/login").anonymous()
-                .antMatchers("/users/profile", "users/cart").authenticated()
+                .antMatchers("/users/profile", "users/cart", "/api/**").authenticated()
                 .antMatchers("/users/roles/**", "users/list/**").hasRole("MANAGER")
                 .antMatchers("/product/**", "/ingredient/**").hasRole("MANAGER")
                 .antMatchers("/order/active", "/order/completed").hasAnyRole("STAFF", "MANAGER")
                 .antMatchers("/api/**").permitAll()
-
+                .antMatchers("/comments").permitAll()
                 .and()
                 //until here the above is one statement after and() we start doing second statement for the same httpSecurity object
 

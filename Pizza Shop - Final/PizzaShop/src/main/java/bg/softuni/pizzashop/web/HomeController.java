@@ -5,11 +5,13 @@ import bg.softuni.pizzashop.service.CommentService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -37,8 +39,8 @@ public class HomeController {
 
     @GetMapping("/comments")
     public String commentPage(Model model) {
-        List<Comment> comments = commentService.allComments();
-        model.addAttribute("allComments", comments);
+//        List<Comment> comments = commentService.allComments();
+//        model.addAttribute("allComments", comments);
         return "comment";
     }
 
