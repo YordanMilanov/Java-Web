@@ -410,4 +410,38 @@ footer p {
     display: inline-block;
 }
 
+/*comments*/
+
+.custom-scrollbar-js,
+.custom-scrollbar-css {
+    height: 60vh;
+}
+
+
+/* Custom Scrollbar using CSS */
+.custom-scrollbar-css {
+    overflow-y: scroll;
+    border-radius: 3px;
+
+}
+
+/* scrollbar width */
+.custom-scrollbar-css::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* scrollbar track */
+.custom-scrollbar-css::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* scrollbar handle */
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-image: linear-gradient(to top, #265388 0%, #00a6ff 100%);
+}
+
+.custom-comment {
+    background-color: #265388;
+}
 

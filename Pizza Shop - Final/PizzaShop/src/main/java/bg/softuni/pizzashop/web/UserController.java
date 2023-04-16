@@ -128,11 +128,4 @@ public class UserController {
         }
         return "redirect:/users/roles/" + userId;
     }
-
-    @GetMapping("/comments")
-    public String commentPage(Model model) {
-        List<Comment> comments = commentService.allComments();
-        model.addAttribute("allComments", comments);
-        return "comment";
-    }
 }

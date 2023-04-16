@@ -1,5 +1,7 @@
 package bg.softuni.pizzashop.web;
 
+import bg.softuni.pizzashop.model.entity.Comment;
+import bg.softuni.pizzashop.service.CommentService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,9 +10,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
+
+    private final CommentService commentService;
+
+    public HomeController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     @GetMapping("/")
     public String index(Model model) {
@@ -23,6 +33,13 @@ public class HomeController {
             return "home-user";
         }
         return "index";
+    }
+
+    @GetMapping("/comments")
+    public String commentPage(Model model) {
+        List<Comment> comments = commentService.allComments();
+        model.addAttribute("allComments", comments);
+        return "comment";
     }
 
     @GetMapping("/menu")
