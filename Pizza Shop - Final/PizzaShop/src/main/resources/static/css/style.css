@@ -415,6 +415,7 @@ footer p {
 #commentSection {
     background-image: linear-gradient(to top, #ff813c 0%, #c43631 100%);
     font-family: 'Kanit', sans-serif;
+    font-weight: bold;
 }
 
 #comment-content {
@@ -485,10 +486,41 @@ footer p {
 /* scrollbar handle */
 .custom-scrollbar-css::-webkit-scrollbar-thumb {
     border-radius: 1rem;
-    background-image: linear-gradient(to top, #265388 0%, #00a6ff 100%);
+    background-image: linear-gradient(to bottom, #ff9900 0%, #f9ff59 100%);
 }
 
 .custom-comment {
     background-image: linear-gradient(to bottom, #ff813c, #c43631 100%);
 }
 
+/*comment form*/
+#commentForm h4{
+    text-align: center;
+    color: black;
+    font-family: 'Pacifico', cursive;
+}
+
+#message-input {
+    border-radius: 5px;
+    border: solid 1px #808080;
+    font-size: 16px;
+    width: 90%;
+    margin: auto;
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#commentForm button {
+    text-align: center;
+    border: none;
+    color: black;
+    font-size: 20px;
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+}
+
+#commentForm button:hover {
+    color: white;
+    border: transparent;
+}
