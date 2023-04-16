@@ -1,6 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/commons::head"></head>
 
@@ -11,11 +13,12 @@
     <section>
         <div class="container">
             <div id="commentSection" class="justify-content-center bg-dark rounded-2 my-2 overflow-y-scroll custom-scrollbar-css">
-                <h1 id="comment-header" class="text-center">Comments</h1>
+                <h1 id="comment-header" class="text-center">Reviews</h1>
 
             </div>
 
-            <div class="mx-auto my-auto rounded-4 mb-2 custom-comment">
+            <div sec:authorize="isAnonymous()"> You must be logged to post reviews</div>
+            <div sec:authorize="isAuthenticated()"  class="mx-auto my-auto rounded-4 mb-2 custom-comment">
                 <form id="commentForm">
                     <div class="form-group">
                         <h4>Leave a comment</h4>
