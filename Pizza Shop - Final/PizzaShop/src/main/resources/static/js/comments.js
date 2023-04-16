@@ -1,6 +1,6 @@
 const backendLocation = "http://localhost:8080";
 
-let commentSection = document.getElementById('commentCtnr');
+let commentSection = document.getElementById('commentSection');
 fetch(`${backendLocation}/api/comments`)
     .then((response) => response.json())
     .then((body) => {
@@ -10,6 +10,7 @@ fetch(`${backendLocation}/api/comments`)
         }
     )
 
+//with this method we generate html that we later put
 function addCommentAsHtml(comment) {
 
     let commentHtml = '<div id="comment-content">\n'
@@ -25,14 +26,14 @@ let commentForm = document.getElementById("commentForm");
 commentForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let text = document.getElementById("message").value
+    let text = document.getElementById("message-input").value
 
     let csrf = document.getElementById("csrf")
 
     //the csrf token is located set in the header as meta data -> in fragments/commons and from there we take it
     const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
     const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
-    let textComment = document.getElementById("message").value
+    let textComment = document.getElementById("message-input").value
 
     fetch(`${backendLocation}/api/comments`, {
         method: 'POST',
@@ -57,24 +58,4 @@ commentForm.addEventListener("submit", (event) => {
                 .then(res => res.json())
                 .then(body => addCommentAsHtml(body))
         })
-
-             // commentSection.innerHTML += commentAsHtml(data)
-        // .then(res => res.json())
-        // .then(data => {
-        //     document.getElementById('message').value = ""
-        //     console.log(res)
-        // })
 })
-
-
-
-// fetch(`(${backendLocation}/api/comments)`,{
-//     headers: {
-//         "Accept": "application/json"
-//     }
-// }).then(res => res.json())
-//     .then(data => {
-//         for(let comment of data) {
-//             commentSection.innerHTML += commentAsHtml(comment)
-//         }
-//     })
