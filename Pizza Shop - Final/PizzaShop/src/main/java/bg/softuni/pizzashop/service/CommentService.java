@@ -13,4 +13,6 @@ public interface CommentService {
     public Comment createdComment (CommentDto commentDto, User author);
 
     Comment getCommentById(Long commentId);
+
+    Comment deleteComment(Long id);
 }

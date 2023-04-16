@@ -1,6 +1,14 @@
 const backendLocation = "http://localhost:8080";
 
 let commentSection = document.getElementById('commentSection');
+
+//used to display the button for deletion
+let principalUsername = document.getElementById('principal-username').textContent;
+
+//the csrf token is located set in the header as meta data -> in fragments/commons and from there we take it
+const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
+const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
+
 fetch(`${backendLocation}/api/comments`)
     .then((response) => response.json())
     .then((body) => {
@@ -10,6 +18,19 @@ fetch(`${backendLocation}/api/comments`)
         }
     )
 
+function isAuthenticated(currentUser, commentAuthor) {
+    return currentUser === commentAuthor;
+}
+
+function deleteComment(commentId) {
+    fetch(`${backendLocation}/api/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            [csrfHeaderName]: csrfHeaderValue
+        }
+    }).then(res => console.log(res))
+}
+
 //with this method we generate html that we later put
 function addCommentAsHtml(comment) {
 
@@ -17,10 +38,16 @@ function addCommentAsHtml(comment) {
     commentHtml += '<h2 id="comment-authorName">' + comment.authorName + '</h2>\n'
     commentHtml += '<p id="comment-text">' + comment.text + '</p>\n'
     commentHtml += '<span id="comment-date">' + comment.createTime + '</span>\n'
+
+     if (isAuthenticated(principalUsername, comment.authorName)) {
+        commentHtml += `<a class="btn btn-danger btn-sm text-black" href="${backendLocation}/comments" onclick="(deleteComment(${comment.id}))">Delete</a>\n`
+     }
+
     commentHtml += '</div>\n'
 
     commentSection.innerHTML += commentHtml;
 }
+
 
 let commentForm = document.getElementById("commentForm");
 commentForm.addEventListener("submit", (event) => {
@@ -30,9 +57,6 @@ commentForm.addEventListener("submit", (event) => {
 
     let csrf = document.getElementById("csrf")
 
-    //the csrf token is located set in the header as meta data -> in fragments/commons and from there we take it
-    const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
-    const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
     let textComment = document.getElementById("message-input").value
 
     fetch(`${backendLocation}/api/comments`, {
@@ -53,9 +77,10 @@ commentForm.addEventListener("submit", (event) => {
             text: text
         })
     }).then((res) => {
-            let location = res.headers.get("Location")
-            fetch(`${backendLocation}${location}`)
-                .then(res => res.json())
-                .then(body => addCommentAsHtml(body))
-        })
+        document.getElementById('message-input').value = ""
+        let location = res.headers.get("Location")
+        fetch(`${backendLocation}${location}`)
+            .then(res => res.json())
+            .then(body => addCommentAsHtml(body))
+    })
 })

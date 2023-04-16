@@ -12,13 +12,14 @@
 <main class="wood-background text-white">
     <section>
         <div class="container">
-            <div id="commentSection" class="justify-content-center bg-dark rounded-2 my-2 overflow-y-scroll custom-scrollbar-css">
+            <div id="commentSection"
+                 class="justify-content-center bg-dark rounded-2 my-2 overflow-y-scroll custom-scrollbar-css">
                 <h1 id="comment-header" class="text-center">Reviews</h1>
 
             </div>
 
             <div sec:authorize="isAnonymous()"> You must be logged to post reviews</div>
-            <div sec:authorize="isAuthenticated()"  class="mx-auto my-auto rounded-4 mb-2 custom-comment">
+            <div sec:authorize="isAuthenticated()" class="mx-auto my-auto rounded-4 mb-2 custom-comment">
                 <form id="commentForm">
                     <div class="form-group">
                         <h4>Leave a comment</h4>
@@ -32,13 +33,14 @@
         </div>
     </section>
 
+<!--    used to display the delete button-->
+    <div id="principal-username" th:text="${username}" style="display:none"></div>
     <script th:src="@{/js/comments.js}"></script>
 </main>
 
 <footer th:replace="fragments/commons::footer"></footer>
 
 <script th:replace="fragments/commons::script-bootstrap-bundle"></script>
-
 
 </body>
 </html>

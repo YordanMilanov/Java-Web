@@ -44,6 +44,13 @@ import java.util.List;
       return commentRepository.findById(commentId).get();
    }
 
+    @Override
+    public Comment deleteComment(Long id) {
+        Comment comment = getCommentById(id);
+        commentRepository.delete(comment);
+        return comment;
+    }
+
 //   @Override
 //   public Comment findById(Long id) {
 //      return commentRepository.findById(id).get();
