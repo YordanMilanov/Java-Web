@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <!--dynamic product with thymeleaf-->
-            <div class="col-4" th:each="p, iterStat : ${allPizza}" th:if="${iterStat.index >= 3}">
+            <div class="col-4" th:each="p : ${allProducts}">
                 <div id="menu-card" class="card" th:object="${p}">
                     <img th:src="${p.pictureURL}"
                          id="menu-card-img"

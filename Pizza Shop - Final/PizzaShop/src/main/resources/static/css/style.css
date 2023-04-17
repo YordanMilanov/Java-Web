@@ -347,21 +347,21 @@ footer p {
     right: 5px;
 }
 
-.calories {
+#calories {
     position: absolute;
     bottom: 10%;
     left: 5%;
     font-weight: bold;
 }
 
-.grams {
+#grams {
     position: absolute;
     bottom: 5%;
     left: 5%;
     font-weight: bold;
 }
 
-.price {
+#price {
     position: absolute;
     bottom: 0;
     left: 5%;

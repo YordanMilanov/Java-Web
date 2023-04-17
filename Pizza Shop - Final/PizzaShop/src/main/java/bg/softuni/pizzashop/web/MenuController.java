@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/menu")
@@ -26,34 +25,10 @@ public class MenuController {
         this.shoppingCartService = shoppingCartService;
     }
 
-    @GetMapping("/all/{productName}")
-    public String pizza(@RequestParam(name = "productName")String productName, Model model) {
-        model.addAttribute("allPizza", productService.allProductsByType(ProductTypeEnum.valueOf(productName.toUpperCase())));
-        return "menu-pizza";
-    }
-
-    @GetMapping("/pasta")
-    public String pasta(Model model) {
-        model.addAttribute("allPasta", productService.allProductsByType(ProductTypeEnum.PASTA));
-        return "menu-pasta";
-    }
-
-    @GetMapping("/salad")
-    public String salad(Model model) {
-        model.addAttribute("allSalad", productService.allProductsByType(ProductTypeEnum.SALAD));
-        return "menu-salad";
-    }
-
-    @GetMapping("/dessert")
-    public String desert(Model model) {
-        model.addAttribute("allDessert", productService.allProductsByType(ProductTypeEnum.DESSERT));
-        return "menu-dessert";
-    }
-
-    @GetMapping("/drink")
-    public String drink(Model model) {
-        model.addAttribute("allDrink", productService.allProductsByType(ProductTypeEnum.DRINK));
-        return "menu-drink";
+    @GetMapping("/{productName}")
+    public String pizza(@PathVariable(name = "productName")String productName, Model model) {
+        model.addAttribute("allProducts", productService.allProductsByType(ProductTypeEnum.valueOf(productName.toUpperCase())));
+        return "menu-items";
     }
 
     @GetMapping("/{type}/{id}")

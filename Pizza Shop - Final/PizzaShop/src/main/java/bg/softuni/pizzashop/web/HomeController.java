@@ -1,19 +1,13 @@
 package bg.softuni.pizzashop.web;
 
-import bg.softuni.pizzashop.model.entity.Comment;
 import bg.softuni.pizzashop.service.CommentService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -28,11 +22,13 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGER"))) {
-            return "home-manager";
-        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STAFF"))) {
-            return "home-staff";
-        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
+
+        //employee home page
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGER")) || auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STAFF"))) {
+            return "home-staff-manager";
+        }
+        //user home page
+        else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
             return "home-user";
         }
         return "index";

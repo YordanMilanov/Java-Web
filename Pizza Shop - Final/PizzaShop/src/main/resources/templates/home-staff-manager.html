@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/commons::head"></head>
 
 <body>
@@ -23,7 +24,7 @@
               aria-label="Slide 3"></button>
       <button type="button" data-bs-target="#customer-home-carousel" data-bs-slide-to="3"
               aria-label="Slide 4"></button>
-      <button type="button" data-bs-target="#customer-home-carousel" data-bs-slide-to="4"
+      <button sec:authorize="hasRole('MANAGER')" type="button" data-bs-target="#customer-home-carousel" data-bs-slide-to="4"
               aria-label="Slide 5"></button>
     </div>
 
@@ -65,7 +66,7 @@
         </div>
       </div>
 
-      <div class="carousel-item c-item">
+      <div sec:authorize="hasRole('MANAGER')" class="carousel-item c-item">
         <img th:src="'/images/home-carousel-select/drink-select.jpg'" class="d-block w-100 c-img" alt="Drink Image">
         <div class="carousel-caption d-none d-md-block c-description">
           <h>Staff Management</h>
@@ -73,6 +74,7 @@
           <button onClick="location.href='/users/list'" type="button" class="btn btn-success btn-lg">Go to staff list</button>
         </div>
       </div>
+
     </div>
 
     <!--previous-next buttons-->
