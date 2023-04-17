@@ -44,7 +44,7 @@
                        aria-describedby="usernameErrorLine"
                        placeholder="username"/>
 
-                <small id="usernameErrorLine"
+                <small th:errors="*{username}" id="usernameErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Username length must be between 5 and 20 characters.
                 </small>
@@ -62,7 +62,7 @@
                        aria-describedby="fullNameErrorLine"
                        placeholder="fullName"/>
 
-                <small id="fullNameErrorLine"
+                <small th:errors="*{fullName}" id="fullNameErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Full name length must be between 5 and 50 characters.
                 </small>
@@ -80,7 +80,7 @@
                        aria-describedby="PhoneErrorLine"
                        placeholder="phone"/>
 
-                <small id="PhoneErrorLine"
+                <small th:errors="*{phone}" id="PhoneErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Full name length must be between 5 and 50 characters.
                 </small>
@@ -98,7 +98,7 @@
                        aria-describedby="emailErrorLine"
                        placeholder="email"/>
 
-                <small id="emailErrorLine"
+                <small th:errors="*{email}" id="emailErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Email length must be between 5 and 50 characters.
                 </small>
@@ -116,7 +116,7 @@
                        aria-describedby="passwordErrorLine"
                        placeholder="password"/>
 
-                <small id="passwordErrorLine"
+                <small th:errors="*{password}" id="passwordErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Password must be longer than 5 characters.
                 </small>
@@ -134,7 +134,7 @@
                        aria-describedby="confirmPasswordErrorLine"
                        placeholder="Confirm password"/>
 
-                <small id="confirmPasswordErrorLine"
+                <small th:errors="*{confirmPassword}" id="confirmPasswordErrorLine"
                        class="invalid-feedback bg-danger text-light rounded">
                     Password must be longer than 5 characters.
                 </small>

@@ -84,3 +84,5 @@ commentForm.addEventListener("submit", (event) => {
             .then(body => addCommentAsHtml(body))
     })
 })
+
+

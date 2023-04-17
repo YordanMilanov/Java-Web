@@ -2,6 +2,8 @@ package bg.softuni.pizzashop.model.entity;
 
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +17,7 @@ import java.util.Set;
 @Setter
 public class User extends BaseEntity{
 
-    @Column(unique = true)
+    @Column
     private String username;
 
     @Column

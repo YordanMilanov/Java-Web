@@ -1,16 +1,12 @@
 package bg.softuni.pizzashop.config;
 
-import bg.softuni.pizzashop.repository.UserRepository;
-import bg.softuni.pizzashop.service.AuthService;
-import bg.softuni.pizzashop.service.PizzaShopUserDetailService;
-import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,8 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-public class SecurityConfiguration {
+public class SecurityConfiguration{
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -49,10 +44,10 @@ public class SecurityConfiguration {
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 //this method requires the name of the <input name="password"> as a parameter.
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
+                //redirect if not successful and we add query parameter so we can render an error in the html for example error=true
+                .failureUrl("/users/login?error=true")
                 //successful redirect point
                 .defaultSuccessUrl("/", true)
-                //redirect if not successful and we add query parameter so we can render an error in the html for example error=true
-                .failureForwardUrl("/users/login?error=true")
                 .and()
                 .logout()
                 //custom url for logout, forcing to search exactly on it

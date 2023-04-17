@@ -62,18 +62,17 @@ public class AuthServiceImpl implements AuthService {
         address.setStreet(userRegisterBindingModel.getStreet());
         address.setStreetNumber(userRegisterBindingModel.getStreetNumber());
 
-        Address unknownAddress = new Address();
-        unknownAddress.setCity("unknown");
-        unknownAddress.setNeighborhood("unknown");
-        unknownAddress.setStreet("unknown");
-        unknownAddress.setStreetNumber(0);
+        Address addressToCheck = addressRepository
+                .findByCityAndAndNeighborhoodAndStreetAndStreetNumber(address.getCity(),
+                        address.getNeighborhood(),
+                        address.getStreet(),
+                        address.getStreetNumber()).get();
 
-        addressRepository.save(address);
-
-        user.setAddress(addressRepository
-                .findByCityAndAndNeighborhoodAndStreetAndStreetNumber
-                        (address.getCity(), address.getNeighborhood(), address.getStreet(), address.getStreetNumber())
-                .orElse(unknownAddress));
+        if(addressToCheck.getId() != null) {
+            user.setAddress(addressToCheck);
+        } else {
+        user.setAddress(addressRepository.save(address));
+        }
 
         return modelMapper.map(userRepository.save(user), UserServiceModel.class);
     }

@@ -3,6 +3,8 @@ package bg.softuni.pizzashop.service.impl;
 import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
+import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
+import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.view.UserView;
 import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.RoleRepository;
@@ -84,11 +86,17 @@ public class UserServiceImpl implements UserService {
         Role role = roleRepository.findByRole(selectedRole).get();
 
         for (Role userRole : user.getRoles()) {
-            if(role.getRole().toString().equals(selectedRole)) {
+            if(userRole.getRole().toString().equals(selectedRole)) {
                 throw new Exception("The user already has this role!");
             }
         }
         user.getRoles().add(role);
+
+        for (Role userRole : user.getRoles()) {
+            if(userRole.getRole() == RoleNameEnum.STAFF || userRole.getRole() == RoleNameEnum.MANAGER) {
+                user.setLevel(UserLevelEnum.EMPLOYEE);
+            }
+        }
         userRepository.save(user);
     }
 

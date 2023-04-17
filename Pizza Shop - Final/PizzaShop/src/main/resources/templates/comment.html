@@ -18,7 +18,7 @@
 
             </div>
 
-            <div sec:authorize="isAnonymous()"> You must be logged to post reviews</div>
+            <div sec:authorize="isAnonymous()" class="blink_me"> You must be logged to post reviews</div>
             <div sec:authorize="isAuthenticated()" class="mx-auto my-auto rounded-4 mb-2 custom-comment">
                 <form id="commentForm">
                     <div class="form-group">

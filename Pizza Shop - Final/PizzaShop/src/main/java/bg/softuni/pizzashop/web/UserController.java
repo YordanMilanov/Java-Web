@@ -108,9 +108,11 @@ public class UserController {
 
     @DeleteMapping("roles/delete/{userId}/{roleId}")
     public String deleteRole(@PathVariable(name = "userId") Long userId, @PathVariable(name = "roleId") Long roleId, RedirectAttributes redirectAttributes) {
+        //delete role
         try {
             userService.deleteRole(userId, roleId);
         } catch (Exception e) {
+            //if the user is left with no roles the default customer role is set
             redirectAttributes.addFlashAttribute("NoRolesLeft", e.getMessage());
             return "redirect:/users/roles/" + userId;
         }

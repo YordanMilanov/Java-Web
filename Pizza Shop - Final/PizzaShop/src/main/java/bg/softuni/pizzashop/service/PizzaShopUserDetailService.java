@@ -2,6 +2,7 @@ package bg.softuni.pizzashop.service;
 
 import bg.softuni.pizzashop.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,7 @@ public class PizzaShopUserDetailService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, BadCredentialsException {
         User user = authService.getUserByUsername(username);
 
         return new org.springframework.security.core.userdetails.User(

@@ -5,6 +5,7 @@ import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.OrderStatusEnum;
+import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.repository.IngredientRepository;
 import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.ProductRepository;
@@ -130,12 +131,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 double currentStock = ingredient.getStockInKg();
                 double updateIngredientQuantity = currentStock - ((requiredQuantityOfIngredientForTheProduct * 1.000 / 1000) * orderedProductQuantity);
 
-//                //skip the product if not enough ingredients
-//                if(updateIngredientQuantity < 0) {
-//                    outOfStockProducts.add(productEntry.getKey().getName());
-//                    break;
-//                }
-
                 ingredient.setStockInKg(0);
                 ingredient.setStockInKg(updateIngredientQuantity);
                 ingredientRepository.save(ingredient);
@@ -171,6 +166,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                     "inconvenience. Thank you for using our site.";
             throw new IllegalArgumentException(output);
         }
+
+        List<Order> userOrders = orderRepository.findByUser_Id(user.getId()).get();
+
+        //check if the user reached REGULAR or VIP Level
+        if (userOrders.size() > 9) {
+            user.setLevel(UserLevelEnum.VIP);
+        } else if(userOrders.size() > 4) {
+            user.setLevel(UserLevelEnum.REGULAR);
+        }
+        userRepository.save(user);
     }
 
     @Override
