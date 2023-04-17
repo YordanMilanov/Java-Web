@@ -103,7 +103,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
                 //taking the same product
                 for (Map.Entry<Product, Integer> productIntegerEntry : canBeCookedProducts.entrySet()) {
-                    if(productIntegerEntry.getKey().getName().equals(productToRemoveName)) {
+                    if (productIntegerEntry.getKey().getName().equals(productToRemoveName)) {
                         productToRemove = productIntegerEntry.getKey();
                         break;
                     }
@@ -169,22 +169,44 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         List<Order> userOrders = orderRepository.findByUser_Id(user.getId()).get();
 
+
+        //check if the user is lower rank the vip so we don't lower his rank instead of promote him
+        if (user.getLevel() != UserLevelEnum.VIP) {
         //check if the user reached REGULAR or VIP Level
-        if (userOrders.size() > 9) {
-            user.setLevel(UserLevelEnum.VIP);
-        } else if(userOrders.size() > 4) {
-            user.setLevel(UserLevelEnum.REGULAR);
+            if (userOrders.size() > 9) {
+                user.setLevel(UserLevelEnum.VIP);
+            } else if (userOrders.size() > 4) {
+                user.setLevel(UserLevelEnum.REGULAR);
+            }
+            userRepository.save(user);
         }
-        userRepository.save(user);
     }
 
     @Override
     public double getTotal() {
         double total = 0;
-
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             total += entry.getKey().getPrice() * entry.getValue();
         }
+
+        //add the discount for user Level
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        User user = userRepository.findByUsername(username).get();
+
+        switch (user.getLevel()) {
+            case EMPLOYEE:
+                total = total * 0.5;
+                break;
+            case VIP:
+                total = total * 0.8;
+                break;
+            case REGULAR:
+                total = total * 0.9;
+                break;
+        }
+
         return total;
     }
 

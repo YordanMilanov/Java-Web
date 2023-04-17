@@ -1,8 +1,12 @@
 package bg.softuni.pizzashop.web;
 
 import bg.softuni.pizzashop.model.binding.OrderAddBindingModel;
+import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
+import bg.softuni.pizzashop.service.AuthService;
 import bg.softuni.pizzashop.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +18,12 @@ public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
 
+    private final AuthService authService;
+
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, AuthService authService) {
         this.shoppingCartService = shoppingCartService;
+        this.authService = authService;
     }
 
     @PostMapping("/cart")
@@ -38,6 +45,7 @@ public class ShoppingCartController {
 
     @GetMapping("/cart")
     public String orderCart(Model model) {
+
         model.addAttribute("products", shoppingCartService.getProductsInCart());
         model.addAttribute("total", shoppingCartService.getTotal());
 

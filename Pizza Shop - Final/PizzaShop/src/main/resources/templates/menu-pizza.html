@@ -14,48 +14,6 @@
 
     <div class="container">
         <div class="row">
-
-            <!--static products-->
-            <div class="col-4">
-                <div class="card">
-                    <img src="/images/menu-items/pizza/Cheese-And-Tomato.jpg" class="card-img-top" alt="Cheese And Tomato">
-                    <div class="card-body">
-                        <h5 class="card-title">Cheese & Tomato</h5>
-                        <p class="card-text">Pizza sauce and Mozzarella</p>
-                        <p class="grams">Grams: 450g.</p>
-                        <p class="price">Price: 10.00$</p>
-                        <a sec:authorize="isAuthenticated()" href="/menu/pizza/1" class="btn btn-success">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-4">
-                <div class="card">
-                    <img src="/images/menu-items/pizza/Four-Cheese.jpg" class="card-img-top" alt="Four Cheese">
-                    <div class="card-body">
-                        <h5 class="card-title">Four cheese</h5>
-                        <p class="card-text">Pizza sauce, Mozzarella, Matured, Gouda</p>
-                        <p class="grams">Grams: 450g.</p>
-                        <p class="price">Price: 11.00$</p>
-                        <a sec:authorize="isAuthenticated()" href="/menu/pizza/2" class="btn btn-success">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-4">
-                <div class="card">
-                    <img src="/images/menu-items/pizza/Garden-Party.jpg" class="card-img-top" alt="Garden Party">
-                    <div class="card-body">
-                        <h5 class="card-title">Garden Party</h5>
-                        <p class="card-text">Pizza sauce, Mozzarella, Mushrooms, Green Bell Pepper, Red Onions,
-                            Sweetcorn and Fresh Tomatoes</p>
-                        <p class="grams">Grams: 450g.</p>
-                        <p class="price">Price: 12.00$</p>
-                        <a sec:authorize="isAuthenticated()" href="/menu/pizza/3" class="btn btn-success">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-
             <!--dynamic product with thymeleaf-->
             <div class="col-4" th:each="p, iterStat : ${allPizza}" th:if="${iterStat.index >= 3}">
                 <div id="menu-card" class="card" th:object="${p}">

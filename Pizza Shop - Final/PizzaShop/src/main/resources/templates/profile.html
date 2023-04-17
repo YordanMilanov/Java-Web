@@ -85,6 +85,18 @@
 
                         <hr>
 
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0">Level</h6>
+                            </div>
+                            <div class="col-sm-8 text-secondary"
+                                 th:text="*{level}">
+                                email
+                            </div>
+                        </div>
+
+                        <hr>
+
                         <div class="row" th:each="r : *{roles}">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 mt-1">Role</h6>

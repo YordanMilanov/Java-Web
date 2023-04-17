@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/commons::head"></head>
 
@@ -12,72 +14,26 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-4">
-        <div class="card">
-          <img src="/images/test-pizza.jfif" class="card-img-top" alt="Image title">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-              the
-              card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+      <!--dynamic product with thymeleaf-->
+      <div class="col-4" th:each="p : ${allPasta}">
+        <div id="menu-card" class="card" th:object="${p}">
+          <img th:src="${p.pictureURL}"
+               id="menu-card-img"
+               class="card-img-top"
+               alt="Pasta Image">
+          <div class="card-body" id="card-body">
+            <h5 class="card-title" th:text="${p.name}"></h5>
+            <p class="card-text" th:text="${p.description}"></p>
+            <p id="calories" th:text="'Cal/100g: ' + ${p.caloriesPer100}">out of stock</p>
+            <p id="grams" th:text="'Grams: ' + ${p.grams} + 'g.'">out of stock</p>
+            <p id="price" th:text="'Price: ' + ${#numbers.formatDecimal(p.price,1,2,'POINT')} + '$'">out of stock</p>
+            <a sec:authorize="isAuthenticated()" th:href="@{'/menu/pasta/' + ${p.id}}" class="btn btn-success">Add to cart</a>
+            <a sec:authorize="hasRole('MANAGER')" th:href="@{'~/product/add/ingredients/' + ${p.id}}" id="update-ingredient-button" class=" btn btn-primary">Update Ingredient</a>
           </div>
         </div>
       </div>
 
-      <div class="col-4">
-        <div class="card">
-          <img src="/images/test2-pizza.jfif" class="card-img-top" alt="Title image">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-              the
-              card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-4">
-        <div class="card">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-              the
-              card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-4">
-        <div class="card">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-              the
-              card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-4">
-        <div class="card">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-              the
-              card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
     </div>
-
   </div>
 </main>
 

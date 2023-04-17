@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final RoleRepository roleRepository;
 
-   private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, OrderRepository orderRepository) {
@@ -48,52 +48,61 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteRole(Long userId, Long roleId) throws Exception{
+    public void deleteRole(Long userId, Long roleId) throws Exception {
         User user = userRepository.findById(userId).get();
         Role role = roleRepository.findById(roleId).get();
         Set<Role> roles = user.getRoles();
 
         //if the user is left with no roles set his rank to the lowest
-        if(roles.size() <= 1) {
+        if (roles.size() <= 1) {
             Role customerRole = roleRepository.findByRole("CUSTOMER").get();
             Set<Role> customerRoleSet = new HashSet<>(Collections.singleton(customerRole));
             user.setRoles(customerRoleSet);
+            user.setLevel(UserLevelEnum.VIP);
             userRepository.save(user);
-            throw new Exception("User must have at least one role! The rank of the account is set to the lowest possible - CUSTOMER");
+            throw new Exception("User must have at least one role! The rank of the account is set to the lowest possible - CUSTOMER, and the level is set to VIP");
         }
 
         //remove role
         for (Role currentRole : roles) {
-            if(currentRole.getRole() == role.getRole()) {
+            if (currentRole.getRole() == role.getRole()) {
                 roles.remove(currentRole);
-                break;
+                //if the user has only CUSTOMER role, his level is set to VIP
+                if (roles.size() == 1) {
+                    for (Role lastRole : roles) {
+                        if (lastRole.getRole() == RoleNameEnum.CUSTOMER) {
+                            user.setLevel(UserLevelEnum.VIP);
+                        }
+                    }
+                }
             }
         }
 
         //update user
         user.setRoles(roles);
         userRepository.save(user);
+
     }
 
     @Override
     public void addRoleToUser(Long userId, String selectedRole) throws Exception {
         User user = userRepository.findById(userId).get();
 
-        if(!roleRepository.findByRole(selectedRole).isPresent()) {
+        if (!roleRepository.findByRole(selectedRole).isPresent()) {
             throw new Exception("Please select valid role!");
         }
 
         Role role = roleRepository.findByRole(selectedRole).get();
 
         for (Role userRole : user.getRoles()) {
-            if(userRole.getRole().toString().equals(selectedRole)) {
+            if (userRole.getRole().toString().equals(selectedRole)) {
                 throw new Exception("The user already has this role!");
             }
         }
         user.getRoles().add(role);
 
         for (Role userRole : user.getRoles()) {
-            if(userRole.getRole() == RoleNameEnum.STAFF || userRole.getRole() == RoleNameEnum.MANAGER) {
+            if (userRole.getRole() == RoleNameEnum.STAFF || userRole.getRole() == RoleNameEnum.MANAGER) {
                 user.setLevel(UserLevelEnum.EMPLOYEE);
             }
         }
@@ -110,10 +119,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserView getUserViewModel(String username) {
-     return modelMapper.map(userRepository.findByUsername(username), UserView.class);
+        return modelMapper.map(userRepository.findByUsername(username), UserView.class);
     }
 
-    public boolean isUsernameUsed(String username){
+    public boolean isUsernameUsed(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
 

@@ -81,4 +81,9 @@ public class AuthServiceImpl implements AuthService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not Found!"));
     }
+
+    @Override
+    public UserServiceModel currentLoggedUser(String username) {
+        return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
+    }
 }

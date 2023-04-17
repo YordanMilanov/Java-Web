@@ -114,4 +114,10 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
         return collect;
     }
+
+    @Override
+    public List<ProductView> allProducts() {
+        List<Product> allProducts = productRepository.findAll();
+        return allProducts.stream().map(p -> modelMapper.map(p, ProductView.class)).collect(Collectors.toList());
+    }
 }

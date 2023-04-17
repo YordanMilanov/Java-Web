@@ -9,4 +9,6 @@ public interface AuthService {
     public UserServiceModel registerUser(UserRegisterBindingModel userRegisterBindingModel);
 
     public User getUserByUsername(String username);
+
+    UserServiceModel currentLoggedUser(String username);
 }

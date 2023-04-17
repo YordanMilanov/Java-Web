@@ -15,4 +15,5 @@ public interface ProductService {
     void UpdateIngredientToProductById(Long id, String ingredientNames,Integer ingredientGrams);
 
     List<ProductView> allProductsByType(ProductTypeEnum productTypeEnum);
+    List<ProductView> allProducts();
 }
