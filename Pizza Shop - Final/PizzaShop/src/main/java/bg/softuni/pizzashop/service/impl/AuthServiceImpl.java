@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
 
 //        make the first registered admin
         if (userRepository.count() == 0) {
-            user.setRoles(roleRepository.findAll().stream().collect(Collectors.toSet()));
+            user.setRoles(Set.of(roleRepository.findByRole("MANAGER").get()));
             user.setLevel(UserLevelEnum.EMPLOYEE);
         } else {
             user.setRoles(new HashSet<>());
@@ -86,4 +88,5 @@ public class AuthServiceImpl implements AuthService {
     public UserServiceModel currentLoggedUser(String username) {
         return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
     }
+
 }

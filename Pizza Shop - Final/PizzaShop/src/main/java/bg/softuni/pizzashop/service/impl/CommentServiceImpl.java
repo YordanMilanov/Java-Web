@@ -51,11 +51,4 @@ import java.util.List;
         return comment;
     }
 
-//   @Override
-//   public Comment findById(Long id) {
-//      return commentRepository.findById(id).get();
-//   }
-
-
-
 }
