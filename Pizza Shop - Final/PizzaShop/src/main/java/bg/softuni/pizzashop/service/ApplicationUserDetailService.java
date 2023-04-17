@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.stream.Collectors;
 
 @Service
-public class PizzaShopUserDetailService implements UserDetailsService {
+public class ApplicationUserDetailService implements UserDetailsService {
 
     private final AuthService authService;
 
     @Autowired
-    public PizzaShopUserDetailService(AuthService authService) {
+    public ApplicationUserDetailService(AuthService authService) {
         this.authService = authService;
     }
 
