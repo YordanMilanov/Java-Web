@@ -238,10 +238,9 @@ footer p {
     color: snow;
     float: right;
     padding: 30px;
+    padding-bottom: 0;
     font-size: 20px;
     margin-left: 60vw;
-    margin-top: 10vh;
-
 }
 
 /*home page - user*/
