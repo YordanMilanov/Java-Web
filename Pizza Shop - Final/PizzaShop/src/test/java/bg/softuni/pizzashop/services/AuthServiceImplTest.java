@@ -5,6 +5,7 @@ import bg.softuni.pizzashop.model.entity.Address;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
+import bg.softuni.pizzashop.model.service.UserServiceModel;
 import bg.softuni.pizzashop.repository.AddressRepository;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
@@ -20,9 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceImplTest {
@@ -107,28 +108,28 @@ public class AuthServiceImplTest {
         //ASSERT
 
         //assert that the userRepository.save() and address repo save is methods is called
-        Mockito.verify(mockUserRepository).save((any()));
+        verify(mockUserRepository).save((any()));
 
         //return the saved argument as captor
-        Mockito.verify(mockUserRepository).save(userArgumentCaptor.capture());
+        verify(mockUserRepository).save(userArgumentCaptor.capture());
 
         //get the saved user
         User actualSavedUser = userArgumentCaptor.getValue();
 
         //assert the information in the saved and passed users
-        Assertions.assertEquals(testUserRegisterBindingModel.getUsername(), actualSavedUser.getUsername());
-        Assertions.assertEquals(testUserRegisterBindingModel.getEmail(), actualSavedUser.getEmail());
-        Assertions.assertEquals(testUserRegisterBindingModel.getPhone(), actualSavedUser.getPhone());
-        Assertions.assertEquals(testUserRegisterBindingModel.getFullName(), actualSavedUser.getFullName());
+        assertEquals(testUserRegisterBindingModel.getUsername(), actualSavedUser.getUsername());
+        assertEquals(testUserRegisterBindingModel.getEmail(), actualSavedUser.getEmail());
+        assertEquals(testUserRegisterBindingModel.getPhone(), actualSavedUser.getPhone());
+        assertEquals(testUserRegisterBindingModel.getFullName(), actualSavedUser.getFullName());
         Assertions.assertNotEquals(testUserRegisterBindingModel.getPassword(), actualSavedUser.getPassword());
 
         if(actualSavedUser.getAddress().getId() != null) {
-            Assertions.assertEquals(testUserRegisterBindingModel.getCity(), actualSavedUser.getAddress().getCity());
-            Assertions.assertEquals(testUserRegisterBindingModel.getNeighborhood(), actualSavedUser.getAddress().getNeighborhood());
-            Assertions.assertEquals(testUserRegisterBindingModel.getStreet(), actualSavedUser.getAddress().getStreet());
-            Assertions.assertEquals(testUserRegisterBindingModel.getStreetNumber(), actualSavedUser.getAddress().getStreetNumber());
+            assertEquals(testUserRegisterBindingModel.getCity(), actualSavedUser.getAddress().getCity());
+            assertEquals(testUserRegisterBindingModel.getNeighborhood(), actualSavedUser.getAddress().getNeighborhood());
+            assertEquals(testUserRegisterBindingModel.getStreet(), actualSavedUser.getAddress().getStreet());
+            assertEquals(testUserRegisterBindingModel.getStreetNumber(), actualSavedUser.getAddress().getStreetNumber());
         } else {
-        Mockito.verify(mockAddressRepository).save(any());
+        verify(mockAddressRepository).save(any());
         }
     }
 }

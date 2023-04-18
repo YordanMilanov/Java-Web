@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "ingredients")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Ingredient extends BaseEntity{
