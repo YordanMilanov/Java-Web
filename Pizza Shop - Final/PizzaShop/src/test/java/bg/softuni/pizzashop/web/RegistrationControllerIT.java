@@ -17,17 +17,17 @@ public class RegistrationControllerIT {
     @Autowired
     private MockMvc mockMvc;
 
+    @Test
+        void testRegisterGetShown() throws Exception {
+            mockMvc
+                    .perform(get("http://localhost:8080/users/register")).andExpect(status().isOk())
+                    .andExpect(view().name("register"));
+        }
+    }
 
-}
 
-//    @Test
-//        void testRegisterGetShown() throws Exception {
-//            mockMvc
-//                    .perform(get("http://localhost:8080/users/register")).andExpect(status().isOk())
-//                    .andExpect(view().name("register"));
-//        }
-//    }
-//
+
+
 //    @Test
 //    void testRegistration() throws Exception {
 //        mockMvc.perform(post("/users/register")
