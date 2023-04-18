@@ -175,7 +175,7 @@ INSERT INTO products (id, name, price, grams, product_type_enum, picture_id, des
 VALUES (4,'The Works', 14, 450, 'PIZZA', 4,'Pizza Sauce, Mozzarella, Mushrooms, Green Bell Pepper, Ham, Italian Sausage, Pepperoni, Onions and Black Olives',270);
 
 INSERT INTO products (id, name, price, grams, product_type_enum, picture_id, description, calories_per100)
-VALUES (5,'Tuna Delight', 15, 450, 'PIZZA', 5,'Pizza sauce, mozzarella, tuna, red onions, sweet corn, black olives',280);
+VALUES (5,'Hawaiian', 15, 450, 'PIZZA', 5,'Pizza sauce, mozzarella, tuna, red onions, sweet corn, black olives',280);
 
 INSERT INTO products (id, name, price, grams, product_type_enum, picture_id, description, calories_per100)
 VALUES (6,'Tuna Delight', 9, 450, 'PIZZA', 6,'Pizza sauce, Mozzarella, Ham and Pineapple', 180);

@@ -21,7 +21,7 @@ public class IngredientAddBindingModel {
     @NotNull(message = "Field Cannot be empty")
     private BigDecimal price;
 
-    @Positive(message = "Price must be greater than 0€")
+    @Positive(message = "Stock must be greater than 0")
     @NotNull(message = "Field Cannot be empty")
     private BigDecimal stockInKg;
 

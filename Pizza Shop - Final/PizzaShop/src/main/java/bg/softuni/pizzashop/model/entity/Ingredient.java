@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @Setter
 public class Ingredient extends BaseEntity{
 
-    @Column
+    @Column(unique = true)
     private String name;
 
 //    @Column(precision = 19, scale = 2)

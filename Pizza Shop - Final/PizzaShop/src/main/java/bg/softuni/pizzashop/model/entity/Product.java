@@ -19,7 +19,7 @@ import java.util.TreeMap;
 @Table(name = "products")
 public class Product extends BaseEntity {
 
-    @Column
+    @Column(unique = true)
     private String name;
 
 //    @Column(precision = 19, scale = 2)

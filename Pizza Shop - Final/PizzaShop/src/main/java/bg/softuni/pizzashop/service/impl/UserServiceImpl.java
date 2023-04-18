@@ -12,6 +12,11 @@ import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     private final OrderRepository orderRepository;
+
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository, OrderRepository orderRepository) {
@@ -132,5 +139,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(oldName).get();
         user.setUsername(username);
         userRepository.save(user);
+
     }
 }

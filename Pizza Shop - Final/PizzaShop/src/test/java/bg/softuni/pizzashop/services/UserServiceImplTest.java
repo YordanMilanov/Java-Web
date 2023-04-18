@@ -1,8 +1,6 @@
 package bg.softuni.pizzashop.services;
 
-import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
-import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.view.UserView;
 import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.RoleRepository;
@@ -13,11 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;

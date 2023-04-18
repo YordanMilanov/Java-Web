@@ -27,7 +27,7 @@
                         <p id="calories" th:text="'Cal/100g: ' + ${p.caloriesPer100}">out of stock</p>
                         <p id="grams" th:text="'Grams: ' + ${p.grams} + 'g.'">out of stock</p>
                         <p id="price" th:text="'Price: ' + ${#numbers.formatDecimal(p.price,1,2,'POINT')} + '$'">out of stock</p>
-                        <a sec:authorize="isAuthenticated()" th:href="@{'/menu/pizza/' + ${p.id}}" class="btn btn-success">Add to cart</a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{'/menu/' + ${#strings.toLowerCase(p.productTypeEnum)} + '/' + ${p.id}}" class="btn btn-success">Add to cart</a>
                         <a sec:authorize="hasRole('MANAGER')" th:href="@{'~/product/add/ingredients/' + ${p.id}}" id="update-ingredient-button" class=" btn btn-primary">Update Ingredient</a>
                     </div>
                 </div>

@@ -12,7 +12,6 @@ import bg.softuni.pizzashop.repository.ProductRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
@@ -91,26 +90,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Set<String> outOfStockProducts = new TreeSet<>();
         Map<Product, Integer> canBeCookedProducts = new HashMap<>(products);
 
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            //check if there is enough products to complete the product
-            boolean canBeCooked = productCanBeCooked(entry.getKey(), entry.getValue());
-            if (!canBeCooked) {
-                outOfStockProducts.add(entry.getKey().getName());
-
-                String productToRemoveName = entry.getKey().getName();
-
-                Product productToRemove = null;
-
-                //taking the same product
-                for (Map.Entry<Product, Integer> productIntegerEntry : canBeCookedProducts.entrySet()) {
-                    if (productIntegerEntry.getKey().getName().equals(productToRemoveName)) {
-                        productToRemove = productIntegerEntry.getKey();
-                        break;
-                    }
-                }
-                canBeCookedProducts.remove(productToRemove);
-            }
-        }
+        checkWhichProductsCanBeCookedDependingOnIngredientStock(outOfStockProducts, canBeCookedProducts);
 
         //shopping cart updated with the products that can be cooked
         products = new HashMap<>(canBeCookedProducts);
@@ -121,20 +101,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
             Integer orderedProductQuantity = productEntry.getValue();
             // product's -> ingredients-required quantity
-            for (Map.Entry<Ingredient, Integer> ingredientEntry : productEntry.getKey().getRequiredProducts().entrySet()) {
-
-                Ingredient currentIngredientOfTheProduct = ingredientEntry.getKey();
-                Integer requiredQuantityOfIngredientForTheProduct = ingredientEntry.getValue();
-
-                Ingredient ingredient = ingredientRepository.findByName(currentIngredientOfTheProduct.getName()).get();
-
-                double currentStock = ingredient.getStockInKg();
-                double updateIngredientQuantity = currentStock - ((requiredQuantityOfIngredientForTheProduct * 1.000 / 1000) * orderedProductQuantity);
-
-                ingredient.setStockInKg(0);
-                ingredient.setStockInKg(updateIngredientQuantity);
-                ingredientRepository.save(ingredient);
-            }
+            consumeIngredientsFromTheStorageDependingOnTheRequiredIngredients(productEntry, orderedProductQuantity);
         }
 
         Order order = new Order();
@@ -170,17 +137,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         List<Order> userOrders = orderRepository.findByUser_Id(user.getId()).get();
 
 
-        //check if the user is lower rank the vip so we don't lower his rank instead of promote him
-        if (user.getLevel() != UserLevelEnum.VIP) {
-        //check if the user reached REGULAR or VIP Level
-            if (userOrders.size() > 9) {
-                user.setLevel(UserLevelEnum.VIP);
-            } else if (userOrders.size() > 4) {
-                user.setLevel(UserLevelEnum.REGULAR);
-            }
-            userRepository.save(user);
-        }
+        //check if the user is lower rank the vip, so we don't lower his rank instead of promote him
+        updateUserByCountOfOrders(user, userOrders);
     }
+
+
 
     @Override
     public double getTotal() {
@@ -218,5 +179,56 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             }
         }
         return true;
+    }
+
+    private void updateUserByCountOfOrders(User user, List<Order> userOrders) {
+        if (user.getLevel() != UserLevelEnum.VIP) {
+            //check if the user reached REGULAR or VIP Level
+            if (userOrders.size() > 9) {
+                user.setLevel(UserLevelEnum.VIP);
+            } else if (userOrders.size() > 4) {
+                user.setLevel(UserLevelEnum.REGULAR);
+            }
+            userRepository.save(user);
+        }
+    }
+    private void consumeIngredientsFromTheStorageDependingOnTheRequiredIngredients(Map.Entry<Product, Integer> productEntry, Integer orderedProductQuantity) {
+        for (Map.Entry<Ingredient, Integer> ingredientEntry : productEntry.getKey().getRequiredProducts().entrySet()) {
+
+            Ingredient currentIngredientOfTheProduct = ingredientEntry.getKey();
+            Integer requiredQuantityOfIngredientForTheProduct = ingredientEntry.getValue();
+
+            Ingredient ingredient = ingredientRepository.findByName(currentIngredientOfTheProduct.getName()).get();
+
+            double currentStock = ingredient.getStockInKg();
+            double updateIngredientQuantity = currentStock - ((requiredQuantityOfIngredientForTheProduct * 1.000 / 1000) * orderedProductQuantity);
+
+            ingredient.setStockInKg(0);
+            ingredient.setStockInKg(updateIngredientQuantity);
+            ingredientRepository.save(ingredient);
+        }
+    }
+
+    private void checkWhichProductsCanBeCookedDependingOnIngredientStock(Set<String> outOfStockProducts, Map<Product, Integer> canBeCookedProducts) {
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            //check if there is enough products to complete the product
+            boolean canBeCooked = productCanBeCooked(entry.getKey(), entry.getValue());
+            if (!canBeCooked) {
+                outOfStockProducts.add(entry.getKey().getName());
+
+                String productToRemoveName = entry.getKey().getName();
+
+                Product productToRemove = null;
+
+                //taking the same product
+                for (Map.Entry<Product, Integer> productIntegerEntry : canBeCookedProducts.entrySet()) {
+                    if (productIntegerEntry.getKey().getName().equals(productToRemoveName)) {
+                        productToRemove = productIntegerEntry.getKey();
+                        break;
+                    }
+                }
+                canBeCookedProducts.remove(productToRemove);
+            }
+        }
     }
 }

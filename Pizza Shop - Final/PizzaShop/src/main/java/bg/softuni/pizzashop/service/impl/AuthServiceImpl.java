@@ -54,15 +54,8 @@ public class AuthServiceImpl implements AuthService {
 
         User user = modelMapper.map(userRegisterBindingModel, User.class);
 
-//        make the first registered admin
-        if (userRepository.count() == 0) {
-            user.setRoles(Set.of(roleRepository.findByRole("MANAGER").get()));
-            user.setLevel(UserLevelEnum.EMPLOYEE);
-        } else {
-            user.setRoles(new HashSet<>());
-            user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
-            user.setLevel(UserLevelEnum.NEW);
-        }
+        //make the first registered admin
+        makeTheFirstRegisteredMANAGER(user);
 
         Address address = new Address();
         address.setCity(userRegisterBindingModel.getCity());
@@ -90,6 +83,7 @@ public class AuthServiceImpl implements AuthService {
         return modelMapper.map(userRepository.save(user), UserServiceModel.class);
     }
 
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not Found!"));
@@ -98,6 +92,18 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserServiceModel currentLoggedUser(String username) {
         return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
+    }
+
+    //local methods
+    private void makeTheFirstRegisteredMANAGER(User user) {
+        if (userRepository.count() == 0) {
+            user.setRoles(Set.of(roleRepository.findByRole("MANAGER").get()));
+            user.setLevel(UserLevelEnum.EMPLOYEE);
+        } else {
+            user.setRoles(new HashSet<>());
+            user.getRoles().add(roleRepository.findByRole(RoleNameEnum.CUSTOMER.toString()).get());
+            user.setLevel(UserLevelEnum.NEW);
+        }
     }
 
 }
