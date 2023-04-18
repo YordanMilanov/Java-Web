@@ -413,6 +413,11 @@ footer p {
     display: inline-block;
 }
 
+#add-ingredient-product-img {
+    height: 300px;
+    width: 300px;
+}
+
 /*comments*/
 
 #commentSection {

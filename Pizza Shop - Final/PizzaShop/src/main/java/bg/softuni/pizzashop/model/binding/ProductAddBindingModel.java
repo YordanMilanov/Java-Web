@@ -28,7 +28,7 @@ public class ProductAddBindingModel {
     @Positive(message = "Product name must be between 3 and 20 characters!")
     private BigDecimal price;
 
-    @Size(min = 3, max = 80, message = "Description must be between 3 and 80 characters!")
+    @Size(min = 3, max = 50, message = "Description must be between 3 and 50 characters!")
     private String description;
 
     @NotNull(message = "Type must be selected!")

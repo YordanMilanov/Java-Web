@@ -74,9 +74,8 @@
                               id="inputDescription"
                               class="form-control"
                               aria-describedby="inputDescriptionError"></textarea>
-                    <small id="inputDescriptionError"
-                           class="invalid-feedback rounded">Description length must be more than 5
-                        characters</small>
+                    <small th:errors="*{description}" id="inputDescriptionError"
+                           class="invalid-feedback rounded"></small>
                 </div>
             </div>
 

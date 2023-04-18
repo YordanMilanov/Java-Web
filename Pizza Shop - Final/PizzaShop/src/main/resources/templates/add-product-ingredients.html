@@ -23,7 +23,7 @@
             <div class="row justify-content-center mx-auto col-6 mt-2">
                 <div class="bg-transparent">
 <!--                    <img th:src="${'data:image/jpeg;base64,' + image}" alt="Image" />-->
-                    <img th:src="${imageURL}" alt="Image" />
+                    <img id="add-ingredient-product-img" th:src="${imageURL}" alt="Image" />
                     <div class="">
                         <h5 class="card-title" th:text="${product.name}"></h5>
                         <p class="card-text" th:text="${product.description}"></p>

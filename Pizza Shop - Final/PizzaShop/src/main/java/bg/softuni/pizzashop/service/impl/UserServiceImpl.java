@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
         //remove role
         for (Role currentRole : roles) {
-            if (currentRole.getRole() == role.getRole()) {
+            if (currentRole.getRole().toString().equals(role.getRole().toString())) {
                 roles.remove(currentRole);
                 //if the user has only CUSTOMER role, his level is set to VIP
                 if (roles.size() == 1) {
@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
                         }
                     }
                 }
+                break;
             }
         }
 

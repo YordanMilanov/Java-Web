@@ -14,6 +14,9 @@ public class IpBlackListServiceImpl implements IpBlackListService {
     }
 
     public boolean isBlackListed(String ipAddress) {
+        if(ipAddressRepository.findByIpAddress(ipAddress).isPresent()) {
         return ipAddressRepository.findByIpAddress(ipAddress).get().isBanned();
+        }
+        return false;
     }
 }
