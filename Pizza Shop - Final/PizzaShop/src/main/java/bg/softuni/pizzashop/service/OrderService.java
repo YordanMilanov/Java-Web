@@ -15,7 +15,7 @@ public interface OrderService {
 
     void sortProductsInOrder(OrderView orderView);
 
-    Order findById(Long id);
-
     void finishOrder(Order byId);
+
+    Order findById(Long id);
 }

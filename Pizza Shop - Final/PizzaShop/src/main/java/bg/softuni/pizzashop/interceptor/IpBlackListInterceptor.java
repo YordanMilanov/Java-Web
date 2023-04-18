@@ -28,6 +28,8 @@ public class IpBlackListInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        //this method is executed before each request checks if the ip is banned
         String ip = getIpAddressFromRequest(request);
         if(ipBlackListService.isBlackListed(ip)) {
             View blockedView = thymeleafViewResolver.resolveViewName("blocked", Locale.getDefault());

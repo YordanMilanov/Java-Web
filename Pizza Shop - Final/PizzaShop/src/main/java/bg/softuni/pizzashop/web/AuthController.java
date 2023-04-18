@@ -3,7 +3,6 @@ package bg.softuni.pizzashop.web;
 import bg.softuni.pizzashop.model.binding.UserRegisterBindingModel;
 import bg.softuni.pizzashop.repository.UserRepository;
 import bg.softuni.pizzashop.service.AuthService;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

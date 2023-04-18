@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.web;
 
+import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import bg.softuni.pizzashop.model.binding.ProductAddBindingModel;
 import bg.softuni.pizzashop.model.binding.ProductIngredientsAddBindingModel;
 import bg.softuni.pizzashop.model.entity.Picture;
@@ -67,10 +68,14 @@ public class ProductController {
         productServiceModel.setPicture(picture);
         productService.saveProduct(productServiceModel);
 
+        try {
         Long productId = productService.findLastAddedProduct().getId();
-
-
         return "redirect:/product/add/ingredients/" + productId;
+        } catch (ObjectNotFoundException o) {
+            return "error";
+        }
+
+
     }
 
     @PostMapping("/add/ingredients/{id}")

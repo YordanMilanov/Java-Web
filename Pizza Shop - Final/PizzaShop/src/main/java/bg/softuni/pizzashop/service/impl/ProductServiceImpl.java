@@ -1,5 +1,6 @@
 package bg.softuni.pizzashop.service.impl;
 
+import bg.softuni.pizzashop.errorHandling.ObjectNotFoundException;
 import bg.softuni.pizzashop.model.entity.Ingredient;
 import bg.softuni.pizzashop.model.entity.Product;
 import bg.softuni.pizzashop.model.entity.enums.ProductTypeEnum;
@@ -65,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository
                 .findTopByOrderByIdDesc()
                 .map(product -> modelMapper.map(product, ProductServiceModel.class))
-                .orElse(null);
+                .orElseThrow();
     }
 
     @Override

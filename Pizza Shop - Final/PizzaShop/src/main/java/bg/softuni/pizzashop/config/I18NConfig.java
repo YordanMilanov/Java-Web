@@ -11,7 +11,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 @Configuration
 public class I18NConfig {
 
-    //by this class we understand which is the Locale(location/country) of the user that want to reach the site and can change the language.
+    //by this class we understand which is the Locale(location/language) that the user want to use(his language request) and it comes from cookie with the request
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
@@ -35,8 +35,11 @@ public class I18NConfig {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
 
         //the location of the messages.properties file which contains the default properties
+        //located in static -> i18n -> messages
         resourceBundleMessageSource.setBasename("i18n/messages");
         resourceBundleMessageSource.setDefaultEncoding("UTF-8");
         return resourceBundleMessageSource;
     }
+
+    //after that the interceptor must registered in configuration in the current situation -> webConfig
 }

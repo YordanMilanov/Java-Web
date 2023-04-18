@@ -23,7 +23,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+        //here we add our interceptors, and then we go to the html to set up the form that changes the locale parameter in the request
         registry.addInterceptor(localeChangeInterceptor);
+
+
         registry.addInterceptor(ipBlackListInterceptor);
         WebMvcConfigurer.super.addInterceptors(registry);
     }

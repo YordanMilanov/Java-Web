@@ -89,11 +89,6 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not Found!"));
     }
 
-    @Override
-    public UserServiceModel currentLoggedUser(String username) {
-        return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
-    }
-
     //local methods
     private void makeTheFirstRegisteredMANAGER(User user) {
         if (userRepository.count() == 0) {

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -54,15 +55,21 @@ public class OrderServiceImpl implements OrderService {
         orderView.setProductQuantity(sortedMap);
     }
 
-    @Override
-    public Order findById(Long id) {
-        return orderRepository.findById(id).get();
-    }
-
+    //finish order at set finish time
     @Override
     public void finishOrder(Order byId) {
         byId.setOrderStatus(OrderStatusEnum.FINISHED);
+        byId.setOrderTime(LocalDateTime.now());
         orderRepository.save(byId);
+    }
+
+    @Override
+    public Order findById(Long id) {
+        if(orderRepository.findById(id).isPresent()) {
+        return orderRepository.findById(id).get();
+        } else {
+            throw new ObjectNotFoundException(id, "Order");
+        }
     }
 
 

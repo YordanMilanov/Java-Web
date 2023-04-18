@@ -60,6 +60,7 @@ public class OrderController {
 
     @GetMapping("active/finish/{id}")
     public String finishOrder(@PathVariable(name = "id")Long id) {
+
         orderService.finishOrder(orderService.findById(id));
 
         return "redirect:/order/active";

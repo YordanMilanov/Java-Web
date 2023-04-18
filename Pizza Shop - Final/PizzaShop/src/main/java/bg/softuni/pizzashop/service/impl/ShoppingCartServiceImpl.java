@@ -138,7 +138,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
         //check if the user is lower rank the vip, so we don't lower his rank instead of promote him
-        updateUserByCountOfOrders(user, userOrders);
+        updateUserLevelByOrdersCount(user, userOrders);
     }
 
 
@@ -181,7 +181,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return true;
     }
 
-    private void updateUserByCountOfOrders(User user, List<Order> userOrders) {
+    private void updateUserLevelByOrdersCount(User user, List<Order> userOrders) {
         if (user.getLevel() != UserLevelEnum.VIP) {
             //check if the user reached REGULAR or VIP Level
             if (userOrders.size() > 9) {

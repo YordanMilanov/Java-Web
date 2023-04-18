@@ -9,7 +9,10 @@
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main class="wood-background"> <div class="site-header">
-    <h1>An Unexpected error happened. Object of type <em th:text="${objectType}"/> and ID <em th:text="${objectId}"/> was not found!</h1>
+    <h1>An Unexpected error happened!We are working on the problem!Thank you for your patience!</h1>
+    <div th:if="${message != 'No message available'}">
+    <h1 th:text="${message}">An unexpected error happened. We are working on the problem!</h1>
+    </div>
 </div>
 </main>
 

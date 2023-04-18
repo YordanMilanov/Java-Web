@@ -64,7 +64,8 @@ public class IngredientServiceImpl implements IngredientService {
 
 
     //auto update the ingredient quantity by 100grams each 10 minutes
-    @Scheduled(fixedRate = 600000)
+    @Scheduled(fixedRate = 60000)
+//    @Scheduled(cron = "0 0 11 ? 4 *", cron = "0 0 23 ? 4 *") --> Scheduled to be done twice a day every april at 11am / 11pm
     public void updateStockEveryOneMinute() {
         List<Ingredient> all = ingredientRepository.findAll();
         for (Ingredient ingredient : all) {
