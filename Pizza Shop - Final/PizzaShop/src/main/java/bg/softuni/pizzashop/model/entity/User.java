@@ -41,7 +41,7 @@ public class User extends BaseEntity{
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Address address;
 
 }

@@ -1,11 +1,13 @@
 package bg.softuni.pizzashop.service.impl;
 
+import bg.softuni.pizzashop.model.entity.Address;
 import bg.softuni.pizzashop.model.entity.Order;
 import bg.softuni.pizzashop.model.entity.Role;
 import bg.softuni.pizzashop.model.entity.User;
 import bg.softuni.pizzashop.model.entity.enums.RoleNameEnum;
 import bg.softuni.pizzashop.model.entity.enums.UserLevelEnum;
 import bg.softuni.pizzashop.model.view.UserView;
+import bg.softuni.pizzashop.repository.AddressRepository;
 import bg.softuni.pizzashop.repository.OrderRepository;
 import bg.softuni.pizzashop.repository.RoleRepository;
 import bg.softuni.pizzashop.repository.UserRepository;
@@ -30,7 +32,6 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     private final OrderRepository orderRepository;
-
 
 
     @Autowired
