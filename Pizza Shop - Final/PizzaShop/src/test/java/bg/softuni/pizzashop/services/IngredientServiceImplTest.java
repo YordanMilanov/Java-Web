@@ -113,10 +113,10 @@ public class IngredientServiceImplTest {
 
         verify(modelMapper).map(ingredientServiceModel, Ingredient.class);
         verify(ingredientRepository).save(ingredientToSave);
-        Assertions.assertEquals("Test Ingredient", savedIngredient.getName());
-        Assertions.assertEquals(10, savedIngredient.getProtein() );
-        Assertions.assertEquals(20, savedIngredient.getFat());
-        Assertions.assertEquals(30, savedIngredient.getCarbohydrates());
+        Assertions.assertEquals("Test Ingredient", ingredientToSave.getName());
+        Assertions.assertEquals(10, ingredientToSave.getProtein() );
+        Assertions.assertEquals(20, ingredientToSave.getFat());
+        Assertions.assertEquals(30, ingredientToSave.getCarbohydrates());
     }
 
     @Test
