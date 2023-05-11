@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderView> allOrdersByOrderStatus(OrderStatusEnum orderStatusEnum) {
-        return orderRepository.findAllByOrderStatus(orderStatusEnum).get()
+        return orderRepository.findAllByOrderStatus(orderStatusEnum).orElseThrow()
                 .stream()
                 .map(o -> modelMapper.map(o, OrderView.class))
                 .collect(Collectors.toList());
