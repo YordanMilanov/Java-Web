@@ -3,6 +3,10 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/pizzaShop?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
         username: root
+#        for deployment
+#        url: jdbc:mysql://lb-db.mysql.database.azure.com:3306/pizzaShop?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+#    username: cnb'@'20.246.228.176 #manager
+#    password: ${DB_PASSWORD} #Dancho.10
     jpa:
         database-platform: org.hibernate.dialect.MySQL8Dialect
         defer-datasource-initialization: true
